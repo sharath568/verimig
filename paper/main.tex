@@ -1,0 +1,58 @@
+% ===========================================================================
+% VeriMig -- IEEE conference paper (IEEEtran, 6 pages incl. references)
+% Build:  latexmk -pdf main.tex     (or upload the whole paper/ folder to Overleaf)
+% Edit text in sections/*.tex, references in refs.bib. See HOW_TO_EDIT.md.
+% ===========================================================================
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+
+\input{defaults.tex}
+\IfFileExists{tables/macros.tex}{\input{tables/macros.tex}}{}
+
+\lstset{basicstyle=\ttfamily\scriptsize,columns=fullflexible,keepspaces=true,frame=single,
+  framerule=0.3pt,xleftmargin=2pt,xrightmargin=2pt,aboveskip=3pt,belowskip=3pt}
+
+\begin{document}
+
+\title{VeriMig: A Verification-Gated Agentic LLM Framework for Sybase ASE to SQL Server Migration}
+
+\author{
+\IEEEauthorblockN{Sharath Chandra Kampili}
+\IEEEauthorblockA{Independent Researcher\\
+Texas, USA\\
+\note{email}}
+\and
+\IEEEauthorblockN{Prasad Manda}
+\IEEEauthorblockA{Independent Researcher\\
+USA\\
+prasadmanda.tech@gmail.com}
+}
+
+\maketitle
+
+\input{sections/00-abstract}
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-taxonomy}
+\input{sections/04-framework}
+\input{sections/05-setup}
+\input{sections/06-results}
+\input{sections/07-discussion}
+\input{sections/08-conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\end{document}

@@ -1,0 +1,33 @@
+\section{Introduction}\label{sec:intro}
+
+Many organisations still run business-critical workloads on SAP ASE (formerly Sybase), and a common
+modernisation path is migration to Microsoft SQL Server. Practitioner guidance frames this path as a
+lifecycle of assessment, planning, schema and code conversion, data movement, testing, cut-over, and
+tuning~\cite{manda2026}. Vendor tools such as SQL Server Migration Assistant (SSMA)~\cite{ssma} automate
+part of the conversion step, yet stored procedures, triggers, and embedded SQL still require manual
+remediation, which is where most migration effort and risk concentrate.
+
+LLMs are an obvious candidate for that remediation, and an obvious risk. ASE and SQL Server share a
+Transact-SQL ancestry, so most source code is \emph{almost} valid on the target. The residual differences
+fall into two classes. Some fail loudly: an ASE \texttt{*=} outer join does not compile on SQL Server.
+Others fail silently: \texttt{WHERE col = NULL} matches NULLs under ASE's default settings but returns no
+rows in a SQL Server procedure created with \texttt{ANSI\_NULLS ON}; NULL concatenation yields a string in
+ASE and NULL in SQL Server; and moving an inner-table restriction of a legacy outer join from the join into
+\texttt{WHERE} quietly turns it into an inner join. A pipeline that checks only whether code compiles ships
+these defects to production, where they surface as wrong reports rather than errors.
+
+This paper asks how far locally hosted LLMs can be trusted for this task, and what verification makes their
+output safe to adopt. Running models locally matters in practice: migration source code often embeds
+business rules and data-handling logic that organisations will not send to external services. Our
+contributions are:
+\begin{enumerate}
+\item A \textbf{dialect-trap taxonomy} of \NumCategories{} ASE$\rightarrow$SQL Server categories, each
+labelled by how an unconverted construct manifests, and an open \textbf{corpus} of \NumCases{} cases
+(\NumSilentCases{} silent) with reviewed reference translations (Section~\ref{sec:taxonomy}).
+\item \textbf{VeriMig}, a translation framework with four verification gates and an optional
+oracle-separated repair loop (Section~\ref{sec:framework}).
+\item An \textbf{empirical study} on commodity hardware comparing a rule baseline, plain and trap-aware
+prompting, and the gated agent across model sizes and quantization levels
+(Sections~\ref{sec:setup}--\ref{sec:results}).
+\item A \textbf{fault-injection study} of data-reconciliation checks commonly used at cut-over.
+\end{enumerate}

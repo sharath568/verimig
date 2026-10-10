@@ -1,0 +1,94 @@
+{
+  "started_utc": "2026-10-10T19:17:50.289493",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.14.8",
+  "models": {
+    "deepseek-coder-v2:16b": {
+      "digest": "63fb193b3a9b4322a18e8c6b250ca2e70a5ff531e962dbf95ba089b2566f2fa5",
+      "size": 8905126121,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "deepseek2",
+        "families": [
+          "deepseek2"
+        ],
+        "parameter_size": "15.7B",
+        "quantization_level": "Q4_0",
+        "context_length": 163840,
+        "embedding_length": 2048,
+        "runner": "ggml"
+      }
+    },
+    "qwen2.5-coder:32b-instruct-q8_0": {
+      "digest": "17c822ec821d5a5bec47904157a42ceaea80bd824fe2a7d4cf551b755c46b549",
+      "size": 34820898696,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "32.8B",
+        "quantization_level": "Q8_0",
+        "context_length": 32768,
+        "embedding_length": 5120,
+        "runner": "ggml"
+      }
+    },
+    "qwen2.5-coder:32b-instruct-q4_K_M": {
+      "digest": "b92d6a0bd47ee79114298de0177bf920c05a706d12633950b3936778492bef41",
+      "size": 19851349898,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "32.8B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 32768,
+        "embedding_length": 5120,
+        "runner": "ggml"
+      }
+    },
+    "qwen2.5-coder:14b": {
+      "digest": "9ec8897f747e246e970bc5cfdda85d22f1123dc2e3d34978a010a75968716849",
+      "size": 8988124298,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "14.8B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 32768,
+        "embedding_length": 5120,
+        "runner": "ggml"
+      }
+    },
+    "qwen2.5-coder:7b": {
+      "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+      "size": 4683087561,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "7.6B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 32768,
+        "embedding_length": 3584,
+        "runner": "ggml"
+      }
+    }
+  },
+  "ollama_version": "0.40.1"
+}

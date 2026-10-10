@@ -1,0 +1,30 @@
+\begin{table}[t]
+\centering
+\caption{Dialect-trap taxonomy and pilot corpus. Obs.\ = how an unconverted construct manifests (C = compile error, S = silent behaviour change, D = deprecated, K = control, M = mixed, held out).}
+\label{tab:taxonomy}
+\footnotesize
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.66\columnwidth}cc}
+\toprule
+Category & Cases & Obs. \\
+\midrule
+Legacy *= / =* outer joins and inner-table restrictions & 4 & C/S \\
+Cursor status globals and cursor statement syntax & 2 & S \\
+COMPUTE / COMPUTE BY report clauses & 1 & C \\
+RAISERROR argument forms and error-number ranges & 2 & C \\
+Double-quoted string literals vs. QUOTED\_IDENTIFIER & 2 & C \\
+PRINT with \%n! substitution arguments & 2 & C \\
+= NULL comparisons and NULL in string concatenation & 5 & S \\
+Transact-SQL GROUP BY extension (non-grouped select columns) & 2 & C \\
+Unbracketed HOLDLOCK and (index name) hints & 4 & C \\
+ASE-only built-ins (str\_replace, ...) & 4 & C/S \\
+Unsigned, bigdatetime, unichar/univarchar and LOB types & 7 & C/D \\
+Lock schemes and storage clauses in DDL & 3 & C \\
+Chained mode and transaction-state globals & 2 & C \\
+Empty-string-as-blank semantics & 1 & S \\
+Portable code (measures harmful over-editing) & 5 & K \\
+Held-out multi-trap procedures (written after the checklist was frozen) & 6 & M \\
+\midrule
+Total & 52 & \\
+\bottomrule
+\end{tabular}
+\end{table}

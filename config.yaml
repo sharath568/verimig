@@ -1,0 +1,31 @@
+sqlserver:
+  host: localhost
+  port: 1433
+  user: sa
+  password_env: MSSQL_SA_PASSWORD   # read from the environment / .env, never committed
+
+ollama:
+  url: http://localhost:11434
+  temperature: 0.2
+  num_ctx: 8192
+  timeout_s: 900
+
+experiment:
+  corpus: corpus/cases.yaml
+  output: results/runs.jsonl
+  repetitions: 3          # independent seeds per (case, converter, model)
+  base_seed: 1234
+  agentic_max_iters: 3
+  converters: [rules, llm_plain, llm_trap, agentic]
+  imported_tools: []      # e.g. [ssma] -> reads results/imported/ssma/<case_id>.sql
+
+  # Models to compare. Pull them first with `ollama pull <name>`.
+  # These are examples sized for a 64 GB Apple Silicon Mac -- check the Ollama library for
+  # newer code models before you run, and record the exact tags/digests you use.
+  # The q4 vs q8 pair of the same model answers the quantization research question (RQ4).
+  models:
+    - qwen2.5-coder:7b
+    - qwen2.5-coder:14b
+    - qwen2.5-coder:32b-instruct-q4_K_M
+    - qwen2.5-coder:32b-instruct-q8_0
+    - deepseek-coder-v2:16b      # second model family (MoE)

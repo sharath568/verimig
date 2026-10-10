@@ -1,0 +1,25 @@
+\begin{table}[t]
+\centering
+\caption{G3 equivalence (\%) by trap category for the strongest model.}
+\label{tab:category}
+\footnotesize
+\begin{tabular}{lrrrr}
+\toprule
+Category & Rule baseline & LLM (plain) & LLM (trap-aware) & Agentic (G1/G2 repair) \\
+\midrule
+builtin\_functions & 25.0 & 25.0 & 100.0 & 100.0 \\
+control & 100.0 & 60.0 & 80.0 & 100.0 \\
+cursor\_status & 50.0 & 100.0 & 100.0 & 100.0 \\
+datatypes & 100.0 & 42.9 & 71.4 & 71.4 \\
+ddl\_storage & 100.0 & 100.0 & 100.0 & 100.0 \\
+error\_handling & 50.0 & 0.0 & 50.0 & 100.0 \\
+grouping & 0.0 & 50.0 & 0.0 & 0.0 \\
+legacy\_outer\_join & 0.0 & 50.0 & 75.0 & 75.0 \\
+locking\_hints & 100.0 & 100.0 & 100.0 & 100.0 \\
+messaging & 0.0 & 50.0 & 100.0 & 100.0 \\
+null\_semantics & 40.0 & 40.0 & 80.0 & 100.0 \\
+quoting & 0.0 & 50.0 & 100.0 & 100.0 \\
+transactions & 50.0 & 16.7 & 83.3 & 83.3 \\
+\bottomrule
+\end{tabular}
+\end{table}

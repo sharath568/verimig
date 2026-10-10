@@ -1,0 +1,30 @@
+\section{Discussion and Threats to Validity}\label{sec:discussion}
+
+\textit{Implications for practice.} Compile success is a weak acceptance criterion for LLM-translated
+database code, and so is lint: once the obvious constructs are gone, the remaining defects are precisely
+the ones neither check can see, and a model may even rewrite a flagged construct into an equivalent
+unflagged one. Three practices follow from our results. First, give the model the dialect knowledge
+explicitly; a trap checklist was worth more than a larger model or a repair loop. Second, treat every \emph{repair} of a
+compile error as suspect, since that is where the agent's residual silent errors arose; such objects
+deserve differential tests or human review before cut-over. Third, reconcile migrated data with per-row
+hashes rather than counts or aggregate checksums. All three run on a single workstation with local models,
+so source code never leaves the organisation.
+
+\textit{Oracle errors.} We manually audited every silent failure. The audit found one reference
+translation (C06) that contradicted ASE's NULL-concatenation rule and no others; we corrected it and
+re-scored the stored translations without regenerating them. \textit{Corpus.} All cases are synthetic and written by the authors, who also wrote the trap checklist;
+development results for trap-aware prompting are therefore an upper bound. The held-out procedures,
+written after the checklist was frozen, estimate how it generalises, but six procedures are a small sample.
+\textit{Test adequacy.} Every differentially scored case runs on two to four inputs chosen to exercise NULLs,
+empty tables and edge values; a candidate can still match on these and diverge elsewhere, so G3 results
+remain optimistic.
+\textit{Baselines.} The rule baseline was written by the authors and is a lower bound; SSMA was not
+evaluated. \textit{Oracle.} References encode one acceptable target behaviour; a correct but differently shaped
+translation (e.g., reordered result sets) can fail G3, while renamed output columns are tolerated.
+\textit{Engine versions.} ASE semantics vary with version and server options (e.g., \texttt{ansinull},
+chained mode); we assume ASE 16 defaults and SQL Server 2022 with modern client defaults.
+\textit{Isolation semantics.} Single-session differential testing cannot observe concurrency effects such
+as a lock hint mapped to \texttt{NOLOCK}; such candidates need review.
+\textit{Model nondeterminism.} Seeds barely changed outcomes (\RepAgreement\% agreement), so we report case-level intervals rather than treating repetitions as independent.
+\textit{Reconciliation.} G4 runs with both tables on SQL Server; it measures detector sensitivity, not
+end-to-end transfer tooling.

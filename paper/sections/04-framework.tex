@@ -1,0 +1,79 @@
+\section{The VeriMig Framework}\label{sec:framework}
+
+Fig.~\ref{fig:arch} shows the pipeline. An \emph{assessment} step attaches the trap checklist to each
+object. A \emph{converter} produces SQL Server code; we study a deterministic rule baseline, an LLM with a
+plain prompt, an LLM with a trap-aware prompt, and an agent that adds a repair loop. Candidates then pass
+through four gates.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\scriptsize, x=1mm, y=1mm,
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=7mm, inner sep=2pt},
+  gate/.style={box, fill=blue!7, minimum width=13mm},
+  arr/.style={-{Stealth[length=1.6mm]}}]
+\node[box, minimum width=17mm] (src) at (0,0) {ASE object\\+ trap checklist};
+\node[box, minimum width=19mm] (conv) at (22,0) {Converter\\rules/LLM/agent};
+\node[gate] (g1) at (42,0) {G1\\deploy};
+\node[gate] (g2) at (59,0) {G2\\residual lint};
+\node[gate] (g3) at (59,-14) {G3\\differential};
+\node[gate] (g4) at (40,-14) {G4\\reconcile};
+\node[box, fill=gray!10, minimum width=22mm] (ref) at (59,-27) {Reviewed reference\\translation (oracle)};
+\node[box, dashed, draw=red!70!black, text=red!70!black, minimum width=50mm] (fb) at (41,12)
+  {repair feedback: G1 error text + G2 findings only};
+\draw[arr] (src) -- (conv);
+\draw[arr] (conv) -- (g1);
+\draw[arr] (g1) -- (g2);
+\draw[arr] (g2) -- (g3);
+\draw[arr] (g3) -- (g4);
+\draw[arr] (ref) -- (g3);
+\draw[arr, dashed, red!70!black] (g1.north) -- (g1.north |- fb.south);
+\draw[arr, dashed, red!70!black] (g2.north) -- (g2.north |- fb.south);
+\draw[arr, dashed, red!70!black] (conv.north |- fb.south) -- (conv.north);
+\end{tikzpicture}
+\caption{VeriMig pipeline. Dashed arrows are the only feedback the agent receives; the oracle used by G3
+never reaches the converter.}
+\label{fig:arch}
+\end{figure}
+
+\textbf{G1 (deploy).} The candidate is executed batch by batch in a fresh SQL Server database after the
+case setup, with session options pinned (\texttt{ANSI\_NULLS}, \texttt{QUOTED\_IDENTIFIER}, and
+\texttt{CONCAT\_NULL\_YIELDS\_NULL} ON) to reflect modern client defaults.
+
+\textbf{G2 (residual lint).} Eighteen pattern rules detect ASE constructs that must not survive
+translation (e.g., \texttt{*=}, \texttt{@@sqlstatus}, \texttt{\%1!} placeholders, unbracketed lock hints,
+unsigned and \texttt{big*} types, lock-scheme clauses). Error-severity findings fail the gate;
+deprecated-but-valid types are recorded as warnings. Several silent categories (the GROUP BY extension,
+NULL concatenation, single-token double-quoted literals) are invisible to lint by construction.
+
+\textbf{G3 (differential).} The reference and the candidate are deployed in separate databases with
+identical setup, and every call runs in both.
+
+\textit{Definition (observational equivalence).} Let $O_P(q)$ be the outcome of call $q$ against program
+$P$: the ordered list of result sets (normalised values; rows compared as multisets when the case declares
+no order), the error message text if an error is raised, and, where declared, informational messages.
+A candidate $C$ is equivalent to reference $R$ on case $k$ iff $O_C(q)=O_R(q)$ for every call $q$ of $k$.
+Column names are not compared. This is equivalence over the case's inputs, not a proof.
+
+\textbf{G4 (reconcile).} At data-movement time, VeriMig compares source and target tables by row count, an
+aggregate checksum, and per-key SHA-256 hashes of a NULL-safe, type-aware serialisation.
+
+\textbf{Oracle-separated repair.} Algorithm~\ref{alg:agent} gives the agent loop. It receives only the
+SQL Server error text from G1 and the unresolved constructs from G2, never G3 outcomes. This mirrors
+deployment, where no oracle exists for a customer's procedure, and prevents reported equivalence from being
+optimised against the evaluation signal.
+
+\begin{algorithm}[t]
+\caption{Oracle-separated agentic translation}\label{alg:agent}
+\footnotesize
+\begin{algorithmic}[1]
+\Require ASE object $s$, model $M$, trap checklist $T$, budget $K$
+\State $h \gets [\textsc{System}(T), \textsc{User}(s)]$
+\For{$i = 1$ \textbf{to} $K$}
+  \State $c \gets \textsc{Extract}(M(h))$
+  \State $(ok_1, e) \gets \textsc{G1}(c)$;\ \ $(ok_2, f) \gets \textsc{G2}(c)$
+  \If{$ok_1 \wedge ok_2$} \textbf{break} \EndIf
+  \State $h \gets h \Vert [c, \textsc{Feedback}(e, f)]$ \Comment{no G3 signal}
+\EndFor
+\State \Return $c$ \Comment{then scored once by G1--G3}
+\end{algorithmic}
+\end{algorithm}

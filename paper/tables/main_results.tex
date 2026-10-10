@@ -1,0 +1,29 @@
+\begin{table*}[t]
+\centering
+\caption{Gate pass rates per configuration (\%). Equivalence is G3 over differential cases with a 95\% case-level bootstrap interval; \emph{Silent} = passes G1 and G2 but fails G3; \emph{Ctrl} = portable control cases left behaviourally intact.}
+\label{tab:main}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{llrrrrrrrr}
+\toprule
+Converter & Model & G1 & G2 & G3 equiv. [95\% CI] & Silent & Ctrl & Attempts & Latency (s) & Tok/s \\
+\midrule
+Rule baseline & -- & 67.4 & 71.7 & 56.8 [40.9, 70.5] & 9.1 & 100.0 & 1.00 & 0.0 & -- \\
+LLM (plain) & Qwen2.5C-7B & 81.9 & 91.3 & 48.5 [34.1, 62.9] & 34.8 & 100.0 & 1.00 & 0.5 & 106.2 \\
+LLM (plain) & Qwen2.5C-14B & 95.7 & 100.0 & 68.2 [54.5, 81.1] & 27.3 & 100.0 & 1.00 & 1.0 & 54.5 \\
+LLM (plain) & Qwen2.5C-32B-Q4 & 95.7 & 100.0 & 59.1 [44.7, 73.5] & 36.4 & 60.0 & 1.00 & 2.0 & 25.2 \\
+LLM (plain) & Qwen2.5C-32B-Q8 & 93.5 & 100.0 & 53.0 [38.6, 67.4] & 40.2 & 60.0 & 1.00 & 3.0 & 15.8 \\
+LLM (plain) & DSCv2-Lite-16B & 67.4 & 79.7 & 35.6 [22.0, 50.0] & 31.8 & 100.0 & 1.00 & 0.3 & 195.7 \\
+LLM (trap-aware) & Qwen2.5C-7B & 87.7 & 89.9 & 73.5 [59.8, 85.6] & 15.2 & 100.0 & 1.00 & 0.5 & 105.8 \\
+LLM (trap-aware) & Qwen2.5C-14B & 100.0 & 100.0 & 79.5 [65.9, 90.9] & 20.5 & 100.0 & 1.00 & 1.0 & 54.1 \\
+LLM (trap-aware) & Qwen2.5C-32B-Q4 & 97.1 & 97.8 & 81.1 [68.9, 91.7] & 13.6 & 73.3 & 1.00 & 1.9 & 25.1 \\
+LLM (trap-aware) & Qwen2.5C-32B-Q8 & 97.8 & 95.7 & 81.1 [68.9, 91.7] & 12.1 & 80.0 & 1.00 & 3.0 & 15.8 \\
+LLM (trap-aware) & DSCv2-Lite-16B & 88.4 & 90.6 & 60.6 [46.2, 74.2] & 26.5 & 80.0 & 1.00 & 0.3 & 187.5 \\
+Agentic (G1/G2 repair) & Qwen2.5C-7B & 99.3 & 97.8 & 73.5 [59.8, 85.6] & 24.2 & 100.0 & 1.18 & 2.2 & 105.3 \\
+Agentic (G1/G2 repair) & Qwen2.5C-14B & 100.0 & 100.0 & 79.5 [65.9, 90.9] & 20.5 & 100.0 & 1.00 & 2.3 & 54.1 \\
+Agentic (G1/G2 repair) & Qwen2.5C-32B-Q4 & 100.0 & 100.0 & 86.4 [75.0, 95.5] & 13.6 & 100.0 & 1.05 & 3.5 & 25.2 \\
+Agentic (G1/G2 repair) & Qwen2.5C-32B-Q8 & 100.0 & 100.0 & 87.9 [77.3, 96.2] & 12.1 & 100.0 & 1.07 & 4.7 & 15.8 \\
+Agentic (G1/G2 repair) & DSCv2-Lite-16B & 92.8 & 95.7 & 65.2 [50.8, 78.8] & 26.5 & 80.0 & 1.22 & 2.0 & 183.6 \\
+\bottomrule
+\end{tabular}
+\end{table*}

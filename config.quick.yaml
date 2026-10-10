@@ -1,0 +1,22 @@
+# Quick profile: one small model, one repetition -- proves the whole pipeline in ~20-40 min.
+# Usage: CONFIG=config.quick.yaml ./run_all.sh   (results go to results/quick_runs.jsonl)
+sqlserver:
+  host: localhost
+  port: 1433
+  user: sa
+  password_env: MSSQL_SA_PASSWORD
+ollama:
+  url: http://localhost:11434
+  temperature: 0.2
+  num_ctx: 8192
+  timeout_s: 900
+experiment:
+  corpus: corpus/cases.yaml
+  output: results/quick_runs.jsonl
+  repetitions: 1
+  base_seed: 1234
+  agentic_max_iters: 3
+  converters: [rules, llm_plain, llm_trap, agentic]
+  imported_tools: []
+  models:
+    - qwen2.5-coder:7b

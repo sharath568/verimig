@@ -1,0 +1,21 @@
+\begin{table}[t]
+\centering
+\caption{G4 detection rate (\%) for a single injected fault; \emph{clean} rows give the false-positive rate.}
+\label{tab:reconcile}
+\footnotesize
+\begin{tabular}{lrrr}
+\toprule
+Fault & Row count & Aggregate checksum & Row hash \\
+\midrule
+clean & 0.0 & 0.0 & 0.0 \\
+drop\_row & 100.0 & 100.0 & 100.0 \\
+dup\_row & 100.0 & 100.0 & 100.0 \\
+truncate\_text & 0.0 & 100.0 & 100.0 \\
+charset\_loss & 0.0 & 100.0 & 100.0 \\
+money\_round & 0.0 & 100.0 & 100.0 \\
+ts\_precision & 0.0 & 100.0 & 100.0 \\
+null\_to\_empty & 0.0 & 100.0 & 100.0 \\
+swap\_amounts & 0.0 & 0.0 & 100.0 \\
+\bottomrule
+\end{tabular}
+\end{table}

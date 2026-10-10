@@ -1,0 +1,48 @@
+\section{Experimental Setup}\label{sec:setup}
+
+\textit{Research questions.}
+\textbf{RQ1:} How often do translations from each converter deploy, pass lint, and behave equivalently?
+\textbf{RQ2:} How large is the \emph{silent} share---translations passing G1 and G2 but failing G3?
+\textbf{RQ3:} Which trap classes and categories remain hard?
+\textbf{RQ4:} How do model size and quantization trade accuracy against latency on local hardware?
+\textbf{RQ5:} Which reconciliation checks detect single-row data faults?
+
+\textit{Platform.} All experiments run on one Apple Mac Studio \note{chip, CPU/GPU cores, unified memory:
+run ``sysctl -n machdep.cpu.brand\_string; sysctl -n hw.memsize''} under macOS 27.0.1.
+SQL Server 2022 Developer Edition (CU27) runs in Docker, and models are served by Ollama~\cite{ollama} on
+llama.cpp~\cite{llamacpp}. We evaluate \NumModels{} model configurations from two code-model families~\cite{hui2024qwen,deepseek2024v2}:
+Qwen2.5-Coder at 7B, 14B, and 32B (4-bit Q4\_K\_M) plus the 32B model at 8-bit (Q8\_0), and
+DeepSeek-Coder-V2 Lite (16B MoE, Q4\_0), served by Ollama 0.40.1; model digests are recorded in the
+artifact. Hosted frontier models are excluded by design: the setting is code that may not leave the
+organisation.
+
+\textit{Converters.} The rule baseline applies 22 regular-expression rewrites plus quote normalisation, covering the lint-visible
+categories; it intentionally does not restructure joins or grouping. The plain prompt asks for a
+behaviour-preserving translation; the trap-aware prompt appends the checklist; the agent runs
+Algorithm~\ref{alg:agent} with $K=3$. Temperature is 0.2 with fixed seeds, and every LLM configuration
+runs three repetitions per case; the rule baseline is deterministic.
+
+\textit{Prompts.} Both prompts share the instruction below (abridged); the trap-aware variant appends one line per
+G2 rule and three lines for the lint-invisible silent categories (full text in the artifact).
+\begin{lstlisting}
+You are an expert database migration engineer. Translate
+SAP ASE (Sybase) Transact-SQL into Microsoft SQL Server 2022
+Transact-SQL. Preserve the runtime behaviour of the original
+exactly (same result sets, same NULL handling, same errors
+raised). Keep object names unchanged. Return only the
+translated code in a single sql fenced block.
+\end{lstlisting}
+
+\textit{Metrics.} G1 and G2 rates are computed over all cases and G3 equivalence over differential cases.
+The \emph{silent} rate is the share of differential runs that pass G1 and G2 but fail G3. Repetitions turned
+out to be highly correlated---the three seeds gave the same G3 outcome in \RepAgreement\% of
+case--configuration pairs---so we treat the \emph{case}, not the run, as the independent unit: intervals are
+95\% bootstrap intervals over cases (10{,}000 resamples)~\cite{efron1993}, and three pre-specified paired contrasts for the strongest model (plain vs.\ trap-aware, trap-aware vs.\
+agentic, rule baseline vs.\ agentic) use the exact McNemar test~\cite{mcnemar1947} on per-case majority
+outcomes with Holm correction. We also record repair attempts,
+wall-clock latency per case, and generation throughput.
+
+\textit{G4 protocol.} A seeded 2{,}000-row table with Unicode names, 4-decimal money, microsecond
+timestamps, and nullable text is loaded as source; for each of eight fault types and 30 trials the target
+receives one injected single-row fault (drop, duplicate, truncation, charset loss, money rounding,
+timestamp precision loss, NULL-to-empty, or swapped amounts); clean trials measure false positives.

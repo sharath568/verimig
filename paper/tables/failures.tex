@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\caption{Most frequent silent failures (passed G1 and G2, failed G3) for the strongest model: failing runs / runs per converter, and the dominant divergence (rows, error, or messages).}
+\label{tab:failures}
+\footnotesize
+\begin{tabular}{llrrrl}
+\toprule
+Case & Category & Plain & Trap & Agent & Diverges in \\
+\midrule
+C10 & grouping & 3/3 & 3/3 & 3/3 & rows \\
+C29 & legacy\_outer\_join & 3/3 & 3/3 & 3/3 & rows \\
+C35 & datatypes & 3/3 & 3/3 & 3/3 & error \\
+C36 & datatypes & 3/3 & 3/3 & 3/3 & error \\
+C28 & grouping & 0/3 & 3/3 & 3/3 & rows \\
+C18 & transactions & 3/3 & 1/3 & 1/3 & rows \\
+C06 & quoting & 3/3 & 0/3 & 0/3 & rows \\
+C09 & null\_semantics & 3/3 & 0/3 & 0/3 & rows \\
+\bottomrule
+\end{tabular}
+\end{table}

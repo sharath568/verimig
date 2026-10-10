@@ -1,0 +1,26 @@
+\begin{abstract}
+Large language models (LLMs) can translate legacy SAP Adaptive Server Enterprise (ASE) Transact-SQL to
+Microsoft SQL Server, but a translation that compiles is not necessarily one that behaves the same.
+Because both engines descend from the same Transact-SQL lineage, many dialect differences survive
+translation silently: the code deploys, runs, and returns different rows. We present VeriMig, a framework
+that wraps local LLM translation in four verification gates---deployment (G1), residual-dialect lint (G2),
+differential execution against a reviewed reference translation (G3), and data reconciliation (G4)---and
+restricts the agent's self-repair loop to G1/G2 feedback so that measured equivalence is never tuned
+against the oracle. We contribute a taxonomy of \NumCategories{} ASE-to-SQL Server trap categories, an open
+corpus of \NumDevCases{} development cases and \NumHeldout{} held-out multi-trap procedures with reference
+translations, and an evaluation of \NumModels{} locally hosted
+code-model configurations on a single Apple Silicon workstation over \NumRuns{} graded translations. With
+the strongest model (\BestModel), behavioural equivalence rises from \PlainEquiv\% with a plain prompt to
+\TrapEquiv\% with a dialect-trap checklist (\CheckEffect{} points, 95\% CI \CheckEffectCI) and \AgenticEquiv\% with the
+gated repair loop, whose additional gain is not significant, against \RulesEquiv\% for a rule baseline.
+Yet \PlainSilent\% of plain-prompt translations pass compilation and lint and still fail differential
+testing, and \BestAgentSilentShare\% of the agent's remaining failures are silent---often introduced while
+repairing a construct that did not compile. On held-out procedures written after the checklist was frozen,
+equivalence is \HeldoutPlainEquiv\% (plain) versus \HeldoutAgenticEquiv\% (agent). A fault-injection study shows that row-count reconciliation detects \RecRowcount\% of single-row data
+faults, versus \RecRowhash\% for per-row hashing. Code, corpus, prompts, and raw logs are released.
+\end{abstract}
+
+\begin{IEEEkeywords}
+database migration, SQL dialect translation, large language models, differential testing,
+Sybase ASE, SQL Server, verification, agentic AI
+\end{IEEEkeywords}

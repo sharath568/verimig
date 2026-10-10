@@ -1,0 +1,1375 @@
+# VeriMig pilot corpus: SAP ASE (Sybase) -> Microsoft SQL Server dialect traps.
+#
+# Field reference
+#   id            unique case id
+#   category      trap category (see README / paper Table I)
+#   observability "compile" = an unconverted construct fails to compile on SQL Server
+#                 "silent"  = an unconverted/naive construct compiles but changes behaviour
+#                 "deprecation" = compiles and behaves the same, but uses deprecated features
+#                 "control" = already portable; measures harmful over-editing
+#   source        the Sybase ASE object to translate (what the converter sees)
+#   setup         target-side schema/data (SQL Server dialect) created before deploying
+#   golden        reference SQL Server translation (the oracle for gate G3)
+#   calls         statements executed on both reference and candidate databases
+#   ordered       if false, result rows are compared as multisets
+#   differential  if false, the case is scored on G1/G2 only (target contract is a policy choice)
+#   compare_messages  compare PRINT / informational messages too
+#   review        true = ASE semantics must be confirmed by a DBA on a real ASE 16 instance
+#                 before results are reported (see README, "Validating the corpus")
+#
+# IMPORTANT: every golden translation must be reviewed and signed off by the authors
+# before any number from this corpus is reported in a paper.
+
+cases:
+
+- id: C01
+  category: legacy_outer_join
+  observability: compile
+  title: Legacy *= outer join
+  setup: |
+    CREATE TABLE cust (id int PRIMARY KEY, name varchar(30));
+    CREATE TABLE ord (id int PRIMARY KEY, cust_id int, amt money);
+    INSERT cust VALUES (1,'Ana'),(2,'Bo'),(3,'Cy');
+    INSERT ord VALUES (10,1,100),(11,1,50),(12,3,20);
+  source: |
+    create procedure p_cust_orders
+    as
+    select c.id, c.name, o.amt
+    from cust c, ord o
+    where c.id *= o.cust_id
+    order by c.id, o.amt
+  golden: |
+    CREATE PROCEDURE p_cust_orders
+    AS
+    SELECT c.id, c.name, o.amt
+    FROM cust c
+    LEFT OUTER JOIN ord o ON c.id = o.cust_id
+    ORDER BY c.id, o.amt;
+  calls:
+  - EXEC p_cust_orders
+  - INSERT ord VALUES (13,2,75); EXEC p_cust_orders
+
+- id: C02
+  category: legacy_outer_join
+  observability: silent
+  review: true
+  title: Legacy outer join with a restriction on the inner table
+  notes: >
+    In ASE Transact-SQL outer joins, a restriction on the inner table is applied as part of
+    the join, so outer rows are preserved. Moving the predicate into WHERE turns the query
+    into an inner join -- it compiles but silently drops rows.
+  setup: |
+    CREATE TABLE cust (id int PRIMARY KEY, name varchar(30));
+    CREATE TABLE ord (id int PRIMARY KEY, cust_id int, amt money);
+    INSERT cust VALUES (1,'Ana'),(2,'Bo'),(3,'Cy');
+    INSERT ord VALUES (10,1,100),(11,1,50),(12,3,20);
+  source: |
+    create procedure p_big_orders
+    as
+    select c.id, c.name, o.amt
+    from cust c, ord o
+    where c.id *= o.cust_id
+      and o.amt > 30
+    order by c.id, o.amt
+  golden: |
+    CREATE PROCEDURE p_big_orders
+    AS
+    SELECT c.id, c.name, o.amt
+    FROM cust c
+    LEFT OUTER JOIN ord o ON c.id = o.cust_id AND o.amt > 30
+    ORDER BY c.id, o.amt;
+  calls:
+  - EXEC p_big_orders
+  - INSERT ord VALUES (13,2,10),(14,2,40); EXEC p_big_orders
+
+- id: C03
+  category: cursor_status
+  observability: silent
+  title: Cursor loop driven by @@sqlstatus
+  notes: >
+    @@sqlstatus does not exist in SQL Server. A converter that maps it to @@FETCH_STATUS
+    must also map the value domain (ASE 0/1/2 vs SQL Server 0/-1/-2).
+  setup: |
+    CREATE TABLE item (id int, qty int);
+    INSERT item VALUES (1,5),(2,7),(3,0);
+  source: |
+    create procedure p_sum_qty
+    as
+    declare @id int, @q int, @tot int
+    select @tot = 0
+    declare c1 cursor for
+      select id, qty from item order by id
+      for read only
+    open c1
+    fetch c1 into @id, @q
+    while (@@sqlstatus = 0)
+    begin
+      select @tot = @tot + @q
+      fetch c1 into @id, @q
+    end
+    close c1
+    deallocate cursor c1
+    select @tot as total
+  golden: |
+    CREATE PROCEDURE p_sum_qty
+    AS
+    BEGIN
+      DECLARE @id int, @q int, @tot int;
+      SET @tot = 0;
+      DECLARE c1 CURSOR LOCAL FAST_FORWARD FOR
+        SELECT id, qty FROM item ORDER BY id;
+      OPEN c1;
+      FETCH NEXT FROM c1 INTO @id, @q;
+      WHILE (@@FETCH_STATUS = 0)
+      BEGIN
+        SET @tot = @tot + @q;
+        FETCH NEXT FROM c1 INTO @id, @q;
+      END;
+      CLOSE c1;
+      DEALLOCATE c1;
+      SELECT @tot AS total;
+    END;
+  calls:
+  - EXEC p_sum_qty
+  - DELETE item; EXEC p_sum_qty
+
+- id: C04
+  category: reporting_clause
+  observability: compile
+  differential: false
+  title: COMPUTE BY subtotal report
+  notes: >
+    COMPUTE BY was removed from SQL Server. The target result shape (GROUPING SETS rows,
+    separate queries, or client-side subtotals) is a design decision, so this case is scored
+    on G1/G2 only.
+  setup: |
+    CREATE TABLE sales (region varchar(10), rep varchar(10), amt int);
+    INSERT sales VALUES ('E','a',10),('E','b',20),('W','c',5);
+  source: |
+    create procedure p_sales
+    as
+    select region, rep, amt
+    from sales
+    order by region, rep
+    compute sum(amt) by region
+  golden: |
+    CREATE PROCEDURE p_sales
+    AS
+    SELECT region, rep, SUM(amt) AS amt
+    FROM sales
+    GROUP BY GROUPING SETS ((region, rep), (region))
+    ORDER BY region, GROUPING(rep), rep;
+  calls:
+  - EXEC p_sales
+
+- id: C05
+  category: error_handling
+  observability: compile
+  title: ASE-style RAISERROR with numeric error and string
+  setup: ""
+  source: |
+    create procedure p_withdraw @bal int, @amt int
+    as
+    if @amt > @bal
+    begin
+      raiserror 20001 "Insufficient funds"
+      return 1
+    end
+    select @bal - @amt as new_bal
+    return 0
+  golden: |
+    CREATE PROCEDURE p_withdraw @bal int, @amt int
+    AS
+    BEGIN
+      IF @amt > @bal
+      BEGIN
+        RAISERROR('Insufficient funds', 16, 1);
+        RETURN 1;
+      END;
+      SELECT @bal - @amt AS new_bal;
+      RETURN 0;
+    END;
+  calls:
+  - EXEC p_withdraw 100, 30
+  - EXEC p_withdraw 10, 30
+  - EXEC p_withdraw 30, 30
+
+- id: C06
+  category: quoting
+  observability: compile
+  review: true
+  title: Double-quoted string literals
+  notes: >
+    With QUOTED_IDENTIFIER ON (the default for modern SQL Server clients), "Hello, " is an
+    identifier, not a string, so the object fails at creation or at first execution.
+  setup: ""
+  source: |
+    create procedure p_greet @name varchar(20)
+    as
+    select "Hello, " + @name as greeting
+  golden: |
+    CREATE PROCEDURE p_greet @name varchar(20)
+    AS
+    SELECT 'Hello, ' + ISNULL(@name, '') AS greeting;  -- ASE concatenates NULL as '' (see C09)
+  calls:
+  - EXEC p_greet 'Prasad'
+  - EXEC p_greet NULL
+
+- id: C07
+  category: messaging
+  observability: compile
+  compare_messages: true
+  title: PRINT with %n! format arguments
+  setup: ""
+  source: |
+    create procedure p_report @n int
+    as
+    print "Processed %1! rows", @n
+  golden: |
+    CREATE PROCEDURE p_report @n int
+    AS
+    PRINT 'Processed ' + CAST(@n AS varchar(12)) + ' rows';
+  calls:
+  - EXEC p_report 42
+  - EXEC p_report 0
+
+- id: C08
+  category: null_semantics
+  observability: silent
+  title: "= NULL comparison"
+  notes: >
+    ASE's default Transact-SQL behaviour lets `col = NULL` match NULLs. SQL Server
+    procedures created with ANSI_NULLS ON return no rows for the same predicate.
+  setup: |
+    CREATE TABLE emp (id int, mgr_id int NULL);
+    INSERT emp VALUES (1,NULL),(2,1),(3,1),(4,NULL);
+  source: |
+    create procedure p_top_level
+    as
+    select id from emp where mgr_id = null order by id
+  golden: |
+    CREATE PROCEDURE p_top_level
+    AS
+    SELECT id FROM emp WHERE mgr_id IS NULL ORDER BY id;
+  calls:
+  - EXEC p_top_level
+  - DELETE emp WHERE mgr_id IS NULL; EXEC p_top_level
+
+- id: C09
+  category: null_semantics
+  observability: silent
+  review: true
+  title: String concatenation with NULL
+  notes: >
+    ASE treats NULL as an empty string when concatenated; SQL Server (CONCAT_NULL_YIELDS_NULL
+    ON) yields NULL for the whole expression.
+  setup: |
+    CREATE TABLE person (id int, first varchar(20), middle varchar(20) NULL, last varchar(20));
+    INSERT person VALUES (1,'Ann',NULL,'Lee'),(2,'Raj','K','Rao');
+  source: |
+    create procedure p_fullnames
+    as
+    select id, first + ' ' + middle + ' ' + last as full_name
+    from person
+    order by id
+  golden: |
+    CREATE PROCEDURE p_fullnames
+    AS
+    SELECT id, first + ' ' + ISNULL(middle, '') + ' ' + last AS full_name
+    FROM person
+    ORDER BY id;
+  calls:
+  - EXEC p_fullnames
+  - INSERT person VALUES (3,'Mo',NULL,'Ng'); EXEC p_fullnames
+
+- id: C10
+  category: grouping
+  observability: compile
+  review: true
+  title: Transact-SQL GROUP BY extension (non-grouped columns in select list)
+  notes: >
+    ASE returns every qualifying row with its group aggregate attached. SQL Server rejects
+    the query; a faithful translation uses a windowed aggregate, while a naive fix that adds
+    the column to GROUP BY compiles but changes the result.
+  setup: |
+    CREATE TABLE title (id int, type varchar(10), price int);
+    INSERT title VALUES (1,'biz',10),(2,'biz',30),(3,'cook',7);
+  source: |
+    create procedure p_type_avg
+    as
+    select id, type, avg(price) as avg_price
+    from title
+    group by type
+    order by id
+  golden: |
+    CREATE PROCEDURE p_type_avg
+    AS
+    SELECT id, type, AVG(price) OVER (PARTITION BY type) AS avg_price
+    FROM title
+    ORDER BY id;
+  calls:
+  - EXEC p_type_avg
+  - INSERT title VALUES (4,'cook',13); EXEC p_type_avg
+
+- id: C11
+  category: locking_hints
+  observability: compile
+  title: Unbracketed HOLDLOCK table hint
+  setup: |
+    CREATE TABLE acct (id int PRIMARY KEY, bal int);
+    INSERT acct VALUES (1,100),(2,250);
+  source: |
+    create procedure p_read_bal @id int
+    as
+    begin tran
+    select bal from acct holdlock where id = @id
+    commit tran
+  golden: |
+    CREATE PROCEDURE p_read_bal @id int
+    AS
+    BEGIN
+      BEGIN TRAN;
+      SELECT bal FROM acct WITH (HOLDLOCK) WHERE id = @id;
+      COMMIT TRAN;
+    END;
+  calls:
+  - EXEC p_read_bal 2
+  - EXEC p_read_bal 99
+
+- id: C12
+  category: locking_hints
+  observability: compile
+  title: ASE index hint syntax
+  setup: |
+    CREATE TABLE prod (id int, sku varchar(10));
+    CREATE INDEX ix_sku ON prod(sku);
+    INSERT prod VALUES (1,'A1'),(2,'B2'),(3,'A1');
+  source: |
+    create procedure p_by_sku @sku varchar(10)
+    as
+    select id from prod (index ix_sku) where sku = @sku order by id
+  golden: |
+    CREATE PROCEDURE p_by_sku @sku varchar(10)
+    AS
+    SELECT id FROM prod WITH (INDEX(ix_sku)) WHERE sku = @sku ORDER BY id;
+  calls:
+  - EXEC p_by_sku 'A1'
+  - EXEC p_by_sku 'ZZ'
+
+- id: C13
+  category: builtin_functions
+  observability: compile
+  title: str_replace built-in
+  setup: ""
+  source: |
+    create procedure p_clean @s varchar(50)
+    as
+    select str_replace(@s, '-', '_') as cleaned
+  golden: |
+    CREATE PROCEDURE p_clean @s varchar(50)
+    AS
+    SELECT REPLACE(@s, '-', '_') AS cleaned;
+  calls:
+  - EXEC p_clean 'AB-12-CD'
+  - EXEC p_clean 'no-dash-at-all-'
+  - EXEC p_clean ''
+
+- id: C14
+  category: datatypes
+  observability: compile
+  title: Unsigned integer column
+  notes: Values above 2^31-1 must still fit after conversion.
+  setup: ""
+  source: |
+    create table meter (id int, reading unsigned int)
+  golden: |
+    CREATE TABLE meter (id int, reading bigint CHECK (reading >= 0));
+  calls:
+  - INSERT meter VALUES (1, 4000000000); SELECT id, reading FROM meter
+  - INSERT meter VALUES (2, 0); SELECT id, reading FROM meter ORDER BY id
+
+- id: C15
+  category: datatypes
+  observability: compile
+  title: bigdatetime and univarchar columns
+  notes: Mapping bigdatetime to datetime silently loses microseconds.
+  setup: ""
+  source: |
+    create table evt (id int, ts bigdatetime, label univarchar(20))
+  golden: |
+    CREATE TABLE evt (id int, ts datetime2(6), label nvarchar(20));
+  calls:
+  - INSERT evt VALUES (1, '2026-01-02 03:04:05.123456', N'caf' + NCHAR(233)); SELECT id, ts, label FROM evt
+  - 'INSERT evt VALUES (2, ''2026-12-31 23:59:59.999999'', N''end''); SELECT id, ts, label FROM evt ORDER BY id'
+
+- id: C16
+  category: datatypes
+  observability: deprecation
+  title: text / image / timestamp columns
+  notes: Still accepted by SQL Server but deprecated; G2 should flag them.
+  setup: ""
+  source: |
+    create table doc (id int, body text null, blob image null, ver timestamp)
+  golden: |
+    CREATE TABLE doc (id int, body varchar(max) NULL, blob varbinary(max) NULL, ver rowversion);
+  calls:
+  - INSERT doc (id, body, blob) VALUES (1, 'hello', 0x0A0B); SELECT id, body, blob FROM doc
+  - UPDATE doc SET body = REPLICATE(CAST('x' AS varchar(max)), 9000) WHERE id = 1; SELECT id, DATALENGTH(body) AS len FROM doc
+
+- id: C17
+  category: ddl_storage
+  observability: compile
+  title: Table lock scheme clause
+  setup: ""
+  source: |
+    create table ledger (id int primary key, amt money) lock datarows
+  golden: |
+    CREATE TABLE ledger (id int PRIMARY KEY, amt money);
+  calls:
+  - INSERT ledger VALUES (1, 9.99); SELECT id, amt FROM ledger
+  - INSERT ledger VALUES (2, 0.0001); SELECT id, amt FROM ledger ORDER BY id
+
+- id: C18
+  category: transactions
+  observability: compile
+  title: "@@tranchained transaction-mode check"
+  setup: ""
+  source: |
+    create procedure p_txn_mode
+    as
+    if @@tranchained = 0
+      select 'unchained' as mode
+    else
+      select 'chained' as mode
+  golden: |
+    CREATE PROCEDURE p_txn_mode
+    AS
+    IF (@@OPTIONS & 2) = 0
+      SELECT 'unchained' AS mode;
+    ELSE
+      SELECT 'chained' AS mode;
+  calls:
+  - EXEC p_txn_mode
+  - SET IMPLICIT_TRANSACTIONS ON; EXEC p_txn_mode; IF @@TRANCOUNT > 0 COMMIT; SET IMPLICIT_TRANSACTIONS OFF
+
+- id: C19
+  category: string_semantics
+  observability: silent
+  differential: false
+  review: true
+  title: Empty-string assignment
+  notes: >
+    ASE interprets '' assigned to varchar as a single blank (DATALENGTH = 1); SQL Server
+    keeps an empty string (DATALENGTH = 0). Whether to preserve this is a migration policy
+    decision, so the case is scored on G1/G2 and discussed qualitatively.
+  setup: ""
+  source: |
+    create procedure p_empty
+    as
+    declare @s varchar(10)
+    select @s = ''
+    select datalength(@s) as dl
+  golden: |
+    CREATE PROCEDURE p_empty
+    AS
+    DECLARE @s varchar(10);
+    SET @s = '';
+    SELECT DATALENGTH(@s) AS dl;
+  calls:
+  - EXEC p_empty
+
+- id: C20
+  category: control
+  observability: control
+  title: Portable UPDATE ... FROM with temp table (control)
+  setup: |
+    CREATE TABLE price (sku varchar(10), p int);
+    CREATE TABLE adj (sku varchar(10), pct int);
+    INSERT price VALUES ('A',100),('B',200),('C',300);
+    INSERT adj VALUES ('A',10),('B',0),('C',-50);
+  source: |
+    create procedure p_apply_adj
+    as
+    select sku, pct into #a from adj where pct <> 0
+    update price set p = p + (p * a.pct) / 100
+    from price, #a a
+    where price.sku = a.sku
+    select sku, p from price order by sku
+  golden: |
+    CREATE PROCEDURE p_apply_adj
+    AS
+    SELECT sku, pct INTO #a FROM adj WHERE pct <> 0
+    UPDATE price SET p = p + (p * a.pct) / 100
+    FROM price, #a a
+    WHERE price.sku = a.sku
+    SELECT sku, p FROM price ORDER BY sku
+  calls:
+  - EXEC p_apply_adj
+  - UPDATE adj SET pct = 0; EXEC p_apply_adj
+
+- id: C21
+  category: control
+  observability: control
+  title: Portable date arithmetic and CONVERT style (control)
+  setup: ""
+  source: |
+    create procedure p_due @d datetime
+    as
+    select convert(char(10), dateadd(dd, 30, @d), 101) as due,
+           datediff(dd, @d, dateadd(mm, 1, @d)) as days
+  golden: |
+    CREATE PROCEDURE p_due @d datetime
+    AS
+    SELECT CONVERT(char(10), DATEADD(dd, 30, @d), 101) AS due,
+           DATEDIFF(dd, @d, DATEADD(mm, 1, @d)) AS days;
+  calls:
+  - EXEC p_due '2026-01-31'
+  - EXEC p_due '2024-02-29'
+  - EXEC p_due '2026-12-15'
+
+# ---------------------------------------------------------------- extended corpus (v2)
+
+- id: C22
+  category: cursor_status
+  observability: silent
+  title: Cursor loop on @@sqlstatus != 2 (value-domain mapping)
+  notes: >
+    ASE uses 2 for "no more rows"; SQL Server uses -1. Renaming the global without remapping
+    the value (WHILE @@FETCH_STATUS != 2) never terminates; the harness statement timeout ends it.
+  setup: |
+    CREATE TABLE item (id int, qty int);
+    INSERT item VALUES (1,5),(2,7),(3,9);
+  source: |
+    create procedure p_count_items
+    as
+    declare @id int, @n int
+    select @n = 0
+    declare c2 cursor for select id from item for read only
+    open c2
+    fetch c2 into @id
+    while (@@sqlstatus != 2)
+    begin
+      select @n = @n + 1
+      fetch c2 into @id
+    end
+    close c2
+    deallocate cursor c2
+    select @n as n
+  golden: |
+    CREATE PROCEDURE p_count_items
+    AS
+    BEGIN
+      DECLARE @id int, @n int;
+      SET @n = 0;
+      DECLARE c2 CURSOR LOCAL FAST_FORWARD FOR SELECT id FROM item;
+      OPEN c2;
+      FETCH NEXT FROM c2 INTO @id;
+      WHILE (@@FETCH_STATUS = 0)
+      BEGIN
+        SET @n = @n + 1;
+        FETCH NEXT FROM c2 INTO @id;
+      END;
+      CLOSE c2;
+      DEALLOCATE c2;
+      SELECT @n AS n;
+    END;
+  calls:
+  - EXEC p_count_items
+  - DELETE item; EXEC p_count_items
+
+- id: C23
+  category: error_handling
+  observability: compile
+  title: RAISERROR with %1! argument substitution
+  setup: |
+    CREATE TABLE acct (id int PRIMARY KEY, bal int);
+    INSERT acct VALUES (1,100);
+  source: |
+    create procedure p_get_acct @id int
+    as
+    if not exists (select 1 from acct where id = @id)
+    begin
+      raiserror 20002 "Account %1! not found", @id
+      return 1
+    end
+    select bal from acct where id = @id
+  golden: |
+    CREATE PROCEDURE p_get_acct @id int
+    AS
+    BEGIN
+      IF NOT EXISTS (SELECT 1 FROM acct WHERE id = @id)
+      BEGIN
+        RAISERROR('Account %d not found', 16, 1, @id);
+        RETURN 1;
+      END;
+      SELECT bal FROM acct WHERE id = @id;
+    END;
+  calls:
+  - EXEC p_get_acct 1
+  - EXEC p_get_acct 7
+
+- id: C24
+  category: messaging
+  observability: compile
+  compare_messages: true
+  title: PRINT with two substitution arguments
+  setup: ""
+  source: |
+    create procedure p_totals @a int, @b int
+    as
+    print "Rows: %1!, total: %2!", @a, @b
+  golden: |
+    CREATE PROCEDURE p_totals @a int, @b int
+    AS
+    PRINT 'Rows: ' + CAST(@a AS varchar(12)) + ', total: ' + CAST(@b AS varchar(12));
+  calls:
+  - EXEC p_totals 3, 120
+  - EXEC p_totals 0, -5
+
+- id: C25
+  category: null_semantics
+  observability: silent
+  title: "!= NULL comparison"
+  setup: |
+    CREATE TABLE emp (id int, mgr_id int NULL);
+    INSERT emp VALUES (1,NULL),(2,1),(3,1),(4,NULL);
+  source: |
+    create procedure p_managed
+    as
+    select id from emp where mgr_id != null order by id
+  golden: |
+    CREATE PROCEDURE p_managed
+    AS
+    SELECT id FROM emp WHERE mgr_id IS NOT NULL ORDER BY id;
+  calls:
+  - EXEC p_managed
+  - UPDATE emp SET mgr_id = NULL; EXEC p_managed
+
+- id: C26
+  category: null_semantics
+  observability: silent
+  review: true
+  title: "= NULL test on a variable in IF"
+  setup: ""
+  source: |
+    create procedure p_has_code @code varchar(5)
+    as
+    if @code = null
+      select 'missing' as status
+    else
+      select 'present' as status
+  golden: |
+    CREATE PROCEDURE p_has_code @code varchar(5)
+    AS
+    IF @code IS NULL
+      SELECT 'missing' AS status;
+    ELSE
+      SELECT 'present' AS status;
+  calls:
+  - EXEC p_has_code NULL
+  - EXEC p_has_code 'X1'
+
+- id: C27
+  category: null_semantics
+  observability: silent
+  review: true
+  title: NULL concatenation into a variable
+  setup: ""
+  source: |
+    create procedure p_label @prefix varchar(10), @suffix varchar(10)
+    as
+    declare @s varchar(30)
+    select @s = @prefix + '-' + @suffix
+    select @s as label
+  golden: |
+    CREATE PROCEDURE p_label @prefix varchar(10), @suffix varchar(10)
+    AS
+    DECLARE @s varchar(30);
+    SET @s = ISNULL(@prefix, '') + '-' + ISNULL(@suffix, '');
+    SELECT @s AS label;
+  calls:
+  - EXEC p_label 'INV', '001'
+  - EXEC p_label 'INV', NULL
+  - EXEC p_label NULL, NULL
+
+- id: C28
+  category: grouping
+  observability: compile
+  review: true
+  title: Aggregate with extra columns and no GROUP BY
+  notes: ASE returns every row with the whole-table aggregate; reproduce with OVER ().
+  setup: |
+    CREATE TABLE title (id int, type varchar(10), price int);
+    INSERT title VALUES (1,'biz',10),(2,'biz',30),(3,'cook',7);
+  source: |
+    create procedure p_vs_max
+    as
+    select id, price, max(price) as top_price
+    from title
+    order by id
+  golden: |
+    CREATE PROCEDURE p_vs_max
+    AS
+    SELECT id, price, MAX(price) OVER () AS top_price
+    FROM title
+    ORDER BY id;
+  calls:
+  - EXEC p_vs_max
+  - DELETE title; EXEC p_vs_max
+
+- id: C29
+  category: legacy_outer_join
+  observability: compile
+  title: Legacy =* right outer join
+  setup: |
+    CREATE TABLE cust (id int PRIMARY KEY, name varchar(30));
+    CREATE TABLE ord (id int PRIMARY KEY, cust_id int, amt money);
+    INSERT cust VALUES (1,'Ana'),(2,'Bo'),(3,'Cy');
+    INSERT ord VALUES (10,1,100),(11,1,50),(12,3,20);
+  source: |
+    create procedure p_orders_all_cust
+    as
+    select c.id, o.id as ord_id
+    from ord o, cust c
+    where o.cust_id =* c.id
+    order by c.id, o.id
+  golden: |
+    CREATE PROCEDURE p_orders_all_cust
+    AS
+    SELECT c.id, o.id AS ord_id
+    FROM ord o
+    RIGHT OUTER JOIN cust c ON o.cust_id = c.id
+    ORDER BY c.id, o.id;
+  calls:
+  - EXEC p_orders_all_cust
+  - DELETE ord; EXEC p_orders_all_cust
+
+- id: C30
+  category: legacy_outer_join
+  observability: silent
+  review: true
+  title: Legacy outer join with a restriction on the outer table
+  notes: >
+    A restriction on the outer (preserved) table filters outer rows, so it belongs in WHERE.
+    Placing it in ON keeps every customer and silently changes the result.
+  setup: |
+    CREATE TABLE cust (id int PRIMARY KEY, name varchar(30));
+    CREATE TABLE ord (id int PRIMARY KEY, cust_id int, amt money);
+    INSERT cust VALUES (1,'Ana'),(2,'Bo'),(3,'Cy'),(4,'Al');
+    INSERT ord VALUES (10,1,100),(11,1,50),(12,3,20);
+  source: |
+    create procedure p_a_customers
+    as
+    select c.id, c.name, o.amt
+    from cust c, ord o
+    where c.id *= o.cust_id
+      and c.name like 'A%'
+    order by c.id, o.amt
+  golden: |
+    CREATE PROCEDURE p_a_customers
+    AS
+    SELECT c.id, c.name, o.amt
+    FROM cust c
+    LEFT OUTER JOIN ord o ON c.id = o.cust_id
+    WHERE c.name LIKE 'A%'
+    ORDER BY c.id, o.amt;
+  calls:
+  - EXEC p_a_customers
+  - INSERT cust VALUES (5,'Ann'); INSERT ord VALUES (13,5,5); EXEC p_a_customers
+
+- id: C31
+  category: quoting
+  observability: compile
+  title: Double-quoted single-token literal in a predicate
+  notes: Lint cannot distinguish "A" from a quoted identifier; only G1/G3 catch it.
+  setup: |
+    CREATE TABLE task (id int, status char(1));
+    INSERT task VALUES (1,'A'),(2,'C'),(3,'A');
+  source: |
+    create procedure p_active
+    as
+    select id from task where status = "A" order by id
+  golden: |
+    CREATE PROCEDURE p_active
+    AS
+    SELECT id FROM task WHERE status = 'A' ORDER BY id;
+  calls:
+  - EXEC p_active
+  - UPDATE task SET status = 'C'; EXEC p_active
+
+- id: C32
+  category: builtin_functions
+  observability: silent
+  review: true
+  title: str_replace with NULL replacement (deletes matches)
+  notes: In ASE a NULL replacement removes the pattern; SQL Server REPLACE(..., NULL) returns NULL.
+  setup: ""
+  source: |
+    create procedure p_strip @s varchar(50)
+    as
+    select str_replace(@s, '-', null) as stripped
+  golden: |
+    CREATE PROCEDURE p_strip @s varchar(50)
+    AS
+    SELECT REPLACE(@s, '-', '') AS stripped;
+  calls:
+  - EXEC p_strip '555-12-3456'
+  - EXEC p_strip 'no dashes'
+  - EXEC p_strip NULL
+
+- id: C33
+  category: builtin_functions
+  observability: compile
+  review: true
+  title: inttohex built-in
+  setup: ""
+  source: |
+    create procedure p_hex @n int
+    as
+    select inttohex(@n) as hx
+  golden: |
+    CREATE PROCEDURE p_hex @n int
+    AS
+    SELECT CONVERT(varchar(8), CONVERT(varbinary(4), @n), 2) AS hx;
+  calls:
+  - EXEC p_hex 255
+  - EXEC p_hex 65536
+
+- id: C34
+  category: builtin_functions
+  observability: compile
+  review: true
+  title: hextoint built-in
+  setup: ""
+  source: |
+    create procedure p_unhex @h varchar(10)
+    as
+    select hextoint(@h) as n
+  golden: |
+    CREATE PROCEDURE p_unhex @h varchar(10)
+    AS
+    SELECT CONVERT(int, CONVERT(varbinary(4), @h, 1)) AS n;
+  calls:
+  - EXEC p_unhex '0x00000100'
+  - EXEC p_unhex '0x000000FF'
+
+- id: C35
+  category: datatypes
+  observability: compile
+  title: unsigned smallint column
+  setup: ""
+  source: |
+    create table port (id int, num unsigned smallint)
+  golden: |
+    CREATE TABLE port (id int, num int CHECK (num BETWEEN 0 AND 65535));
+  calls:
+  - INSERT port VALUES (1, 60000); SELECT id, num FROM port
+  - INSERT port VALUES (2, 0); SELECT id, num FROM port ORDER BY id
+
+- id: C36
+  category: datatypes
+  observability: compile
+  title: unsigned bigint column
+  notes: Values above 2^63-1 need decimal(20,0); mapping to bigint overflows.
+  setup: ""
+  source: |
+    create table counter (id int, val unsigned bigint)
+  golden: |
+    CREATE TABLE counter (id int, val decimal(20,0) CHECK (val >= 0));
+  calls:
+  - INSERT counter VALUES (1, 18000000000000000000); SELECT id, val FROM counter
+  - INSERT counter VALUES (2, 0); SELECT id, val FROM counter ORDER BY id
+
+- id: C37
+  category: datatypes
+  observability: compile
+  title: bigtime column
+  setup: ""
+  source: |
+    create table shift (id int, starts bigtime)
+  golden: |
+    CREATE TABLE shift (id int, starts time(6));
+  calls:
+  - INSERT shift VALUES (1, '12:34:56.123456'); SELECT id, starts FROM shift
+  - 'INSERT shift VALUES (2, ''00:00:00.000001''); SELECT id, starts FROM shift ORDER BY id'
+
+- id: C38
+  category: datatypes
+  observability: compile
+  title: unitext column
+  setup: ""
+  source: |
+    create table note (id int, body unitext null)
+  golden: |
+    CREATE TABLE note (id int, body nvarchar(max) NULL);
+  calls:
+  - INSERT note VALUES (1, N'na' + NCHAR(239) + N've'); SELECT id, body FROM note
+  - INSERT note VALUES (2, NULL); SELECT id, body FROM note ORDER BY id
+
+- id: C39
+  category: ddl_storage
+  observability: compile
+  title: max_rows_per_page storage option
+  setup: ""
+  source: |
+    create table hot (id int, v int) with max_rows_per_page = 10
+  golden: |
+    CREATE TABLE hot (id int, v int);
+  calls:
+  - INSERT hot VALUES (1, 2); SELECT id, v FROM hot
+  - INSERT hot VALUES (2, NULL); SELECT id, v FROM hot ORDER BY id
+
+- id: C40
+  category: ddl_storage
+  observability: compile
+  title: Lock scheme with exp_row_size option
+  setup: ""
+  source: |
+    create table wide (id int, v varchar(200) null) lock datarows with exp_row_size = 120
+  golden: |
+    CREATE TABLE wide (id int, v varchar(200) NULL);
+  calls:
+  - INSERT wide VALUES (1, 'x'); SELECT id, v FROM wide
+  - INSERT wide VALUES (2, REPLICATE('y', 200)); SELECT id, LEN(v) AS len FROM wide ORDER BY id
+
+- id: C41
+  category: transactions
+  observability: compile
+  title: "@@transtate inside an explicit transaction"
+  setup: ""
+  source: |
+    create procedure p_in_tran
+    as
+    begin tran
+    if @@transtate = 0
+      select 'active' as state
+    else
+      select 'none' as state
+    commit tran
+  golden: |
+    CREATE PROCEDURE p_in_tran
+    AS
+    BEGIN
+      BEGIN TRAN;
+      IF XACT_STATE() = 1
+        SELECT 'active' AS state;
+      ELSE
+        SELECT 'none' AS state;
+      COMMIT TRAN;
+    END;
+  calls:
+  - EXEC p_in_tran
+  - BEGIN TRAN; EXEC p_in_tran; COMMIT
+
+- id: C42
+  category: locking_hints
+  observability: compile
+  title: readpast hint
+  setup: |
+    CREATE TABLE queue (id int PRIMARY KEY, payload varchar(20));
+    INSERT queue VALUES (1,'a'),(2,'b');
+  source: |
+    create procedure p_next_job
+    as
+    select top 1 id, payload from queue readpast order by id
+  golden: |
+    CREATE PROCEDURE p_next_job
+    AS
+    SELECT TOP 1 id, payload FROM queue WITH (READPAST) ORDER BY id;
+  calls:
+  - EXEC p_next_job
+  - DELETE queue WHERE id = 1; EXEC p_next_job
+
+- id: C43
+  category: locking_hints
+  observability: compile
+  title: noholdlock hint
+  notes: >
+    noholdlock means read-committed behaviour; mapping it to NOLOCK (dirty reads) changes
+    isolation semantics even though single-session results match. Reviewers should inspect
+    candidates that use NOLOCK.
+  setup: |
+    CREATE TABLE acct (id int PRIMARY KEY, bal int);
+    INSERT acct VALUES (1,100),(2,250);
+  source: |
+    create procedure p_peek @id int
+    as
+    select bal from acct noholdlock where id = @id
+  golden: |
+    CREATE PROCEDURE p_peek @id int
+    AS
+    SELECT bal FROM acct WHERE id = @id;
+  calls:
+  - EXEC p_peek 1
+  - EXEC p_peek 99
+
+- id: C44
+  category: control
+  observability: control
+  title: Output parameter and return code (control)
+  setup: |
+    CREATE TABLE acct (id int PRIMARY KEY, bal int);
+    INSERT acct VALUES (1,100),(2,250);
+  source: |
+    create procedure p_bal @id int, @bal int output
+    as
+    select @bal = bal from acct where id = @id
+    if @@rowcount = 0
+      return 1
+    return 0
+  golden: |
+    CREATE PROCEDURE p_bal @id int, @bal int OUTPUT
+    AS
+    SELECT @bal = bal FROM acct WHERE id = @id
+    IF @@ROWCOUNT = 0
+      RETURN 1
+    RETURN 0
+  calls:
+  - DECLARE @b int, @rc int; EXEC @rc = p_bal 2, @b OUTPUT; SELECT @rc AS rc, @b AS bal
+  - DECLARE @b int, @rc int; EXEC @rc = p_bal 9, @b OUTPUT; SELECT @rc AS rc, @b AS bal
+
+- id: C45
+  category: control
+  observability: control
+  title: SET ROWCOUNT paging (control)
+  setup: |
+    CREATE TABLE evt (id int, ts int);
+    INSERT evt VALUES (1,30),(2,10),(3,20),(4,40);
+  source: |
+    create procedure p_latest
+    as
+    set rowcount 2
+    select id from evt order by ts desc
+    set rowcount 0
+  golden: |
+    CREATE PROCEDURE p_latest
+    AS
+    SET ROWCOUNT 2
+    SELECT id FROM evt ORDER BY ts DESC
+    SET ROWCOUNT 0
+  calls:
+  - EXEC p_latest
+  - DELETE evt WHERE id > 2; EXEC p_latest
+
+- id: C46
+  category: control
+  observability: control
+  title: CASE, ISNULL and temp-table aggregation (control)
+  setup: |
+    CREATE TABLE sale (id int, region varchar(5) NULL, amt int);
+    INSERT sale VALUES (1,'E',10),(2,NULL,5),(3,'W',7),(4,'E',3);
+  source: |
+    create procedure p_region_tot
+    as
+    select isnull(region, 'NA') as region, amt into #s from sale
+    select region,
+           sum(amt) as total,
+           case when sum(amt) > 10 then 'big' else 'small' end as size
+    from #s
+    group by region
+    order by region
+  golden: |
+    CREATE PROCEDURE p_region_tot
+    AS
+    SELECT ISNULL(region, 'NA') AS region, amt INTO #s FROM sale
+    SELECT region,
+           SUM(amt) AS total,
+           CASE WHEN SUM(amt) > 10 THEN 'big' ELSE 'small' END AS size
+    FROM #s
+    GROUP BY region
+    ORDER BY region
+  calls:
+  - EXEC p_region_tot
+  - UPDATE sale SET region = NULL; EXEC p_region_tot
+
+# ---------------------------------------------------------------- held-out composite procedures (v3)
+# Written AFTER the trap checklist (verimig/taxonomy.py) was frozen. Do not change taxonomy.py
+# when editing these; they measure how the checklist generalises to longer, multi-trap code.
+
+- id: C47
+  category: composite
+  observability: composite
+  split: heldout
+  review: true
+  title: Regional customer report (outer join, = NULL, RAISERROR)
+  setup: |
+    CREATE TABLE cust (id int PRIMARY KEY, name varchar(30), region varchar(5) NULL);
+    CREATE TABLE ord (id int PRIMARY KEY, cust_id int, amt money);
+    INSERT cust VALUES (1,'Ana','E'),(2,'Bo',NULL),(3,'Cy','W'),(4,'Di',NULL);
+    INSERT ord VALUES (10,1,100),(11,1,50),(12,3,20);
+  source: |
+    create procedure p_region_report @region varchar(5)
+    as
+    if @region != null and not exists (select 1 from cust where region = @region)
+    begin
+      raiserror 20010 "Unknown region %1!", @region
+      return 1
+    end
+    if @region = null
+      select c.id, c.name, sum(o.amt) as total
+      from cust c, ord o
+      where c.id *= o.cust_id
+        and c.region = null
+      group by c.id, c.name
+      order by c.id
+    else
+      select c.id, c.name, sum(o.amt) as total
+      from cust c, ord o
+      where c.id *= o.cust_id
+        and c.region = @region
+      group by c.id, c.name
+      order by c.id
+    return 0
+  golden: |
+    CREATE PROCEDURE p_region_report @region varchar(5)
+    AS
+    BEGIN
+      IF @region IS NOT NULL AND NOT EXISTS (SELECT 1 FROM cust WHERE region = @region)
+      BEGIN
+        RAISERROR('Unknown region %s', 16, 1, @region);
+        RETURN 1;
+      END;
+      IF @region IS NULL
+        SELECT c.id, c.name, SUM(o.amt) AS total
+        FROM cust c LEFT OUTER JOIN ord o ON c.id = o.cust_id
+        WHERE c.region IS NULL
+        GROUP BY c.id, c.name
+        ORDER BY c.id;
+      ELSE
+        SELECT c.id, c.name, SUM(o.amt) AS total
+        FROM cust c LEFT OUTER JOIN ord o ON c.id = o.cust_id
+        WHERE c.region = @region
+        GROUP BY c.id, c.name
+        ORDER BY c.id;
+      RETURN 0;
+    END;
+  calls:
+  - EXEC p_region_report 'E'
+  - EXEC p_region_report NULL
+  - EXEC p_region_report 'ZZ'
+
+- id: C48
+  category: composite
+  observability: composite
+  split: heldout
+  title: Restock batch (cursor status, str_replace, HOLDLOCK, double quotes)
+  setup: |
+    CREATE TABLE stock (sku varchar(20), qty int);
+    CREATE TABLE stock_log (sku varchar(20), note varchar(60));
+    INSERT stock VALUES ('AB-1',5),('CD-2',0),('EF-3',12);
+  source: |
+    create procedure p_restock @min int
+    as
+    declare @sku varchar(20), @q int, @clean varchar(20), @cnt int, @total int
+    select @cnt = 0
+    select @total = sum(qty) from stock holdlock
+    declare cs cursor for
+      select sku, qty from stock where qty < @min order by sku
+      for read only
+    open cs
+    fetch cs into @sku, @q
+    while (@@sqlstatus = 0)
+    begin
+      select @clean = str_replace(@sku, '-', '_')
+      insert stock_log values (@clean, "restock requested")
+      select @cnt = @cnt + 1
+      fetch cs into @sku, @q
+    end
+    close cs
+    deallocate cursor cs
+    select @cnt as restocked, @total as total_qty
+    select sku, note from stock_log order by sku
+  golden: |
+    CREATE PROCEDURE p_restock @min int
+    AS
+    BEGIN
+      DECLARE @sku varchar(20), @q int, @clean varchar(20), @cnt int, @total int;
+      SET @cnt = 0;
+      SELECT @total = SUM(qty) FROM stock WITH (HOLDLOCK);
+      DECLARE cs CURSOR LOCAL FAST_FORWARD FOR
+        SELECT sku, qty FROM stock WHERE qty < @min ORDER BY sku;
+      OPEN cs;
+      FETCH NEXT FROM cs INTO @sku, @q;
+      WHILE (@@FETCH_STATUS = 0)
+      BEGIN
+        SET @clean = REPLACE(@sku, '-', '_');
+        INSERT stock_log VALUES (@clean, 'restock requested');
+        SET @cnt = @cnt + 1;
+        FETCH NEXT FROM cs INTO @sku, @q;
+      END;
+      CLOSE cs;
+      DEALLOCATE cs;
+      SELECT @cnt AS restocked, @total AS total_qty;
+      SELECT sku, note FROM stock_log ORDER BY sku;
+    END;
+  calls:
+  - EXEC p_restock 6
+  - EXEC p_restock 0
+
+- id: C49
+  category: composite
+  observability: composite
+  split: heldout
+  title: Funds transfer (= NULL, RAISERROR with arguments, HOLDLOCK, transaction)
+  setup: |
+    CREATE TABLE acct (id int PRIMARY KEY, bal int NULL);
+    INSERT acct VALUES (1,100),(2,50),(3,NULL);
+  source: |
+    create procedure p_transfer @from int, @to int, @amt int
+    as
+    declare @bal int
+    select @bal = bal from acct holdlock where id = @from
+    if @bal = null
+    begin
+      raiserror 20020 "Account %1! has no balance", @from
+      return 2
+    end
+    if @bal < @amt
+    begin
+      raiserror 20021 "Insufficient funds in account %1!", @from
+      return 1
+    end
+    begin tran
+    update acct set bal = bal - @amt where id = @from
+    update acct set bal = bal + @amt where id = @to
+    commit tran
+    select id, bal from acct order by id
+    return 0
+  golden: |
+    CREATE PROCEDURE p_transfer @from int, @to int, @amt int
+    AS
+    BEGIN
+      DECLARE @bal int;
+      SELECT @bal = bal FROM acct WITH (HOLDLOCK) WHERE id = @from;
+      IF @bal IS NULL
+      BEGIN
+        RAISERROR('Account %d has no balance', 16, 1, @from);
+        RETURN 2;
+      END;
+      IF @bal < @amt
+      BEGIN
+        RAISERROR('Insufficient funds in account %d', 16, 1, @from);
+        RETURN 1;
+      END;
+      BEGIN TRAN;
+      UPDATE acct SET bal = bal - @amt WHERE id = @from;
+      UPDATE acct SET bal = bal + @amt WHERE id = @to;
+      COMMIT TRAN;
+      SELECT id, bal FROM acct ORDER BY id;
+      RETURN 0;
+    END;
+  calls:
+  - EXEC p_transfer 1, 2, 30
+  - EXEC p_transfer 2, 1, 500
+  - EXEC p_transfer 3, 1, 10
+  - EXEC p_transfer 9, 1, 10
+
+- id: C50
+  category: composite
+  observability: composite
+  split: heldout
+  title: Member table and insert procedure (unsigned, univarchar, bigdatetime, lock scheme)
+  setup: ""
+  source: |
+    create table member (
+      id unsigned int not null,
+      name univarchar(40) not null,
+      joined bigdatetime null
+    ) lock datarows
+    go
+    create procedure p_add_member @id unsigned int, @name univarchar(40)
+    as
+    insert member (id, name, joined) values (@id, @name, null)
+    select id, name from member where id = @id
+  golden: |
+    CREATE TABLE member (
+      id bigint NOT NULL CHECK (id >= 0),
+      name nvarchar(40) NOT NULL,
+      joined datetime2(6) NULL
+    );
+    GO
+    CREATE PROCEDURE p_add_member @id bigint, @name nvarchar(40)
+    AS
+    INSERT member (id, name, joined) VALUES (@id, @name, NULL);
+    SELECT id, name FROM member WHERE id = @id;
+  calls:
+  - DECLARE @n nvarchar(40) = N'Zo' + NCHAR(235); EXEC p_add_member 3000000000, @n
+  - EXEC p_add_member 7, N'Li'
+
+- id: C51
+  category: composite
+  observability: composite
+  split: heldout
+  review: true
+  title: Department view (GROUP BY extension, str_replace, = NULL count)
+  setup: |
+    CREATE TABLE emp (id int, dept varchar(10) NULL, code varchar(20), sal int);
+    INSERT emp VALUES (1,'ENG','E-01',100),(2,'ENG','E-02',140),(3,NULL,'X-03',90),(4,'OPS','O-04',80);
+  source: |
+    create procedure p_dept_view
+    as
+    select id, dept, str_replace(code, '-', '_') as code, sal, avg(sal) as dept_avg
+    from emp
+    group by dept
+    order by id
+    select count(*) as unassigned from emp where dept = null
+  golden: |
+    CREATE PROCEDURE p_dept_view
+    AS
+    BEGIN
+      SELECT id, dept, REPLACE(code, '-', '_') AS code, sal,
+             AVG(sal) OVER (PARTITION BY dept) AS dept_avg
+      FROM emp
+      ORDER BY id;
+      SELECT COUNT(*) AS unassigned FROM emp WHERE dept IS NULL;
+    END;
+  calls:
+  - EXEC p_dept_view
+  - UPDATE emp SET dept = 'ENG' WHERE id = 3; EXEC p_dept_view
+
+- id: C52
+  category: composite
+  observability: composite
+  split: heldout
+  compare_messages: true
+  title: Batched purge (SET ROWCOUNT loop, PRINT with %1!)
+  setup: |
+    CREATE TABLE audit_log (id int, ts int);
+    INSERT audit_log VALUES (1,1),(2,2),(3,3),(4,4),(5,5);
+  source: |
+    create procedure p_purge @before int
+    as
+    declare @rows int, @total int
+    select @total = 0
+    set rowcount 2
+    delete audit_log where ts < @before
+    select @rows = @@rowcount
+    while @rows > 0
+    begin
+      select @total = @total + @rows
+      delete audit_log where ts < @before
+      select @rows = @@rowcount
+    end
+    set rowcount 0
+    print "Purged %1! rows", @total
+    select count(*) as remaining from audit_log
+  golden: |
+    CREATE PROCEDURE p_purge @before int
+    AS
+    BEGIN
+      DECLARE @rows int, @total int;
+      SET @total = 0;
+      DELETE TOP (2) FROM audit_log WHERE ts < @before;
+      SET @rows = @@ROWCOUNT;
+      WHILE @rows > 0
+      BEGIN
+        SET @total = @total + @rows;
+        DELETE TOP (2) FROM audit_log WHERE ts < @before;
+        SET @rows = @@ROWCOUNT;
+      END;
+      PRINT 'Purged ' + CAST(@total AS varchar(12)) + ' rows';
+      SELECT COUNT(*) AS remaining FROM audit_log;
+    END;
+  calls:
+  - EXEC p_purge 4
+  - EXEC p_purge 100

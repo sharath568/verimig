@@ -1,0 +1,29 @@
+\section{Background and Related Work}\label{sec:related}
+
+\textit{Migration practice and tooling.} Manda~\cite{manda2026} surveys the drivers, a staged methodology,
+and the risk landscape of ASE-to-SQL Server projects, and recommends record-count and integrity checks
+during data validation. That work is descriptive and does not measure conversion correctness or evaluate
+automated tooling; VeriMig operationalises its conversion, testing, and validation stages as measurable
+gates. Commercial converters---SSMA~\cite{ssma} and the AWS Schema Conversion Tool~\cite{awssct}---translate
+schema and much procedural code and report what they cannot convert, while compatibility layers such as
+Babelfish~\cite{babelfish} avoid translation by emulating T-SQL on another engine. Rule-based transpilers
+such as SQLGlot~\cite{sqlglot} target query dialects rather than ASE procedural semantics.
+
+\textit{LLM-based dialect and code translation.} CrackSQL~\cite{zhou2025cracksql} combines rules with LLM
+translation for SQL dialects and reports that pure LLM translation hallucinates functions and fails on long
+queries. For general-purpose languages, TransCoder~\cite{roziere2020} evaluated translation by unit tests
+rather than token overlap, a point reinforced by the weak correlation between surface metrics such as
+CodeBLEU~\cite{ren2020codebleu} and functional correctness. Pan et~al.~\cite{pan2024lost} catalogue the bug
+classes LLMs introduce when translating code, many of which compile cleanly. Code-specialised open models
+\cite{roziere2023codellama,guo2024deepseekcoder,hui2024qwen} now run on workstations once quantized
+\cite{frantar2023gptq,llamacpp}, which makes on-premises translation feasible.
+
+\textit{Self-repair.} Execution and critique feedback improves generated code
+\cite{chen2024selfdebug,shinn2023reflexion,madaan2023selfrefine}. We adopt self-repair but deliberately
+restrict its feedback channel to signals available without an oracle (Section~\ref{sec:framework}).
+
+\textit{Testing and equivalence.} Differential testing~\cite{mckeeman1998} and its database variants, such
+as pivoted query synthesis and query partitioning~\cite{rigger2020pqs,rigger2020tlp}, expose divergence by
+comparing executions. Formal SQL provers such as Cosette~\cite{chu2017cosette} cover declarative fragments
+but not procedural Transact-SQL with cursors, messages, and errors, so we use observational equivalence
+over executed calls.

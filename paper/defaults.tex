@@ -1,0 +1,37 @@
+% ===========================================================================
+% defaults.tex -- result macros.
+% Every number in the paper is one of these macros. Each defaults to a red [TBD].
+% scripts/analyze.py writes tables/macros.tex, which overrides them with real values.
+% NEVER type a result number directly into a section file.
+% ===========================================================================
+\newcommand{\tbd}{\textcolor{red}{\textbf{[TBD]}}}
+% corpus
+\newcommand{\NumCases}{\tbd}\newcommand{\NumDiffCases}{\tbd}\newcommand{\NumCategories}{\tbd}
+\newcommand{\NumSilentCases}{\tbd}\newcommand{\NumControlCases}{\tbd}\newcommand{\NumReviewCases}{\tbd}
+\newcommand{\NumPolicyCases}{\tbd}\newcommand{\NumHeldout}{\tbd}
+% runs
+\newcommand{\NumModels}{\tbd}\newcommand{\NumRuns}{\tbd}\newcommand{\BestModel}{\tbd}
+\newcommand{\RulesEquiv}{\tbd}\newcommand{\PlainEquiv}{\tbd}\newcommand{\TrapEquiv}{\tbd}
+\newcommand{\AgenticEquiv}{\tbd}\newcommand{\PlainGOne}{\tbd}\newcommand{\AgenticGOne}{\tbd}
+\newcommand{\PlainSilent}{\tbd}\newcommand{\AgenticSilent}{\tbd}\newcommand{\PlainSilentGivenCompile}{\tbd}
+\newcommand{\PlainSilentClassEquiv}{\tbd}\newcommand{\AgenticSilentClassEquiv}{\tbd}
+\newcommand{\PlainCompileClassEquiv}{\tbd}\newcommand{\AgenticCompileClassEquiv}{\tbd}
+\newcommand{\McNemarDisc}{\tbd}\newcommand{\McNemarP}{\tbd}
+\newcommand{\RepAgreement}{\tbd}\newcommand{\RepairShare}{\tbd}
+\newcommand{\PlainTrapDisc}{\tbd}\newcommand{\PlainTrapP}{\tbd}\newcommand{\TrapAgentDisc}{\tbd}\newcommand{\TrapAgentP}{\tbd}
+\newcommand{\RulesAgentDisc}{\tbd}\newcommand{\RulesAgentP}{\tbd}
+\newcommand{\NumSingleCall}{\tbd}
+\newcommand{\CheckEffect}{\tbd}\newcommand{\CheckEffectCI}{\tbd}\newcommand{\RepairEffect}{\tbd}\newcommand{\RepairEffectCI}{\tbd}
+\newcommand{\HeldoutRulesEquiv}{\tbd}\newcommand{\HeldoutPlainEquiv}{\tbd}\newcommand{\HeldoutTrapEquiv}{\tbd}
+\newcommand{\HeldoutAgenticEquiv}{\tbd}\newcommand{\HeldoutAgenticGOne}{\tbd}\newcommand{\HeldoutTrapGOne}{\tbd}
+\newcommand{\HeldoutRepairShare}{\tbd}\newcommand{\HeldoutRuns}{\tbd}\newcommand{\NumDevCases}{\tbd}\newcommand{\MedianSrcLines}{\tbd}\newcommand{\GoSplitShare}{\tbd}\newcommand{\BestAgentSilentShare}{\tbd}
+% reconciliation
+\newcommand{\RecRowcount}{\tbd}\newcommand{\RecAggregate}{\tbd}\newcommand{\RecRowhash}{\tbd}
+
+% Author-to-author notes (blue). Remove every \note{} before submission.
+% Tip: uncomment the next line to hide all notes when checking page count.
+% \renewcommand{\note}[1]{}
+\newcommand{\note}[1]{\textcolor{blue}{\textit{[Note: #1]}}}
+
+% Include a generated table/figure only once analyze.py has produced it.
+\newcommand{\maybeinput}[1]{\IfFileExists{#1}{\input{#1}}{}}
