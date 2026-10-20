@@ -3,74 +3,114 @@
 \maybeinput{tables/main_results.tex}
 
 \textit{RQ1: gate pass rates.} Table~\ref{tab:main} reports every configuration. For the strongest model
-(\BestModel), behavioural equivalence rises from \PlainEquiv\% with the plain prompt to \TrapEquiv\% with the
-trap-aware prompt and \AgenticEquiv\% with the agent, against \RulesEquiv\% for the rule baseline; deployment
-success rises from \PlainGOne\% to \AgenticGOne\%. The checklist is the significant ingredient: it adds \CheckEffect{} points of
-case-level equivalence (95\% CI \CheckEffectCI; plain-only/trap-only correct \PlainTrapDisc, Holm-adjusted
-$\PlainTrapP$), whereas repair adds \RepairEffect{} (\RepairEffectCI; $\TrapAgentP$). The repair loop ran in
-\RepairShare\% of agentic runs; on these short cases it is a small, non-significant addition. The agent still
-beats the rule baseline ($\RulesAgentP$). Size does not help without the checklist: with the plain prompt the
-14B model outperforms both 32B variants. The 32B models translate near-literally, carrying ASE semantics
-across whenever the code still compiles, and in a few runs split a procedure with \texttt{GO}
-(\GoSplitShare\% of plain-prompt deployment failures)---plausibly prompted by the instruction to separate
-batches with \texttt{GO}. With the checklist, the 32B models lead, though their intervals overlap the 14B
-model's.
+(\BestModel), agreement with the references is \PlainEquiv\% with the plain prompt, \TrapEquiv\% with the
+checklist, and \AgenticEquiv\% with the repair loop; the rule baseline reaches \RulesEquiv\%. Deployment
+succeeds in \PlainGOne\% of plain-prompt runs and \AgenticGOne\% of repair-loop runs. The checklist accounts
+for most of the gain. For this model it adds \CheckEffect{} points (95\% CI \CheckEffectCI; cases correct
+only with the plain prompt versus only with the checklist: \PlainTrapDisc, Holm-adjusted $\PlainTrapP$),
+while the repair loop adds \RepairEffect{} points (\RepairEffectCI; $\TrapAgentP$). Because this model was
+selected from the results, we also tested every model: the checklist raised agreement for
+\CheckPositiveModels{} models, by \CheckEffectMin{} to \CheckEffectMax{} points, and the gain was significant
+after Holm correction for \CheckSigModels. The repair loop ran in \RepairShare\% of repair-loop runs.
 
-\textit{RQ2: the silent share.} Of plain-prompt translations from the strongest model that deployed,
-\PlainSilentGivenCompile\% were behaviourally wrong. Overall, \PlainSilent\% of its plain runs and
-\AgenticSilent\% of its agentic runs passed G1 and G2 yet failed G3. For the agent, \BestAgentSilentShare\%
-of all remaining failures are silent: the gates removed every failure they can observe, and what is left is
-exactly the class that only differential testing exposes.
+A larger model does not help without the checklist. With the plain prompt, the 14B model scores higher than
+both 32B variants. The 32B models tend to translate line by line and keep ASE semantics wherever the code
+still compiles; in a few runs they also placed \texttt{GO} inside a procedure body, which ends the
+procedure early (\GoSplitShare\% of plain-prompt deployment failures). The prompt asks for \texttt{GO}
+between batches, which may encourage this. With the checklist, the 14B and both 32B models score within one point of each other; the 32B models
+score highest only with the repair loop, and the 4-bit and 8-bit variants differ by less than their
+intervals, so the data do not distinguish them.
+
+\textit{RQ2: failures that pass compilation.} For the strongest model, \PlainSilentGivenCompile\% of the
+plain-prompt translations that deployed disagreed with the reference. Overall, \PlainSilent\% of its
+plain-prompt runs and \AgenticSilent\% of its repair-loop runs passed G1 and G2 but failed G3. A pipeline
+that checks only compilation and lint would accept these translations. With the repair loop,
+\BestAgentSilentShare\% of the model's remaining failures are of this kind.
 
 \maybeinput{tables/observability.tex}
 
-\textit{RQ3: what stays hard.} Table~\ref{tab:observability} splits equivalence by trap class, with a
-counter-intuitive result. The agent scores \AgenticSilentClassEquiv\% on traps \emph{labelled} silent
-(plain: \PlainSilentClassEquiv\%), because the checklist names them, but \AgenticCompileClassEquiv\% on
-compile-visible traps (plain: \PlainCompileClassEquiv\%), where the \emph{repair} of a construct that will
-not compile often produces code that compiles but behaves differently:
-the GROUP BY extension is ``fixed'' by grouping or partitioning per row (C10, C28), a legacy right outer
-join is rewritten with the wrong preserved table (C29), and unsigned types are narrowed to same-width
-signed types that overflow on real values (C35, C36). In other words, fixing a loud error is a common
-source of a quiet one.
+\textit{RQ3: where the failures come from.} Table~\ref{tab:observability} splits agreement by category
+type. With the checklist, which names the silent categories, the strongest model reaches
+\AgenticSilentClassEquiv\% on cases labelled silent (plain prompt: \PlainSilentClassEquiv\%) but
+\AgenticCompileClassEquiv\% on cases labelled compile (plain prompt: \PlainCompileClassEquiv\%). The
+remaining errors come from translating constructs that SQL Server rejects as written. The model replaces
+them with code that compiles but behaves differently: the GROUP BY extension becomes grouping or
+partitioning by row (C10, C28), a right outer join keeps the wrong table (C29), unsigned types become signed
+types of the same width and overflow on large values (C35, C36), and the transaction-mode check becomes
+\texttt{@@TRANCOUNT = 0}, which differs only under implicit transactions (C18). For this model, all of these
+errors (\BestSilentFirstAttempt\%) were already present in the first translation and were not introduced by
+the repair loop. Across all models, the loop ran in \RepairRuns{} runs; \RepairToPass{} of them ended in
+agreement, \RepairToSilent{} ended in a translation that passed G1 and G2 but failed G3, and
+\RepairStillLoud{} still failed G1 or G2.
 
 \maybeinput{tables/failures.tex}
 
-\textit{Error analysis.} Table~\ref{tab:failures} lists the cases that most often slipped past G1 and G2.
-Two further patterns recur across models. First, surface rewriting can defeat lint while keeping the bug:
-one model translated \texttt{mgr\_id = null} as \texttt{mgr\_id = convert(int, null)}, which passes the
-\texttt{= NULL} rule and still returns no rows (C08). Second, error translation is fragile:
-\texttt{raiserror (20001, 16, 1, ...)} raises SQL Server's built-in replication message 20001 rather than
-the intended text, and \texttt{THROW} rejects ASE's user-error range outright (C05).
+\textit{Error analysis.} Table~\ref{tab:failures} lists the cases that most often passed G1 and G2 but
+failed G3. Two further patterns appear across models. A rewrite can avoid a lint rule while keeping the
+error: one model translated \texttt{mgr\_id = null} as \texttt{mgr\_id = convert(int, null)}, which the
+lint does not match and which still returns no rows (C08). Error handling is also fragile:
+\texttt{raiserror (20001, 16, 1, ...)} raises SQL Server's built-in replication message 20001 instead of
+the intended text, and \texttt{THROW} rejects ASE's user-error numbers (C05).
+
+\textit{Test adequacy and interfaces.} The original inputs detected \MutKilledInitial{} of
+\MutTotalInitial{} mutants. We inspected every survivor. Some were equivalent mutants that no input can
+reveal, some changed a return code after a raised error, which G3 does not capture because the driver
+reports the error and drops the later result, and the rest showed missing boundary inputs: no order or sum
+exactly at a threshold, no transfer of the full balance, and only Latin characters in Unicode columns. We
+added inputs for those cases and re-scored all stored translations with them. The final inputs detect
+\MutKilled{} of \MutTotal{} mutants, or \MutScoreNonEquiv\% of the \MutNonEquiv{} that are not
+equivalent (Table~\ref{tab:mutants}).
+\IfFileExists{tables/mutants.tex}{\input{tables/mutants.tex}}{}
+No local-model translation that passed G3 differed from its reference in interface metadata
+(\IfaceDiffN). All \IfaceAnyN{} interface differences, mostly changed result column types and one
+procedure's parameter type, occurred in translations that also failed G3 (\IfaceFailN) or in the two
+policy cases (\IfacePolicyN).
+
+\maybeinput{tables/hosted_results.tex}
 
 \IfFileExists{figures/category_g3.pdf}{%
 \begin{figure}[t]\centering\includegraphics[width=\columnwidth]{figures/category_g3.pdf}
-\caption{G3 equivalence by trap category for the strongest model.}\label{fig:cat}\end{figure}}{}
+\caption{Agreement with the references by category for the strongest model; the number of cases is in
+parentheses.}\label{fig:cat}\end{figure}}{}
 
-\textit{Held-out procedures.} On the \NumHeldout{} composite procedures (\HeldoutRuns{} graded runs), the
-strongest model reaches \HeldoutPlainEquiv\% with the plain prompt, \HeldoutTrapEquiv\% with the checklist,
-and \HeldoutAgenticEquiv\% with the agent (rule baseline: \HeldoutRulesEquiv\%). Deployment success is
-\HeldoutTrapGOne\% for the trap-aware prompt and \HeldoutAgenticGOne\% for the agent, which repaired
-\HeldoutRepairShare\% of these longer translations.
-\note{After the held-out runs: one sentence on whether the checklist still helps on code it was not written
-from, and whether repair matters more here than on single-trap cases.}
+\textit{Held-out procedures.} On the \NumHeldout{} held-out procedures (\HeldoutRuns{} graded runs), the
+strongest model reaches \HeldoutPlainEquiv\% with the plain prompt (95\% CI \HeldoutPlainCI),
+\HeldoutTrapEquiv\% with the checklist (\HeldoutTrapCI), and \HeldoutAgenticEquiv\% with the repair loop
+(\HeldoutAgenticCI); the rule baseline reaches \HeldoutRulesEquiv\%. The checklist also helps on code it was
+not written from, but with six procedures the intervals are wide, and these results are preliminary. The two
+procedures the strongest model never translated correctly failed on details. In the regional report, every
+run translated both outer joins and all NULL tests correctly but raised the wrong error: one used
+\texttt{RAISERROR(20010, ...)}, which SQL Server maps to a built-in replication message, and two kept the
+\texttt{!} of ASE's \texttt{\%1!} placeholder in the message. In the department view, every run placed
+\texttt{GO} inside the procedure, so its second query was lost, and one run also grouped by row. The repair
+loop mattered only for the weakest model: \WeakModel{} needed \WeakAttempts{} attempts per procedure on
+average, which raised deployment from \WeakTrapGOne\% to \WeakAgenticGOne\% and agreement from
+\WeakTrapEquiv\% to \WeakAgenticEquiv\%. The strongest model's translations never needed repair
+(\HeldoutRepairShare\%).
 
-\textit{RQ4: size, quantization, and cost.} Fig.~\ref{fig:scaling} plots equivalence against mean latency
-per case. The 4-bit and 8-bit 32B models reach the same agentic equivalence, while the 8-bit model is
-slower, so on this hardware 4-bit quantization costs no measured accuracy. The 14B model trails slightly at lower latency,
-and the second model family is weakest under every converter. Every configuration translates a case in seconds on a single
-workstation.
+\textit{RQ4: size, quantization, and latency.} Fig.~\ref{fig:scaling} plots agreement against mean model
+latency per case. With the repair loop, the 14B model is slightly less accurate than the 32B models at lower latency, and
+DeepSeek-Coder-V2 Lite scores lowest under every converter. Every configuration translates a case in
+seconds on one workstation.
 
 \IfFileExists{figures/scaling.pdf}{%
 \begin{figure}[t]\centering\includegraphics[width=\columnwidth]{figures/scaling.pdf}
-\caption{Equivalence versus mean latency per case; labels mark agentic runs per model.}\label{fig:scaling}\end{figure}}{}
+\caption{Agreement versus mean model latency per case; labels mark the repair-loop result of each
+model.}\label{fig:scaling}\end{figure}}{}
 
 \maybeinput{tables/reconcile.tex}
 
-\textit{RQ5: reconciliation.} Across injected single-row faults, row counts detect \RecRowcount\%, the
-aggregate checksum \RecAggregate\%, and per-row hashing \RecRowhash\%, with no false positives on clean
-trials (Table~\ref{tab:reconcile}). Row counts see only faults that change cardinality, so the content
-faults typical of type-mapping errors---truncation, charset loss, rounding, precision loss---all pass a
-count-only check. The aggregate checksum catches those but misses every swap of values between rows, which is
-consistent with an order-insensitive, XOR-like combination of row checksums (the algorithm is not
-documented). Only per-row hashing detects every fault.
+\textit{RQ5: reconciliation.} Table~\ref{tab:reconcile} gives detection rates per fault type. Over the
+standard faults, row counts detect \RecRowcount\% (\RecRowcountN; 95\% CI \RecRowcountCI), the aggregate
+checksum \RecAggregate\% (\RecAggregateCI), the naive row hash \RecRowhashNaive\% (\RecRowhashNaiveCI), and
+the unambiguous row hash \RecRowhash\% (\RecRowhashCI), with \RecFalsePos{} false positives on clean trials.
+Row counts only see faults that change the number of rows, so truncation, character-set loss, rounding, and
+precision loss all pass a count-only check. The aggregate checksum misses values swapped between two rows,
+which is consistent with an order-insensitive combination of row checksums. On the adversarial faults the
+naive hash detects \RecRowhashNaiveAdv\% and the unambiguous hash \RecRowhashAdv\%: the naive encoding
+missed every trial in which a NULL became the text \texttt{<NULL>}, a value moved across the separator, or a
+value changed after its first 4{,}000 characters, and found only the duplicated key. The unambiguous hash
+took a median of \RecMsRowhash{}~ms for the 2{,}000-row table on both sides, against \RecMsNaive{}~ms for the
+naive hash. These rates hold for the
+tested faults only; each fault type is weighted equally, so they are not estimates of detection rates in a
+real migration.

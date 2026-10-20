@@ -1,29 +1,37 @@
 \section{Background and Related Work}\label{sec:related}
 
-\textit{Migration practice and tooling.} Manda~\cite{manda2026} surveys the drivers, a staged methodology,
-and the risk landscape of ASE-to-SQL Server projects, and recommends record-count and integrity checks
-during data validation. That work is descriptive and does not measure conversion correctness or evaluate
-automated tooling; VeriMig operationalises its conversion, testing, and validation stages as measurable
-gates. Commercial converters---SSMA~\cite{ssma} and the AWS Schema Conversion Tool~\cite{awssct}---translate
-schema and much procedural code and report what they cannot convert, while compatibility layers such as
-Babelfish~\cite{babelfish} avoid translation by emulating T-SQL on another engine. Rule-based transpilers
-such as SQLGlot~\cite{sqlglot} target query dialects rather than ASE procedural semantics.
+\textit{Migration practice and tooling.} Manda~\cite{manda2026} describes the drivers, a staged method,
+and the risks of ASE-to-SQL Server projects, and recommends record-count and integrity checks during data
+validation. That work is descriptive and does not measure conversion quality. VeriMig turns its conversion,
+testing, and validation stages into measurable checks. SSMA~\cite{ssma} and the AWS Schema Conversion
+Tool~\cite{awssct} convert schema and much procedural code and report what they cannot convert.
+Babelfish~\cite{babelfish} avoids translation by emulating Transact-SQL on another engine. SQLGlot~\cite{sqlglot}
+transpiles queries between dialects but does not handle ASE procedural code.
 
-\textit{LLM-based dialect and code translation.} CrackSQL~\cite{zhou2025cracksql} combines rules with LLM
-translation for SQL dialects and reports that pure LLM translation hallucinates functions and fails on long
-queries. For general-purpose languages, TransCoder~\cite{roziere2020} evaluated translation by unit tests
-rather than token overlap, a point reinforced by the weak correlation between surface metrics such as
-CodeBLEU~\cite{ren2020codebleu} and functional correctness. Pan et~al.~\cite{pan2024lost} catalogue the bug
-classes LLMs introduce when translating code, many of which compile cleanly. Code-specialised open models
-\cite{roziere2023codellama,guo2024deepseekcoder,hui2024qwen} now run on workstations once quantized
-\cite{frantar2023gptq,llamacpp}, which makes on-premises translation feasible.
+\textit{Validation of migrated objects.} SSMA also includes a tester that runs a source object on Sybase
+and the migrated object on SQL Server with the same inputs, and compares result sets, output parameters,
+and changes to table data~\cite{ssma}. This is close in spirit to our gate G3. The difference is the
+oracle: SSMA's tester needs a live source server, whereas VeriMig compares against reviewed reference
+translations, which allows testing where the source engine is not available but makes the results depend
+on the references being right. The two approaches are complementary, and with access to ASE the
+reference could be replaced by the source engine itself.
 
-\textit{Self-repair.} Execution and critique feedback improves generated code
-\cite{chen2024selfdebug,shinn2023reflexion,madaan2023selfrefine}. We adopt self-repair but deliberately
-restrict its feedback channel to signals available without an oracle (Section~\ref{sec:framework}).
+\textit{LLM-based translation.} CrackSQL~\cite{zhou2025cracksql} translates SQL queries between dialects by
+combining rules with LLMs and reports that LLMs alone hallucinate functions and struggle with long queries.
+It targets query statements. VeriMig targets procedural code with cursors, transactions, error handling,
+and messages, and evaluates translations by execution against references rather than proposing a new
+translation method. For general-purpose languages, TransCoder~\cite{roziere2020} evaluated translation with
+unit tests instead of token overlap, since surface metrics such as CodeBLEU~\cite{ren2020codebleu} track
+functional correctness poorly, and Pan et~al.~\cite{pan2024lost} catalogue the bugs LLMs introduce when
+translating code, many of which compile. Open code models~\cite{roziere2023codellama,guo2024deepseekcoder,hui2024qwen}
+now run on a workstation once quantized~\cite{frantar2023gptq,llamacpp}.
+
+\textit{Self-repair.} Feedback from execution or critique can improve generated
+code~\cite{chen2024selfdebug,shinn2023reflexion,madaan2023selfrefine}. We use a repair loop but limit its
+feedback to signals that would also exist in a real migration, where no reference is available.
 
 \textit{Testing and equivalence.} Differential testing~\cite{mckeeman1998} and its database variants, such
-as pivoted query synthesis and query partitioning~\cite{rigger2020pqs,rigger2020tlp}, expose divergence by
-comparing executions. Formal SQL provers such as Cosette~\cite{chu2017cosette} cover declarative fragments
-but not procedural Transact-SQL with cursors, messages, and errors, so we use observational equivalence
-over executed calls.
+as pivoted query synthesis and query partitioning~\cite{rigger2020pqs,rigger2020tlp}, find bugs by
+comparing executions. SQL equivalence provers such as Cosette~\cite{chu2017cosette} cover declarative
+queries but not procedural code with cursors, messages, and errors, so we compare observed behaviour on
+chosen inputs.

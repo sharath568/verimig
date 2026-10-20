@@ -3,7 +3,7 @@
 % Build:  latexmk -pdf main.tex     (or upload the whole paper/ folder to Overleaf)
 % Edit text in sections/*.tex, references in refs.bib. See HOW_TO_EDIT.md.
 % ===========================================================================
-\documentclass[conference]{IEEEtran}
+\documentclass[conference,a4paper]{IEEEtran}
 \IEEEoverridecommandlockouts
 \usepackage{cite}
 \usepackage{amsmath,amssymb}
@@ -18,6 +18,7 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning}
 
+\renewcommand{\IEEEkeywordsname}{Keywords}  % template label: "Keywords---"
 \input{defaults.tex}
 \IfFileExists{tables/macros.tex}{\input{tables/macros.tex}}{}
 
@@ -26,18 +27,23 @@
 
 \begin{document}
 
-\title{VeriMig: A Verification-Gated Agentic LLM Framework for Sybase ASE to SQL Server Migration}
+\title{VeriMig: A Verification-Gated LLM Framework for Sybase ASE to SQL Server Migration}
 
 \author{
-\IEEEauthorblockN{Sharath Chandra Kampili}
-\IEEEauthorblockA{Independent Researcher\\
-Texas, USA\\
-\note{email}}
-\and
 \IEEEauthorblockN{Prasad Manda}
 \IEEEauthorblockA{Independent Researcher\\
-USA\\
+United States\\
 prasadmanda.tech@gmail.com}
+\and
+\IEEEauthorblockN{Sharath Chandra Kampili}
+\IEEEauthorblockA{Independent Researcher\\
+United States\\
+sharathchandra.kampili@ieee.org}
+\and
+\IEEEauthorblockN{Pramod Begur Nagaraj}
+\IEEEauthorblockA{Independent Researcher\\
+United States\\
+pramodbn27@gmail.com}
 }
 
 \maketitle

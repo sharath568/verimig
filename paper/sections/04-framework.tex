@@ -1,9 +1,9 @@
 \section{The VeriMig Framework}\label{sec:framework}
 
-Fig.~\ref{fig:arch} shows the pipeline. An \emph{assessment} step attaches the trap checklist to each
-object. A \emph{converter} produces SQL Server code; we study a deterministic rule baseline, an LLM with a
-plain prompt, an LLM with a trap-aware prompt, and an agent that adds a repair loop. Candidates then pass
-through four gates.
+Fig.~\ref{fig:arch} shows the pipeline. Each ASE object is paired with the checklist of known
+differences, translated by a converter, and checked by four gates. We study four converters: a
+deterministic rule baseline, an LLM with a plain prompt, an LLM with the checklist added to the prompt, and
+the same LLM with a repair loop.
 
 \begin{figure}[t]
 \centering
@@ -11,15 +11,15 @@ through four gates.
   box/.style={draw, rounded corners=2pt, align=center, minimum height=7mm, inner sep=2pt},
   gate/.style={box, fill=blue!7, minimum width=13mm},
   arr/.style={-{Stealth[length=1.6mm]}}]
-\node[box, minimum width=17mm] (src) at (0,0) {ASE object\\+ trap checklist};
-\node[box, minimum width=19mm] (conv) at (22,0) {Converter\\rules/LLM/agent};
+\node[box, minimum width=17mm] (src) at (0,0) {ASE object\\+ checklist};
+\node[box, minimum width=19mm] (conv) at (22,0) {Converter\\rules/LLM/repair};
 \node[gate] (g1) at (42,0) {G1\\deploy};
 \node[gate] (g2) at (59,0) {G2\\residual lint};
 \node[gate] (g3) at (59,-14) {G3\\differential};
 \node[gate] (g4) at (40,-14) {G4\\reconcile};
-\node[box, fill=gray!10, minimum width=22mm] (ref) at (59,-27) {Reviewed reference\\translation (oracle)};
+\node[box, fill=gray!10, minimum width=22mm] (ref) at (59,-27) {Reviewed reference\\translation};
 \node[box, dashed, draw=red!70!black, text=red!70!black, minimum width=50mm] (fb) at (41,12)
-  {repair feedback: G1 error text + G2 findings only};
+  {repair feedback: G1 error text and G2 findings only};
 \draw[arr] (src) -- (conv);
 \draw[arr] (conv) -- (g1);
 \draw[arr] (g1) -- (g2);
@@ -30,43 +30,58 @@ through four gates.
 \draw[arr, dashed, red!70!black] (g2.north) -- (g2.north |- fb.south);
 \draw[arr, dashed, red!70!black] (conv.north |- fb.south) -- (conv.north);
 \end{tikzpicture}
-\caption{VeriMig pipeline. Dashed arrows are the only feedback the agent receives; the oracle used by G3
-never reaches the converter.}
+\caption{VeriMig pipeline. Dashed arrows show the only feedback the repair loop receives; the reference
+used by G3 never reaches the converter.}
 \label{fig:arch}
 \end{figure}
 
-\textbf{G1 (deploy).} The candidate is executed batch by batch in a fresh SQL Server database after the
-case setup, with session options pinned (\texttt{ANSI\_NULLS}, \texttt{QUOTED\_IDENTIFIER}, and
-\texttt{CONCAT\_NULL\_YIELDS\_NULL} ON) to reflect modern client defaults.
+\textbf{G1 (deploy).} The candidate is executed batch by batch in a new SQL Server database after the case
+setup. Session options are fixed (\texttt{ANSI\_NULLS}, \texttt{QUOTED\_IDENTIFIER}, and
+\texttt{CONCAT\_NULL\_YIELDS\_NULL} on), matching current client defaults.
 
-\textbf{G2 (residual lint).} Eighteen pattern rules detect ASE constructs that must not survive
-translation (e.g., \texttt{*=}, \texttt{@@sqlstatus}, \texttt{\%1!} placeholders, unbracketed lock hints,
-unsigned and \texttt{big*} types, lock-scheme clauses). Error-severity findings fail the gate;
-deprecated-but-valid types are recorded as warnings. Several silent categories (the GROUP BY extension,
-NULL concatenation, single-token double-quoted literals) are invisible to lint by construction.
+\textbf{G2 (residual lint).} Eighteen pattern rules detect ASE constructs that should not remain after
+translation, such as \texttt{*=}, \texttt{@@sqlstatus}, \texttt{\%1!} placeholders, unbracketed lock hints,
+unsigned and \texttt{big*} types, and lock-scheme clauses. Error-level findings fail the gate; deprecated
+but valid types are recorded as warnings. Some silent categories, such as the GROUP BY extension and NULL
+concatenation, cannot be detected by patterns.
 
-\textbf{G3 (differential).} The reference and the candidate are deployed in separate databases with
-identical setup, and every call runs in both.
+\textbf{G3 (differential).} The reference and the candidate are deployed in separate databases with the
+same setup, and every call runs in both. The candidate passes if, for every call, the following match:
+all result sets in order (rows are compared as multisets only when a case declares that order does not
+matter), with exact values and no rounding; the procedure's return code, captured by wrapping each
+single-procedure call; whether an error was raised and its message text; informational messages, where the
+case declares them; and the transaction state after the call (\texttt{@@TRANCOUNT} and
+\texttt{XACT\_STATE()}). After the last call, the final contents of every user table must also match, so
+side effects that no call selects are still checked; \texttt{rowversion} columns are excluded because their
+values are database counters. Column names and error numbers are not compared, since a correct translation
+may rename an output column or use a different user error number. Every procedure with output parameters
+has calls that read them back, which an automated test enforces. Interface metadata, meaning each
+procedure's parameter names, types, and output flags and the column types of each result set, is compared
+with the reference and reported separately, because a correct translation may legitimately widen a type
+(for example, \texttt{unsigned int} to \texttt{bigint}). The comparison shows agreement on the chosen inputs; it is not a proof of
+equivalence.
 
-\textit{Definition (observational equivalence).} Let $O_P(q)$ be the outcome of call $q$ against program
-$P$: the ordered list of result sets (normalised values; rows compared as multisets when the case declares
-no order), the error message text if an error is raised, and, where declared, informational messages.
-A candidate $C$ is equivalent to reference $R$ on case $k$ iff $O_C(q)=O_R(q)$ for every call $q$ of $k$.
-Column names are not compared. This is equivalence over the case's inputs, not a proof.
+\textbf{G4 (reconcile).} During data movement, VeriMig compares source and target tables. We evaluate four
+detectors: row counts; SQL Server's aggregate checksum, \texttt{CHECKSUM\_AGG(BINARY\_CHECKSUM(*))}, which
+combines a 32-bit checksum per row into one value by an algorithm Microsoft does not document in detail;
+and two per-row SHA-256 hashes. The naive hash joins column values with a separator and writes NULL as a
+marker string, which is ambiguous: NULL and the text \texttt{<NULL>} produce the same input, as do
+(\texttt{A|B}, \texttt{C}) and (\texttt{A}, \texttt{B|C}). The unambiguous hash writes each column as
+\texttt{N;} for NULL or \texttt{V}\emph{length}\texttt{:}\emph{value}\texttt{;} otherwise, converts values
+with \texttt{nvarchar(max)} so nothing is truncated, and uses explicit conversion styles for date, time,
+and money columns. Distinct rows therefore always produce distinct hash inputs. Rows are compared as a
+multiset of (key, hash) pairs, so missing and duplicate keys are also found.
 
-\textbf{G4 (reconcile).} At data-movement time, VeriMig compares source and target tables by row count, an
-aggregate checksum, and per-key SHA-256 hashes of a NULL-safe, type-aware serialisation.
-
-\textbf{Oracle-separated repair.} Algorithm~\ref{alg:agent} gives the agent loop. It receives only the
-SQL Server error text from G1 and the unresolved constructs from G2, never G3 outcomes. This mirrors
-deployment, where no oracle exists for a customer's procedure, and prevents reported equivalence from being
-optimised against the evaluation signal.
+\textbf{Oracle-separated repair.} Algorithm~\ref{alg:agent} gives the repair loop. It receives only the SQL
+Server error text from G1 and the remaining ASE constructs from G2, never G3 outcomes. In a real migration
+there is no reference for a customer's procedure, and keeping G3 out of the loop prevents the measured
+agreement from being tuned against the evaluation signal.
 
 \begin{algorithm}[t]
-\caption{Oracle-separated agentic translation}\label{alg:agent}
+\caption{Oracle-separated repair loop}\label{alg:agent}
 \footnotesize
 \begin{algorithmic}[1]
-\Require ASE object $s$, model $M$, trap checklist $T$, budget $K$
+\Require ASE object $s$, model $M$, checklist $T$, budget $K$
 \State $h \gets [\textsc{System}(T), \textsc{User}(s)]$
 \For{$i = 1$ \textbf{to} $K$}
   \State $c \gets \textsc{Extract}(M(h))$

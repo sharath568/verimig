@@ -1,29 +1,27 @@
 \section{Dialect-Trap Taxonomy and Corpus}\label{sec:taxonomy}
 
-\textit{Taxonomy.} We derived the taxonomy from the ASE and SQL Server language
+\textit{Taxonomy.} We built the taxonomy from the ASE and SQL Server language
 references~\cite{aseref,mstsql} and from the authors' migration experience. Each category is labelled by
-\emph{observability}: how an unconverted or naively converted construct manifests on SQL Server.
-\emph{Compile-visible} traps (C) fail at deployment; \emph{silent} traps (S) deploy and run but change
-behaviour; \emph{deprecation} traps (D) behave identically but use features scheduled for removal; and
-\emph{control} cases (K) contain already-portable code and measure harmful over-editing.
-Table~\ref{tab:taxonomy} summarises the categories and corpus.
+how an unconverted or naively converted construct shows up on SQL Server: \emph{compile} (C) traps fail at
+deployment, \emph{silent} (S) traps deploy and run but change behaviour, \emph{deprecation} (D) traps behave
+the same but use features scheduled for removal, and \emph{control} (K) cases contain portable code and
+measure harmful edits. Table~\ref{tab:taxonomy} lists the categories.
 
 \maybeinput{tables/corpus.tex}
 
-\textit{Corpus.} Each case contains (i) the ASE source object a converter sees, (ii) a SQL Server setup
-script with target-side tables and data, (iii) a reviewed reference translation, and (iv) one or more calls
-whose outcomes define behaviour, chosen to exercise boundary inputs such as NULL arguments, empty strings,
-missing keys, and month-end dates. The development corpus holds \NumDevCases{} cases, of which \NumSilentCases{} are silent and
-\NumControlCases{} are controls; each isolates one trap and is short. A further \NumHeldout{}
-\emph{held-out} composite procedures (7--22 lines, two to five trap categories each, such as a funds transfer or a
-batched purge) were written after the trap checklist was frozen and are reported separately. All cases are
-synthetic and written by the authors. Two cases encode a migration-policy decision rather than a single
-correct behaviour (the result shape that replaces \texttt{COMPUTE BY}, and whether to preserve ASE's
-empty-string-as-blank rule); these \NumPolicyCases{} are scored on G1/G2 only, and every other case is scored
-differentially on at least two inputs.
+\textit{Corpus.} Each case contains the ASE source object that a converter sees, a SQL Server setup script
+with tables and data, a reviewed reference translation, and two to four calls whose outcomes define the
+expected behaviour. The calls exercise NULL arguments, empty tables, missing keys, and edge values such as
+month-end dates. The development corpus has \NumDevCases{} cases, of which \NumSilentCases{} are silent and
+\NumControlCases{} are controls; each isolates one difference and is short. Two cases encode a migration
+policy rather than a single correct behaviour (the result shape that replaces \texttt{COMPUTE BY}, and
+whether to keep ASE's rule that an empty string is stored as a space); they are scored on G1 and G2 only.
+A further \NumHeldout{} held-out procedures of 7 to 22 lines, each combining two to five categories (for
+example a funds transfer and a batched purge), were written after the checklist used in prompts was
+frozen; a hash of the checklist text is recorded with the runs. All cases were written by the authors.
 
-Fig.~\ref{fig:trap} shows a silent trap. The ASE procedure keeps customers without large orders; a
-translation that moves \texttt{o.amt > 30} into \texttt{WHERE} compiles, passes lint, and drops them.
+Fig.~\ref{fig:trap} shows a silent case. The ASE procedure keeps customers without large orders. A
+translation that moves \texttt{o.amt > 30} into \texttt{WHERE} compiles, passes the lint, and drops them.
 
 \begin{figure}[t]
 \begin{lstlisting}
@@ -37,13 +35,20 @@ LEFT JOIN ord o ON c.id = o.cust_id WHERE o.amt > 30
 SELECT c.id, c.name, o.amt FROM cust c
 LEFT JOIN ord o ON c.id = o.cust_id AND o.amt > 30
 \end{lstlisting}
-\caption{A silent outer-join trap (corpus case C02).}
+\caption{A silent outer-join case (C02).}
 \label{fig:trap}
 \end{figure}
 
-\textit{Reference validation.} Every reference translation must deploy on SQL Server 2022 and produce its
-expected outcomes before any run starts; a failing reference aborts the experiment. For the
-\NumReviewCases{} cases whose expected behaviour depends on ASE-specific semantics, that behaviour is
-derived from the ASE 16 documentation~\cite{aseref} under default server options, and the cases are flagged
-in the artifact for re-checking against a live instance \note{if you execute them on ASE, say so here with
-the version, e.g. ``and confirmed by executing the sources on ASE 16.0 SP04''}.
+\textit{Reference translations.} Every reference must deploy on SQL Server and produce its outcomes before
+a run starts; otherwise the run stops. For \NumReviewCases{} cases the expected behaviour depends on
+ASE-specific semantics, which we checked against the official ASE manuals~\cite{sybaseTSQLug,sybaseBlocks}
+under default settings: a string concatenated with NULL keeps the string; with \texttt{ansinull off}, the
+default, \texttt{= NULL} is true for NULL values, also in \texttt{IF} statements; a \texttt{*=} join keeps the
+outer rows that meet the statement's restrictions; extended columns in \texttt{GROUP BY} and in scalar
+aggregates return every row; \texttt{str\_replace} with a NULL replacement deletes the pattern; and
+\texttt{hextoint} and \texttt{inttohex} behave as the references assume, except that the manuals do not
+state the letter case of \texttt{inttohex} output (C33 assumes upper case). The artifact links each case to
+the manual page it relies on. The check also showed that ASE stores an empty string as a single space; one
+input in C13 relied on that rule and was replaced. These cases were not executed on ASE, so for them the
+results show agreement with a documentation-checked reference, not demonstrated preservation of ASE
+behaviour.

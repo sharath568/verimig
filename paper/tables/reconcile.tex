@@ -1,21 +1,29 @@
 \begin{table}[t]
 \centering
-\caption{G4 detection rate (\%) for a single injected fault; \emph{clean} rows give the false-positive rate.}
+\caption{G4 detection rate (\%) per fault type over $n$ trials each. \emph{Rows}: target rows the fault changes; \emph{clean} gives false positives. Detectors: row count, aggregate checksum, naive row hash, unambiguous row hash. The last four faults are adversarial cases for the naive encoding.}
 \label{tab:reconcile}
-\footnotesize
-\begin{tabular}{lrrr}
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lrrrrrr}
 \toprule
-Fault & Row count & Aggregate checksum & Row hash \\
+Fault & $n$ & Rows & Count & Aggr. & Naive & Unamb. \\
 \midrule
-clean & 0.0 & 0.0 & 0.0 \\
-drop\_row & 100.0 & 100.0 & 100.0 \\
-dup\_row & 100.0 & 100.0 & 100.0 \\
-truncate\_text & 0.0 & 100.0 & 100.0 \\
-charset\_loss & 0.0 & 100.0 & 100.0 \\
-money\_round & 0.0 & 100.0 & 100.0 \\
-ts\_precision & 0.0 & 100.0 & 100.0 \\
-null\_to\_empty & 0.0 & 100.0 & 100.0 \\
-swap\_amounts & 0.0 & 0.0 & 100.0 \\
+clean & 30 & 0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+drop\_row & 30 & 1 & 100.0 & 100.0 & 100.0 & 100.0 \\
+dup\_row & 30 & 1 & 100.0 & 100.0 & 100.0 & 100.0 \\
+truncate\_text & 30 & 1 & 0.0 & 100.0 & 100.0 & 100.0 \\
+charset\_loss & 30 & 1 & 0.0 & 100.0 & 100.0 & 100.0 \\
+money\_round & 30 & 1 & 0.0 & 100.0 & 100.0 & 100.0 \\
+ts\_precision & 30 & 1 & 0.0 & 100.0 & 100.0 & 100.0 \\
+null\_to\_empty & 30 & 1 & 0.0 & 100.0 & 100.0 & 100.0 \\
+swap\_amounts & 30 & 2 & 0.0 & 0.0 & 100.0 & 100.0 \\
+\midrule
+null\_to\_literal & 30 & 1 & 0.0 & 100.0 & 0.0 & 100.0 \\
+delimiter\_shift & 30 & 1 & 0.0 & 100.0 & 0.0 & 100.0 \\
+long\_value\_tail & 30 & 1 & 0.0 & 100.0 & 0.0 & 100.0 \\
+key\_collision & 30 & 1 & 0.0 & 100.0 & 100.0 & 100.0 \\
+\midrule
+Median ms & & & 1 & 3 & 25 & 46 \\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -1,0 +1,15 @@
+date_utc: 2026-10-19T16:53:38Z
+chip: Apple M5 Max
+cpu_cores_total: 18
+memory_bytes: 68719476736
+Model Name: Mac Studio
+Model Identifier: Mac17,14
+Chip: Apple M5 Max
+Total Number of Cores: 18 (6 Super and 12 Performance)
+Memory: 64 GB
+macos: 27.0.1 (26A434)
+docker_version: 29.8.2
+container_platform_and_image: linux sha256:4402d880dd4c34bfa7d8705e56a86cd6c88da80a1f6bbbe741f999e76264a090
+image_repo_digest: mcr.microsoft.com/mssql/server@sha256:4402d880dd4c34bfa7d8705e56a86cd6c88da80a1f6bbbe741f999e76264a090
+ollama_version: ollama version is 0.40.1
+sqlserver_build: b'16.0.4295.3' b'CU27' b'Developer Edition (64-bit)'

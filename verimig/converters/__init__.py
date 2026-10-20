@@ -109,6 +109,61 @@ class Ollama:
         return r.json()
 
 
+class Anthropic:
+    dropped_temperature = False
+    """Hosted reference model via the Anthropic Messages API (key from ANTHROPIC_API_KEY).
+
+    Same interface as Ollama.chat. The API has no seed parameter, so repeated runs may differ more
+    than local runs; temperature matches the local setting.
+    """
+
+    def __init__(self, temperature: float = 0.2, timeout: int = 600, max_tokens: int = 2048):
+        import os
+        self.key = os.environ.get("ANTHROPIC_API_KEY")
+        if not self.key:
+            raise RuntimeError("ANTHROPIC_API_KEY is not set (add it to .env)")
+        self.temperature, self.timeout, self.max_tokens = temperature, timeout, max_tokens
+
+    def chat(self, model: str, messages: list[dict], seed: int) -> dict:
+        system = "\n\n".join(m["content"] for m in messages if m["role"] == "system")
+        conv = [{"role": m["role"], "content": m["content"]} for m in messages if m["role"] != "system"]
+        name = model.split(":", 1)[1] if ":" in model else model
+        t0 = time.perf_counter()
+        body = {"model": name, "max_tokens": self.max_tokens, "messages": conv}
+        if system:
+            body["system"] = system
+        if self.temperature is not None:
+            body["temperature"] = self.temperature
+        r = None
+        for attempt in range(6):
+            r = requests.post("https://api.anthropic.com/v1/messages", timeout=self.timeout, headers={
+                "x-api-key": self.key, "anthropic-version": "2023-06-01", "content-type": "application/json"},
+                json=body)
+            if r.status_code in (429, 500, 502, 503, 529):
+                time.sleep(min(60, 2 ** attempt * 5))
+                continue
+            if r.status_code == 400 and "temperature" in body and "temperature" in r.text.lower():
+                # some models fix their own sampling; fall back to the default and remember it
+                body.pop("temperature")
+                self.temperature = None
+                Anthropic.dropped_temperature = True
+                continue
+            if r.status_code >= 400:
+                raise RuntimeError(f"Anthropic API {r.status_code}: {r.text[:300]}")
+            break
+        data = r.json()
+        text = "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text")
+        usage = data.get("usage", {})
+        dur = time.perf_counter() - t0
+        return {"message": {"content": text}, "prompt_eval_count": usage.get("input_tokens", 0),
+                "eval_count": usage.get("output_tokens", 0), "eval_duration": int(dur * 1e9),
+                "temperature_used": self.temperature}
+
+
+def is_hosted(model: str) -> bool:
+    return model.startswith("anthropic:")
+
+
 def _user_msg(source: str) -> str:
     return f"Translate this SAP ASE code to SQL Server:\n```sql\n{source.strip()}\n```"
 

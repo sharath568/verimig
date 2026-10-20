@@ -34,15 +34,23 @@ def extract_sql(text: str) -> str:
 
 
 def normalize_value(v: Any) -> Any:
+    """Canonical, LOSSLESS text form of a value for comparison.
+
+    Numbers keep their exact value: trailing zeros are dropped (100.0000 == 100) but no rounding is
+    applied, so 1.0000001 and 1.0000002 stay different. A case may declare an explicit numeric
+    tolerance (field `tolerance`) when a difference is acceptable; nothing is tolerated by default.
+    """
     if v is None:
         return None
     if isinstance(v, bool):
-        return int(v)
-    if isinstance(v, (int, float, decimal.Decimal)):
-        d = decimal.Decimal(str(v))
-        q = d.quantize(decimal.Decimal("0.000001"), rounding=decimal.ROUND_HALF_EVEN)
-        s = format(q.normalize(), "f")
-        return "0" if s in ("-0", "") else s
+        return str(int(v))
+    if isinstance(v, (int, decimal.Decimal)):
+        d = decimal.Decimal(v)
+        if d == 0:
+            return "0"
+        return format(d.normalize(), "f")
+    if isinstance(v, float):
+        return repr(v)
     if isinstance(v, (_dt.datetime, _dt.date, _dt.time)):
         return v.isoformat()
     if isinstance(v, (bytes, bytearray, memoryview)):
@@ -56,6 +64,8 @@ class ExecOutcome:
     columns: list[list[str]] = field(default_factory=list)
     error: tuple[int, str] | None = None
     messages: list[str] = field(default_factory=list)
+    tran: list | None = None  # (@@TRANCOUNT, XACT_STATE()) observed right after the call
+    coltypes: list = field(default_factory=list)  # driver type code per column, per result set
 
     def to_dict(self) -> dict:
         return {
@@ -63,6 +73,7 @@ class ExecOutcome:
             "columns": self.columns,
             "error": list(self.error) if self.error else None,
             "messages": self.messages,
+            "tran": self.tran,
         }
 
 
@@ -126,6 +137,51 @@ class SqlServer:
         return True, None
 
     @staticmethod
+    def alive(conn) -> bool:
+        """False once the driver has dropped the connection (e.g. after a statement timeout)."""
+        try:
+            cur = conn.cursor()
+            cur.execute("SELECT 1")
+            cur.fetchall()
+            return True
+        except Exception:  # noqa: BLE001
+            return False
+
+    @staticmethod
+    def signatures(conn) -> dict:
+        """Parameter signature of every user procedure: [(name, type, length, precision, scale, is_output)]."""
+        cur = conn.cursor()
+        cur.execute(
+            "SELECT o.name, p.name, TYPE_NAME(p.user_type_id), p.max_length, p.precision, p.scale, p.is_output "
+            "FROM sys.objects o LEFT JOIN sys.parameters p ON p.object_id = o.object_id "
+            "WHERE o.type = 'P' AND o.is_ms_shipped = 0 ORDER BY o.name, p.parameter_id")
+        sig: dict[str, list] = {}
+        for proc, *rest in cur.fetchall():
+            sig.setdefault(proc, [])
+            if rest[0] is not None:
+                sig[proc].append(tuple(str(x) for x in rest))
+        return sig
+
+    @staticmethod
+    def snapshot(conn) -> dict:
+        """Final contents of every user table, as sorted lists of normalised rows.
+
+        rowversion/timestamp columns are excluded: their values are database counters, not data.
+        """
+        cur = conn.cursor()
+        cur.execute(
+            "SELECT t.name, c.name FROM sys.tables t JOIN sys.columns c ON c.object_id = t.object_id "
+            "WHERE t.is_ms_shipped = 0 AND c.system_type_id <> 189 ORDER BY t.name, c.column_id")
+        cols: dict[str, list[str]] = {}
+        for t, c in cur.fetchall():
+            cols.setdefault(t, []).append(c)
+        state = {}
+        for t, cs in cols.items():
+            cur.execute("SELECT " + ", ".join(f"[{c}]" for c in cs) + f" FROM [{t}]")
+            state[t] = sorted((tuple(normalize_value(v) for v in row) for row in cur.fetchall()), key=repr)
+        return state
+
+    @staticmethod
     def execute_capture(conn, sql: str) -> ExecOutcome:
         out = ExecOutcome()
 
@@ -142,6 +198,7 @@ class SqlServer:
             while True:
                 if cur.description:
                     out.columns.append([d[0] for d in cur.description])
+                    out.coltypes.append([d[1] for d in cur.description])
                     out.resultsets.append([tuple(normalize_value(v) for v in row) for row in cur.fetchall()])
                 if not cur.nextset():
                     break

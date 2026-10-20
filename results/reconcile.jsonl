@@ -1,270 +1,390 @@
-{"fault": "clean", "trial": 0, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 1, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 2, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 3, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 4, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 5, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 6, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 7, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 8, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 9, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 10, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 11, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 12, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 13, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 14, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 15, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 16, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 17, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 18, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 19, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 20, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 21, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 22, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 23, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 24, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 25, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 26, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 27, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 28, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "clean", "trial": 29, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": false}
-{"fault": "drop_row", "trial": 0, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 1, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 2, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 3, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 4, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 5, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 6, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 7, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 8, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 9, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 10, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 11, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 12, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 13, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 14, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 15, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 16, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 17, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 18, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 19, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 20, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 21, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 22, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 23, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 24, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 25, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 26, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 27, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 28, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "drop_row", "trial": 29, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 0, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 1, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 2, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 3, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 4, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 5, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 6, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 7, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 8, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 9, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 10, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 11, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 12, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 13, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 14, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 15, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 16, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 17, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 18, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 19, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 20, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 21, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 22, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 23, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 24, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 25, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 26, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 27, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 28, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "dup_row", "trial": 29, "rows": 2000, "rowcount": true, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 0, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 1, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 2, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 3, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 4, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 5, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 6, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 7, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 8, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 9, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 10, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 11, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 12, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 13, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 14, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 15, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 16, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 17, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 18, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 19, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 20, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 21, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 22, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 23, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 24, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 25, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 26, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 27, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 28, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "truncate_text", "trial": 29, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 0, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 1, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 2, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 3, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 4, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 5, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 6, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 7, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 8, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 9, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 10, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 11, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 12, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 13, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 14, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 15, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 16, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 17, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 18, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 19, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 20, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 21, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 22, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 23, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 24, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 25, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 26, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 27, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 28, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "charset_loss", "trial": 29, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 0, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 1, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 2, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 3, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 4, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 5, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 6, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 7, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 8, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 9, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 10, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 11, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 12, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 13, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 14, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 15, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 16, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 17, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 18, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 19, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 20, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 21, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 22, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 23, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 24, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 25, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 26, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 27, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 28, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "money_round", "trial": 29, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 0, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 1, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 2, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 3, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 4, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 5, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 6, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 7, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 8, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 9, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 10, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 11, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 12, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 13, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 14, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 15, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 16, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 17, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 18, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 19, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 20, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 21, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 22, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 23, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 24, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 25, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 26, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 27, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 28, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "ts_precision", "trial": 29, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 0, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 1, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 2, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 3, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 4, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 5, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 6, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 7, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 8, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 9, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 10, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 11, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 12, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 13, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 14, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 15, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 16, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 17, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 18, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 19, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 20, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 21, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 22, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 23, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 24, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 25, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 26, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 27, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 28, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "null_to_empty", "trial": 29, "rows": 2000, "rowcount": false, "aggregate": true, "rowhash": true}
-{"fault": "swap_amounts", "trial": 0, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 1, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 2, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 3, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 4, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 5, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 6, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 7, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 8, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 9, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 10, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 11, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 12, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 13, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 14, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 15, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 16, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 17, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 18, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 19, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 20, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 21, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 22, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 23, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 24, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 25, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 26, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 27, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 28, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
-{"fault": "swap_amounts", "trial": 29, "rows": 2000, "rowcount": false, "aggregate": false, "rowhash": true}
+{"fault": "clean", "trial": 0, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.8, "aggregate": 5.1, "rowhash_naive": 27.2, "rowhash": 49.0}}
+{"fault": "clean", "trial": 1, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.2}}
+{"fault": "clean", "trial": 2, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.6, "rowhash": 46.0}}
+{"fault": "clean", "trial": 3, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.8, "rowhash": 46.3}}
+{"fault": "clean", "trial": 4, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.5, "rowhash": 46.7}}
+{"fault": "clean", "trial": 5, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.6, "rowhash": 46.2}}
+{"fault": "clean", "trial": 6, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.7, "rowhash": 45.7}}
+{"fault": "clean", "trial": 7, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.2, "aggregate": 3.3, "rowhash_naive": 24.2, "rowhash": 46.2}}
+{"fault": "clean", "trial": 8, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 25.4, "rowhash": 46.6}}
+{"fault": "clean", "trial": 9, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.6, "rowhash": 45.9}}
+{"fault": "clean", "trial": 10, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.4, "rowhash": 45.9}}
+{"fault": "clean", "trial": 11, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.6, "rowhash": 45.5}}
+{"fault": "clean", "trial": 12, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.6, "rowhash": 46.0}}
+{"fault": "clean", "trial": 13, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.6, "rowhash": 45.7}}
+{"fault": "clean", "trial": 14, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.7, "rowhash": 46.2}}
+{"fault": "clean", "trial": 15, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.7, "rowhash": 46.4}}
+{"fault": "clean", "trial": 16, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 25.0, "rowhash": 46.2}}
+{"fault": "clean", "trial": 17, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.2, "aggregate": 3.2, "rowhash_naive": 24.7, "rowhash": 45.8}}
+{"fault": "clean", "trial": 18, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.9, "rowhash": 46.1}}
+{"fault": "clean", "trial": 19, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.4}}
+{"fault": "clean", "trial": 20, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 0.9, "aggregate": 3.4, "rowhash_naive": 24.7, "rowhash": 46.4}}
+{"fault": "clean", "trial": 21, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.8, "rowhash": 46.1}}
+{"fault": "clean", "trial": 22, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.4, "rowhash": 46.0}}
+{"fault": "clean", "trial": 23, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.3, "rowhash": 46.5}}
+{"fault": "clean", "trial": 24, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.2, "rowhash": 46.0}}
+{"fault": "clean", "trial": 25, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 46.3}}
+{"fault": "clean", "trial": 26, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.8, "rowhash": 45.9}}
+{"fault": "clean", "trial": 27, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 25.0, "rowhash": 46.6}}
+{"fault": "clean", "trial": 28, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.2, "aggregate": 3.3, "rowhash_naive": 24.6, "rowhash": 46.6}}
+{"fault": "clean", "trial": 29, "rows": 2000, "rows_changed": 0, "rowcount": false, "aggregate": false, "rowhash_naive": false, "rowhash": false, "ms": {"rowcount": 1.5, "aggregate": 3.9, "rowhash_naive": 25.0, "rowhash": 46.3}}
+{"fault": "drop_row", "trial": 0, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.4, "rowhash": 46.9}}
+{"fault": "drop_row", "trial": 1, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.2, "rowhash_naive": 24.4, "rowhash": 45.6}}
+{"fault": "drop_row", "trial": 2, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.2, "rowhash_naive": 24.3, "rowhash": 46.1}}
+{"fault": "drop_row", "trial": 3, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 47.9}}
+{"fault": "drop_row", "trial": 4, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.7, "rowhash": 46.1}}
+{"fault": "drop_row", "trial": 5, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.3, "rowhash": 45.9}}
+{"fault": "drop_row", "trial": 6, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.3, "rowhash": 46.3}}
+{"fault": "drop_row", "trial": 7, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.5, "rowhash": 46.2}}
+{"fault": "drop_row", "trial": 8, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.1, "rowhash": 45.9}}
+{"fault": "drop_row", "trial": 9, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.4, "rowhash": 46.1}}
+{"fault": "drop_row", "trial": 10, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 0.9, "aggregate": 3.5, "rowhash_naive": 24.6, "rowhash": 46.1}}
+{"fault": "drop_row", "trial": 11, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.1, "rowhash": 46.8}}
+{"fault": "drop_row", "trial": 12, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.4, "rowhash": 46.2}}
+{"fault": "drop_row", "trial": 13, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.7, "rowhash": 46.4}}
+{"fault": "drop_row", "trial": 14, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.2, "rowhash": 46.1}}
+{"fault": "drop_row", "trial": 15, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.3, "rowhash_naive": 24.2, "rowhash": 45.6}}
+{"fault": "drop_row", "trial": 16, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.0, "rowhash": 45.4}}
+{"fault": "drop_row", "trial": 17, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.6, "rowhash": 46.0}}
+{"fault": "drop_row", "trial": 18, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.2, "rowhash": 45.6}}
+{"fault": "drop_row", "trial": 19, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.0, "rowhash": 45.5}}
+{"fault": "drop_row", "trial": 20, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.5, "rowhash": 45.5}}
+{"fault": "drop_row", "trial": 21, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.6, "rowhash": 45.6}}
+{"fault": "drop_row", "trial": 22, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.6, "rowhash": 45.6}}
+{"fault": "drop_row", "trial": 23, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.1, "rowhash": 45.7}}
+{"fault": "drop_row", "trial": 24, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.6, "rowhash": 45.6}}
+{"fault": "drop_row", "trial": 25, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 25.0, "rowhash": 45.8}}
+{"fault": "drop_row", "trial": 26, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.5, "rowhash": 46.0}}
+{"fault": "drop_row", "trial": 27, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.3, "rowhash_naive": 24.2, "rowhash": 45.5}}
+{"fault": "drop_row", "trial": 28, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.0, "rowhash": 45.5}}
+{"fault": "drop_row", "trial": 29, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.3, "rowhash_naive": 24.5, "rowhash": 45.9}}
+{"fault": "dup_row", "trial": 0, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 0.9, "aggregate": 3.5, "rowhash_naive": 24.5, "rowhash": 45.8}}
+{"fault": "dup_row", "trial": 1, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.3, "rowhash_naive": 24.4, "rowhash": 45.3}}
+{"fault": "dup_row", "trial": 2, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.2, "rowhash": 45.4}}
+{"fault": "dup_row", "trial": 3, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.8, "rowhash_naive": 25.1, "rowhash": 46.3}}
+{"fault": "dup_row", "trial": 4, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.2, "rowhash_naive": 24.3, "rowhash": 45.7}}
+{"fault": "dup_row", "trial": 5, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.2, "rowhash_naive": 24.3, "rowhash": 46.1}}
+{"fault": "dup_row", "trial": 6, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.4, "rowhash_naive": 24.6, "rowhash": 46.2}}
+{"fault": "dup_row", "trial": 7, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.2, "rowhash": 46.5}}
+{"fault": "dup_row", "trial": 8, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.2, "rowhash": 45.9}}
+{"fault": "dup_row", "trial": 9, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.3, "rowhash_naive": 24.1, "rowhash": 45.6}}
+{"fault": "dup_row", "trial": 10, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.2, "rowhash": 45.5}}
+{"fault": "dup_row", "trial": 11, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 45.9}}
+{"fault": "dup_row", "trial": 12, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 4.1, "rowhash_naive": 25.9, "rowhash": 47.7}}
+{"fault": "dup_row", "trial": 13, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.0}}
+{"fault": "dup_row", "trial": 14, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.4, "rowhash": 46.2}}
+{"fault": "dup_row", "trial": 15, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 45.9}}
+{"fault": "dup_row", "trial": 16, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 29.2, "rowhash": 46.1}}
+{"fault": "dup_row", "trial": 17, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.2, "rowhash": 46.4}}
+{"fault": "dup_row", "trial": 18, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.2, "rowhash": 46.6}}
+{"fault": "dup_row", "trial": 19, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.2, "rowhash": 45.5}}
+{"fault": "dup_row", "trial": 20, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 0.8, "aggregate": 3.4, "rowhash_naive": 24.0, "rowhash": 45.7}}
+{"fault": "dup_row", "trial": 21, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.3, "rowhash_naive": 24.3, "rowhash": 45.9}}
+{"fault": "dup_row", "trial": 22, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.3, "rowhash_naive": 23.7, "rowhash": 45.5}}
+{"fault": "dup_row", "trial": 23, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.3, "rowhash_naive": 24.3, "rowhash": 45.8}}
+{"fault": "dup_row", "trial": 24, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.4, "rowhash": 46.0}}
+{"fault": "dup_row", "trial": 25, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.3, "rowhash_naive": 24.5, "rowhash": 45.9}}
+{"fault": "dup_row", "trial": 26, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.7, "rowhash": 45.6}}
+{"fault": "dup_row", "trial": 27, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.0, "rowhash": 45.5}}
+{"fault": "dup_row", "trial": 28, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.8}}
+{"fault": "dup_row", "trial": 29, "rows": 2000, "rows_changed": 1, "rowcount": true, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.8}}
+{"fault": "truncate_text", "trial": 0, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.4, "rowhash": 47.0}}
+{"fault": "truncate_text", "trial": 1, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.7}}
+{"fault": "truncate_text", "trial": 2, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.6, "rowhash_naive": 25.0, "rowhash": 46.5}}
+{"fault": "truncate_text", "trial": 3, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.5}}
+{"fault": "truncate_text", "trial": 4, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 26.1, "rowhash": 46.8}}
+{"fault": "truncate_text", "trial": 5, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.6}}
+{"fault": "truncate_text", "trial": 6, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.7}}
+{"fault": "truncate_text", "trial": 7, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.7, "rowhash": 47.0}}
+{"fault": "truncate_text", "trial": 8, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.6, "rowhash": 46.6}}
+{"fault": "truncate_text", "trial": 9, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.6, "rowhash_naive": 25.1, "rowhash": 46.7}}
+{"fault": "truncate_text", "trial": 10, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.7}}
+{"fault": "truncate_text", "trial": 11, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.9, "rowhash": 46.8}}
+{"fault": "truncate_text", "trial": 12, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.6, "rowhash_naive": 24.6, "rowhash": 46.7}}
+{"fault": "truncate_text", "trial": 13, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.4, "aggregate": 3.6, "rowhash_naive": 24.9, "rowhash": 46.8}}
+{"fault": "truncate_text", "trial": 14, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.8}}
+{"fault": "truncate_text", "trial": 15, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.4, "aggregate": 3.6, "rowhash_naive": 25.1, "rowhash": 46.6}}
+{"fault": "truncate_text", "trial": 16, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.8}}
+{"fault": "truncate_text", "trial": 17, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.9}}
+{"fault": "truncate_text", "trial": 18, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.8}}
+{"fault": "truncate_text", "trial": 19, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.7}}
+{"fault": "truncate_text", "trial": 20, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.8, "rowhash": 47.7}}
+{"fault": "truncate_text", "trial": 21, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.4, "rowhash": 46.2}}
+{"fault": "truncate_text", "trial": 22, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 4.0, "rowhash_naive": 25.5, "rowhash": 46.1}}
+{"fault": "truncate_text", "trial": 23, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.7, "rowhash": 46.5}}
+{"fault": "truncate_text", "trial": 24, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.8}}
+{"fault": "truncate_text", "trial": 25, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.8}}
+{"fault": "truncate_text", "trial": 26, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.8}}
+{"fault": "truncate_text", "trial": 27, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 31.7, "rowhash": 46.6}}
+{"fault": "truncate_text", "trial": 28, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 46.5}}
+{"fault": "truncate_text", "trial": 29, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.2, "rowhash": 46.5}}
+{"fault": "charset_loss", "trial": 0, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.5}}
+{"fault": "charset_loss", "trial": 1, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.3}}
+{"fault": "charset_loss", "trial": 2, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 24.6, "rowhash": 45.9}}
+{"fault": "charset_loss", "trial": 3, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.3, "rowhash_naive": 24.5, "rowhash": 46.5}}
+{"fault": "charset_loss", "trial": 4, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 24.6, "rowhash": 46.3}}
+{"fault": "charset_loss", "trial": 5, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.4, "rowhash": 45.9}}
+{"fault": "charset_loss", "trial": 6, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.5, "rowhash": 45.9}}
+{"fault": "charset_loss", "trial": 7, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.2, "rowhash": 46.9}}
+{"fault": "charset_loss", "trial": 8, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.4}}
+{"fault": "charset_loss", "trial": 9, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.8}}
+{"fault": "charset_loss", "trial": 10, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.7, "rowhash_naive": 25.0, "rowhash": 46.4}}
+{"fault": "charset_loss", "trial": 11, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.7, "rowhash": 46.6}}
+{"fault": "charset_loss", "trial": 12, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.3}}
+{"fault": "charset_loss", "trial": 13, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.0, "rowhash": 46.7}}
+{"fault": "charset_loss", "trial": 14, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.6}}
+{"fault": "charset_loss", "trial": 15, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.6}}
+{"fault": "charset_loss", "trial": 16, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.4, "rowhash": 46.8}}
+{"fault": "charset_loss", "trial": 17, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.6, "rowhash_naive": 25.0, "rowhash": 46.6}}
+{"fault": "charset_loss", "trial": 18, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.1, "rowhash": 47.1}}
+{"fault": "charset_loss", "trial": 19, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 46.9}}
+{"fault": "charset_loss", "trial": 20, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.8}}
+{"fault": "charset_loss", "trial": 21, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 47.7}}
+{"fault": "charset_loss", "trial": 22, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.3, "rowhash": 46.9}}
+{"fault": "charset_loss", "trial": 23, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.4, "rowhash": 46.7}}
+{"fault": "charset_loss", "trial": 24, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.6, "rowhash_naive": 25.4, "rowhash": 47.3}}
+{"fault": "charset_loss", "trial": 25, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.5}}
+{"fault": "charset_loss", "trial": 26, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.6}}
+{"fault": "charset_loss", "trial": 27, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.4, "aggregate": 3.9, "rowhash_naive": 26.4, "rowhash": 49.1}}
+{"fault": "charset_loss", "trial": 28, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.0, "rowhash": 47.1}}
+{"fault": "charset_loss", "trial": 29, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.7, "rowhash": 46.8}}
+{"fault": "money_round", "trial": 0, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.5}}
+{"fault": "money_round", "trial": 1, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.4}}
+{"fault": "money_round", "trial": 2, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.8}}
+{"fault": "money_round", "trial": 3, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.8}}
+{"fault": "money_round", "trial": 4, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 4.3, "rowhash_naive": 25.8, "rowhash": 46.8}}
+{"fault": "money_round", "trial": 5, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.1}}
+{"fault": "money_round", "trial": 6, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.6, "rowhash_naive": 25.2, "rowhash": 46.3}}
+{"fault": "money_round", "trial": 7, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.4}}
+{"fault": "money_round", "trial": 8, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 33.9, "rowhash": 46.3}}
+{"fault": "money_round", "trial": 9, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.6}}
+{"fault": "money_round", "trial": 10, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.5}}
+{"fault": "money_round", "trial": 11, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 47.1}}
+{"fault": "money_round", "trial": 12, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.4, "rowhash": 46.8}}
+{"fault": "money_round", "trial": 13, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.7, "rowhash_naive": 25.7, "rowhash": 46.5}}
+{"fault": "money_round", "trial": 14, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.3}}
+{"fault": "money_round", "trial": 15, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.3, "rowhash_naive": 24.6, "rowhash": 46.3}}
+{"fault": "money_round", "trial": 16, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.3}}
+{"fault": "money_round", "trial": 17, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.4, "rowhash_naive": 25.2, "rowhash": 46.4}}
+{"fault": "money_round", "trial": 18, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 46.1}}
+{"fault": "money_round", "trial": 19, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.2}}
+{"fault": "money_round", "trial": 20, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.4}}
+{"fault": "money_round", "trial": 21, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.5}}
+{"fault": "money_round", "trial": 22, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 46.5}}
+{"fault": "money_round", "trial": 23, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.8}}
+{"fault": "money_round", "trial": 24, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.5, "aggregate": 4.1, "rowhash_naive": 25.3, "rowhash": 47.0}}
+{"fault": "money_round", "trial": 25, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.6}}
+{"fault": "money_round", "trial": 26, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.5}}
+{"fault": "money_round", "trial": 27, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.2, "rowhash": 47.0}}
+{"fault": "money_round", "trial": 28, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.8}}
+{"fault": "money_round", "trial": 29, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.5}}
+{"fault": "ts_precision", "trial": 0, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.3, "rowhash": 46.8}}
+{"fault": "ts_precision", "trial": 1, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 25.2, "rowhash": 46.6}}
+{"fault": "ts_precision", "trial": 2, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.3}}
+{"fault": "ts_precision", "trial": 3, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.5}}
+{"fault": "ts_precision", "trial": 4, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.4, "rowhash": 48.2}}
+{"fault": "ts_precision", "trial": 5, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 47.6}}
+{"fault": "ts_precision", "trial": 6, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.6, "rowhash": 46.6}}
+{"fault": "ts_precision", "trial": 7, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 23.8, "rowhash": 45.9}}
+{"fault": "ts_precision", "trial": 8, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.3, "rowhash": 46.3}}
+{"fault": "ts_precision", "trial": 9, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 46.8}}
+{"fault": "ts_precision", "trial": 10, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.7}}
+{"fault": "ts_precision", "trial": 11, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.9}}
+{"fault": "ts_precision", "trial": 12, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 47.1}}
+{"fault": "ts_precision", "trial": 13, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.8}}
+{"fault": "ts_precision", "trial": 14, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.5}}
+{"fault": "ts_precision", "trial": 15, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.7}}
+{"fault": "ts_precision", "trial": 16, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.7, "rowhash": 46.3}}
+{"fault": "ts_precision", "trial": 17, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 47.1}}
+{"fault": "ts_precision", "trial": 18, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.8}}
+{"fault": "ts_precision", "trial": 19, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 33.1, "rowhash": 46.4}}
+{"fault": "ts_precision", "trial": 20, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.7, "rowhash": 46.6}}
+{"fault": "ts_precision", "trial": 21, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.5}}
+{"fault": "ts_precision", "trial": 22, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 25.0, "rowhash": 46.6}}
+{"fault": "ts_precision", "trial": 23, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.7}}
+{"fault": "ts_precision", "trial": 24, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 47.5}}
+{"fault": "ts_precision", "trial": 25, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.9}}
+{"fault": "ts_precision", "trial": 26, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.6}}
+{"fault": "ts_precision", "trial": 27, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.9}}
+{"fault": "ts_precision", "trial": 28, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.9}}
+{"fault": "ts_precision", "trial": 29, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 46.8}}
+{"fault": "null_to_empty", "trial": 0, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 47.2}}
+{"fault": "null_to_empty", "trial": 1, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.6, "rowhash": 47.4}}
+{"fault": "null_to_empty", "trial": 2, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 47.0}}
+{"fault": "null_to_empty", "trial": 3, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.6}}
+{"fault": "null_to_empty", "trial": 4, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 47.1}}
+{"fault": "null_to_empty", "trial": 5, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.6}}
+{"fault": "null_to_empty", "trial": 6, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.9}}
+{"fault": "null_to_empty", "trial": 7, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.5}}
+{"fault": "null_to_empty", "trial": 8, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.3}}
+{"fault": "null_to_empty", "trial": 9, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.4}}
+{"fault": "null_to_empty", "trial": 10, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.6, "rowhash": 47.0}}
+{"fault": "null_to_empty", "trial": 11, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.4, "rowhash": 49.5}}
+{"fault": "null_to_empty", "trial": 12, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.9}}
+{"fault": "null_to_empty", "trial": 13, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 47.0}}
+{"fault": "null_to_empty", "trial": 14, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.7, "rowhash_naive": 25.4, "rowhash": 47.0}}
+{"fault": "null_to_empty", "trial": 15, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.9}}
+{"fault": "null_to_empty", "trial": 16, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.2, "rowhash": 47.1}}
+{"fault": "null_to_empty", "trial": 17, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.8}}
+{"fault": "null_to_empty", "trial": 18, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 47.1}}
+{"fault": "null_to_empty", "trial": 19, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.3, "rowhash_naive": 24.9, "rowhash": 46.9}}
+{"fault": "null_to_empty", "trial": 20, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.6}}
+{"fault": "null_to_empty", "trial": 21, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.7}}
+{"fault": "null_to_empty", "trial": 22, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.6, "rowhash_naive": 25.0, "rowhash": 46.6}}
+{"fault": "null_to_empty", "trial": 23, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.5}}
+{"fault": "null_to_empty", "trial": 24, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.6}}
+{"fault": "null_to_empty", "trial": 25, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.9}}
+{"fault": "null_to_empty", "trial": 26, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.2}}
+{"fault": "null_to_empty", "trial": 27, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 46.5}}
+{"fault": "null_to_empty", "trial": 28, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.8}}
+{"fault": "null_to_empty", "trial": 29, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.7}}
+{"fault": "swap_amounts", "trial": 0, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 31.5, "rowhash": 46.2}}
+{"fault": "swap_amounts", "trial": 1, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 46.0}}
+{"fault": "swap_amounts", "trial": 2, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.3, "rowhash_naive": 24.8, "rowhash": 46.2}}
+{"fault": "swap_amounts", "trial": 3, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 47.2}}
+{"fault": "swap_amounts", "trial": 4, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.3}}
+{"fault": "swap_amounts", "trial": 5, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 4.1, "rowhash_naive": 25.5, "rowhash": 46.4}}
+{"fault": "swap_amounts", "trial": 6, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.7, "rowhash": 46.7}}
+{"fault": "swap_amounts", "trial": 7, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 47.8}}
+{"fault": "swap_amounts", "trial": 8, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.3}}
+{"fault": "swap_amounts", "trial": 9, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.3, "rowhash": 45.9}}
+{"fault": "swap_amounts", "trial": 10, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.2, "rowhash": 46.3}}
+{"fault": "swap_amounts", "trial": 11, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.5, "rowhash_naive": 24.7, "rowhash": 46.1}}
+{"fault": "swap_amounts", "trial": 12, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.3, "rowhash": 46.1}}
+{"fault": "swap_amounts", "trial": 13, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.5, "rowhash": 46.0}}
+{"fault": "swap_amounts", "trial": 14, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.3, "rowhash_naive": 24.3, "rowhash": 45.3}}
+{"fault": "swap_amounts", "trial": 15, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.6, "rowhash": 46.7}}
+{"fault": "swap_amounts", "trial": 16, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.7, "rowhash": 45.9}}
+{"fault": "swap_amounts", "trial": 17, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 24.5, "rowhash": 46.1}}
+{"fault": "swap_amounts", "trial": 18, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.6, "rowhash_naive": 24.8, "rowhash": 47.7}}
+{"fault": "swap_amounts", "trial": 19, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.4, "rowhash_naive": 24.6, "rowhash": 46.3}}
+{"fault": "swap_amounts", "trial": 20, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.7}}
+{"fault": "swap_amounts", "trial": 21, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.2}}
+{"fault": "swap_amounts", "trial": 22, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 47.3}}
+{"fault": "swap_amounts", "trial": 23, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.4}}
+{"fault": "swap_amounts", "trial": 24, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.5, "rowhash": 46.3}}
+{"fault": "swap_amounts", "trial": 25, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.4}}
+{"fault": "swap_amounts", "trial": 26, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.3}}
+{"fault": "swap_amounts", "trial": 27, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.4}}
+{"fault": "swap_amounts", "trial": 28, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.3, "rowhash_naive": 24.4, "rowhash": 46.0}}
+{"fault": "swap_amounts", "trial": 29, "rows": 2000, "rows_changed": 2, "rowcount": false, "aggregate": false, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 24.5, "rowhash": 46.1}}
+{"fault": "null_to_literal", "trial": 0, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.6, "rowhash": 46.3}}
+{"fault": "null_to_literal", "trial": 1, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.6, "rowhash_naive": 25.2, "rowhash": 47.0}}
+{"fault": "null_to_literal", "trial": 2, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.5}}
+{"fault": "null_to_literal", "trial": 3, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.7, "rowhash": 46.2}}
+{"fault": "null_to_literal", "trial": 4, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.3, "rowhash_naive": 24.8, "rowhash": 46.4}}
+{"fault": "null_to_literal", "trial": 5, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.3}}
+{"fault": "null_to_literal", "trial": 6, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.0}}
+{"fault": "null_to_literal", "trial": 7, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 45.9}}
+{"fault": "null_to_literal", "trial": 8, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.6, "rowhash_naive": 24.9, "rowhash": 46.7}}
+{"fault": "null_to_literal", "trial": 9, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.3}}
+{"fault": "null_to_literal", "trial": 10, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.2}}
+{"fault": "null_to_literal", "trial": 11, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 32.2, "rowhash": 46.8}}
+{"fault": "null_to_literal", "trial": 12, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.5}}
+{"fault": "null_to_literal", "trial": 13, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 24.7, "rowhash": 46.7}}
+{"fault": "null_to_literal", "trial": 14, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 46.4}}
+{"fault": "null_to_literal", "trial": 15, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.0}}
+{"fault": "null_to_literal", "trial": 16, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.5, "aggregate": 3.5, "rowhash_naive": 25.4, "rowhash": 46.5}}
+{"fault": "null_to_literal", "trial": 17, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.2}}
+{"fault": "null_to_literal", "trial": 18, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.1}}
+{"fault": "null_to_literal", "trial": 19, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 47.2}}
+{"fault": "null_to_literal", "trial": 20, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.7, "rowhash": 46.3}}
+{"fault": "null_to_literal", "trial": 21, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.5, "rowhash_naive": 25.5, "rowhash": 46.5}}
+{"fault": "null_to_literal", "trial": 22, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.8}}
+{"fault": "null_to_literal", "trial": 23, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.1}}
+{"fault": "null_to_literal", "trial": 24, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.6, "rowhash_naive": 25.6, "rowhash": 46.1}}
+{"fault": "null_to_literal", "trial": 25, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.4, "rowhash": 46.4}}
+{"fault": "null_to_literal", "trial": 26, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.1}}
+{"fault": "null_to_literal", "trial": 27, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.7, "rowhash_naive": 25.1, "rowhash": 48.2}}
+{"fault": "null_to_literal", "trial": 28, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.2}}
+{"fault": "null_to_literal", "trial": 29, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.4}}
+{"fault": "delimiter_shift", "trial": 0, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.2}}
+{"fault": "delimiter_shift", "trial": 1, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.5, "rowhash": 46.5}}
+{"fault": "delimiter_shift", "trial": 2, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.5, "rowhash": 46.6}}
+{"fault": "delimiter_shift", "trial": 3, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.5}}
+{"fault": "delimiter_shift", "trial": 4, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.1, "rowhash": 46.9}}
+{"fault": "delimiter_shift", "trial": 5, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.1}}
+{"fault": "delimiter_shift", "trial": 6, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.1}}
+{"fault": "delimiter_shift", "trial": 7, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.1}}
+{"fault": "delimiter_shift", "trial": 8, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.0}}
+{"fault": "delimiter_shift", "trial": 9, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.7}}
+{"fault": "delimiter_shift", "trial": 10, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.5}}
+{"fault": "delimiter_shift", "trial": 11, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.6, "rowhash_naive": 25.0, "rowhash": 46.4}}
+{"fault": "delimiter_shift", "trial": 12, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.2}}
+{"fault": "delimiter_shift", "trial": 13, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.3}}
+{"fault": "delimiter_shift", "trial": 14, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.3}}
+{"fault": "delimiter_shift", "trial": 15, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.1}}
+{"fault": "delimiter_shift", "trial": 16, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.2, "rowhash": 46.0}}
+{"fault": "delimiter_shift", "trial": 17, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 45.8}}
+{"fault": "delimiter_shift", "trial": 18, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.0}}
+{"fault": "delimiter_shift", "trial": 19, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.4}}
+{"fault": "delimiter_shift", "trial": 20, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.4}}
+{"fault": "delimiter_shift", "trial": 21, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.1}}
+{"fault": "delimiter_shift", "trial": 22, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 32.3, "rowhash": 46.5}}
+{"fault": "delimiter_shift", "trial": 23, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.3}}
+{"fault": "delimiter_shift", "trial": 24, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 47.0}}
+{"fault": "delimiter_shift", "trial": 25, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.3}}
+{"fault": "delimiter_shift", "trial": 26, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.1}}
+{"fault": "delimiter_shift", "trial": 27, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.1}}
+{"fault": "delimiter_shift", "trial": 28, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.8}}
+{"fault": "delimiter_shift", "trial": 29, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.5}}
+{"fault": "long_value_tail", "trial": 0, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 4.3, "rowhash_naive": 27.3, "rowhash": 47.0}}
+{"fault": "long_value_tail", "trial": 1, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.4, "rowhash_naive": 25.3, "rowhash": 46.7}}
+{"fault": "long_value_tail", "trial": 2, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.4}}
+{"fault": "long_value_tail", "trial": 3, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.3}}
+{"fault": "long_value_tail", "trial": 4, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.4}}
+{"fault": "long_value_tail", "trial": 5, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.2}}
+{"fault": "long_value_tail", "trial": 6, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.7}}
+{"fault": "long_value_tail", "trial": 7, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.1}}
+{"fault": "long_value_tail", "trial": 8, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.3, "rowhash": 46.5}}
+{"fault": "long_value_tail", "trial": 9, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 46.2}}
+{"fault": "long_value_tail", "trial": 10, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.7}}
+{"fault": "long_value_tail", "trial": 11, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.1}}
+{"fault": "long_value_tail", "trial": 12, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.3, "rowhash": 46.5}}
+{"fault": "long_value_tail", "trial": 13, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.2, "rowhash": 46.3}}
+{"fault": "long_value_tail", "trial": 14, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.2}}
+{"fault": "long_value_tail", "trial": 15, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.2}}
+{"fault": "long_value_tail", "trial": 16, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.9, "rowhash": 46.4}}
+{"fault": "long_value_tail", "trial": 17, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.0}}
+{"fault": "long_value_tail", "trial": 18, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.2, "rowhash": 46.3}}
+{"fault": "long_value_tail", "trial": 19, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.5, "rowhash": 46.3}}
+{"fault": "long_value_tail", "trial": 20, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.5}}
+{"fault": "long_value_tail", "trial": 21, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.2}}
+{"fault": "long_value_tail", "trial": 22, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.8, "rowhash": 46.1}}
+{"fault": "long_value_tail", "trial": 23, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.2, "rowhash": 46.7}}
+{"fault": "long_value_tail", "trial": 24, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.2}}
+{"fault": "long_value_tail", "trial": 25, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.1}}
+{"fault": "long_value_tail", "trial": 26, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.1}}
+{"fault": "long_value_tail", "trial": 27, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.8, "rowhash": 46.2}}
+{"fault": "long_value_tail", "trial": 28, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.4}}
+{"fault": "long_value_tail", "trial": 29, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": false, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 46.7}}
+{"fault": "key_collision", "trial": 0, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 24.7, "rowhash": 46.4}}
+{"fault": "key_collision", "trial": 1, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.4, "rowhash": 46.0}}
+{"fault": "key_collision", "trial": 2, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 24.5, "rowhash": 46.9}}
+{"fault": "key_collision", "trial": 3, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 31.4, "rowhash": 46.4}}
+{"fault": "key_collision", "trial": 4, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.0, "rowhash": 46.4}}
+{"fault": "key_collision", "trial": 5, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.4, "aggregate": 3.6, "rowhash_naive": 25.0, "rowhash": 47.1}}
+{"fault": "key_collision", "trial": 6, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.4, "rowhash": 47.0}}
+{"fault": "key_collision", "trial": 7, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.9}}
+{"fault": "key_collision", "trial": 8, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.2, "rowhash": 46.7}}
+{"fault": "key_collision", "trial": 9, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.8, "aggregate": 4.8, "rowhash_naive": 25.7, "rowhash": 47.2}}
+{"fault": "key_collision", "trial": 10, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.0, "aggregate": 3.6, "rowhash_naive": 25.3, "rowhash": 46.8}}
+{"fault": "key_collision", "trial": 11, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.5, "rowhash_naive": 32.8, "rowhash": 48.1}}
+{"fault": "key_collision", "trial": 12, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 47.0}}
+{"fault": "key_collision", "trial": 13, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.2, "rowhash": 46.8}}
+{"fault": "key_collision", "trial": 14, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.5, "rowhash_naive": 25.1, "rowhash": 47.1}}
+{"fault": "key_collision", "trial": 15, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.0, "rowhash": 46.7}}
+{"fault": "key_collision", "trial": 16, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.4, "aggregate": 3.7, "rowhash_naive": 24.9, "rowhash": 47.1}}
+{"fault": "key_collision", "trial": 17, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.9}}
+{"fault": "key_collision", "trial": 18, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.6}}
+{"fault": "key_collision", "trial": 19, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 25.1, "rowhash": 46.6}}
+{"fault": "key_collision", "trial": 20, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 25.2, "rowhash": 47.3}}
+{"fault": "key_collision", "trial": 21, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.4, "rowhash_naive": 25.6, "rowhash": 47.3}}
+{"fault": "key_collision", "trial": 22, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.4, "rowhash": 47.0}}
+{"fault": "key_collision", "trial": 23, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.3, "aggregate": 3.6, "rowhash_naive": 25.4, "rowhash": 47.1}}
+{"fault": "key_collision", "trial": 24, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.5, "aggregate": 3.7, "rowhash_naive": 25.7, "rowhash": 47.1}}
+{"fault": "key_collision", "trial": 25, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.1, "aggregate": 3.3, "rowhash_naive": 25.4, "rowhash": 47.1}}
+{"fault": "key_collision", "trial": 26, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 25.4, "rowhash": 46.8}}
+{"fault": "key_collision", "trial": 27, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.5, "rowhash_naive": 25.3, "rowhash": 46.8}}
+{"fault": "key_collision", "trial": 28, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 1.2, "aggregate": 3.4, "rowhash_naive": 24.9, "rowhash": 46.4}}
+{"fault": "key_collision", "trial": 29, "rows": 2000, "rows_changed": 1, "rowcount": false, "aggregate": true, "rowhash_naive": true, "rowhash": true, "ms": {"rowcount": 0.9, "aggregate": 3.5, "rowhash_naive": 25.4, "rowhash": 46.8}}

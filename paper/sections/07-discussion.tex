@@ -1,30 +1,56 @@
 \section{Discussion and Threats to Validity}\label{sec:discussion}
 
-\textit{Implications for practice.} Compile success is a weak acceptance criterion for LLM-translated
-database code, and so is lint: once the obvious constructs are gone, the remaining defects are precisely
-the ones neither check can see, and a model may even rewrite a flagged construct into an equivalent
-unflagged one. Three practices follow from our results. First, give the model the dialect knowledge
-explicitly; a trap checklist was worth more than a larger model or a repair loop. Second, treat every \emph{repair} of a
-compile error as suspect, since that is where the agent's residual silent errors arose; such objects
-deserve differential tests or human review before cut-over. Third, reconcile migrated data with per-row
-hashes rather than counts or aggregate checksums. All three run on a single workstation with local models,
-so source code never leaves the organisation.
+\textit{Implications for practice.} Compilation and lint are weak acceptance checks for LLM-translated
+database code. Once the obvious constructs are gone, most remaining errors are the kind neither check can
+see, and a model can rewrite a flagged construct into an equivalent one that the lint does not flag. Three
+practices follow from our results. First, give the model the dialect differences explicitly; the checklist
+helped more than a larger model or a repair loop. Second, treat code that replaces a construct SQL Server
+rejects as high risk, because that is where the strongest model's remaining errors were; such objects need
+differential tests or review before cut-over. Third, reconcile migrated data with per-row hashes over an
+unambiguous encoding; counts, aggregate checksums, and naive encodings all missed tested faults. All of this
+runs on one workstation with local models, so source code does not leave the organisation.
 
-\textit{Oracle errors.} We manually audited every silent failure. The audit found one reference
-translation (C06) that contradicted ASE's NULL-concatenation rule and no others; we corrected it and
-re-scored the stored translations without regenerating them. \textit{Corpus.} All cases are synthetic and written by the authors, who also wrote the trap checklist;
-development results for trap-aware prompting are therefore an upper bound. The held-out procedures,
-written after the checklist was frozen, estimate how it generalises, but six procedures are a small sample.
-\textit{Test adequacy.} Every differentially scored case runs on two to four inputs chosen to exercise NULLs,
-empty tables and edge values; a candidate can still match on these and diverge elsewhere, so G3 results
-remain optimistic.
-\textit{Baselines.} The rule baseline was written by the authors and is a lower bound; SSMA was not
-evaluated. \textit{Oracle.} References encode one acceptable target behaviour; a correct but differently shaped
-translation (e.g., reordered result sets) can fail G3, while renamed output columns are tolerated.
-\textit{Engine versions.} ASE semantics vary with version and server options (e.g., \texttt{ansinull},
-chained mode); we assume ASE 16 defaults and SQL Server 2022 with modern client defaults.
-\textit{Isolation semantics.} Single-session differential testing cannot observe concurrency effects such
-as a lock hint mapped to \texttt{NOLOCK}; such candidates need review.
-\textit{Model nondeterminism.} Seeds barely changed outcomes (\RepAgreement\% agreement), so we report case-level intervals rather than treating repetitions as independent.
-\textit{Reconciliation.} G4 runs with both tables on SQL Server; it measures detector sensitivity, not
-end-to-end transfer tooling.
+\textit{Model capability and corpus difficulty.} The hosted reference model agreed with the references on
+\HostedPlainEquiv\% of development cases with the plain prompt, on all of them with the checklist, and on
+every held-out procedure. The failures studied here are therefore mainly a property of the smaller models
+that can run on local hardware, and the corpus is not difficult enough to separate stronger models. We also
+cannot rule out that these well-documented dialect differences appear in the hosted model's training data.
+For organisations whose code cannot leave their network, the gates remain necessary; measuring the error
+rate of stronger models needs larger, independently written procedures.
+
+\textit{Source-engine validity.} G3 compares each candidate with a SQL Server reference translation, not
+with the ASE source. For \NumReviewCases{} cases the expected behaviour comes from the ASE manuals rather
+than execution on ASE. We checked each against the manual page it relies on, but the audit described
+below found one reference that was wrong, and one assumption (the letter case of \texttt{inttohex}) is not
+documented. Our
+results therefore measure agreement with reviewed references. Running the corpus on a specified ASE version
+with documented server settings is the most important next step.
+
+\textit{Oracle errors.} We checked every failure that passed G1 and G2, and every outcome that changed when
+inputs were added, by hand. This found one reference that contradicted ASE's rule for NULL concatenation
+(C06) and one added input that compared byte length where only content mattered (C16). We corrected both
+and re-scored the stored translations without regenerating them. After the reviews, we also replaced a
+comparison that rounded numbers to six decimal places with exact comparison and extended G3 to return
+codes, transaction state, and final table contents; all stored translations were re-scored with the
+corrected gate.
+
+\textit{Behavioural contract.} G3 compares error message text exactly, which may reject a translation whose
+error is acceptable to a user but worded differently. It does not test concurrency, so a lock hint mapped to
+\texttt{NOLOCK} passes if results match; such translations need review.
+
+\textit{Corpus and generalisation.} All cases are synthetic and were written by the authors, who also wrote
+the checklist, so the development results for the checklist are an upper bound. The held-out procedures
+were written after the checklist was frozen, but they are few, short, and by the same authors. Each case
+runs on two to four inputs; the mutation study shows how many seeded changes these inputs detect, but a
+translation can still agree on them and differ on others. Independently written
+procedures of production size are needed before drawing conclusions about real migrations.
+
+\textit{Baselines and models.} The rule baseline is a lower bound. SSMA was not evaluated: its converter
+runs on Windows, and its tester needs a live Sybase server, which we did not have.
+
+\textit{Statistics.} The strongest model was selected from the results, so tests on it are exploratory; the
+per-model tests in Section~\ref{sec:results} do not depend on this choice. Seeds rarely changed outcomes
+(\RepAgreement\% agreement), so intervals are computed over cases.
+
+\textit{Reconciliation.} Source and target tables are both on SQL Server, so the study does not cover
+cross-engine extraction or type conversion, and the fault mix is our choice.

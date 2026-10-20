@@ -38,8 +38,8 @@ def main():
             print("[sqlserver] WARNING: PRINT messages are not being captured by this pymssql build; "
                   "case C07 (compare_messages) would be scored without message comparison.")
         for c in load_corpus(ROOT / cfg["experiment"]["corpus"]):
-            outs = reference_outcomes(db, c)
-            shown = [o.resultsets or o.error or o.messages for o in outs]
+            ref = reference_outcomes(db, c)
+            shown = [o.resultsets or o.error or o.messages for o in ref.outcomes]
             print(f"  golden {c.id}: OK  -> {str(shown)[:110]}")
     except Exception as exc:  # noqa: BLE001
         ok = False
@@ -47,7 +47,7 @@ def main():
     try:
         url = cfg["ollama"]["url"]
         have = {m["name"] for m in requests.get(f"{url}/api/tags", timeout=10).json()["models"]}
-        for m in cfg["experiment"]["models"]:
+        for m in [m for m in cfg["experiment"]["models"] if not m.startswith("anthropic:")]:
             flag = "OK" if m in have else "MISSING -> ollama pull " + m
             ok &= m in have
             print(f"[ollama] {m}: {flag}")

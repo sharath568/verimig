@@ -22,8 +22,8 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from verimig.converters import (Ollama, convert_agentic, convert_imported,  # noqa: E402
-                                convert_llm, convert_rules)
+from verimig.converters import (Anthropic, Ollama, convert_agentic, convert_imported,  # noqa: E402
+                                convert_llm, convert_rules, is_hosted)
 from verimig.corpus import load_corpus  # noqa: E402
 from verimig.gates import evaluate, g1_compile_only, g2_lint, reference_outcomes  # noqa: E402
 from verimig.sqlutil import SqlServer  # noqa: E402
@@ -91,7 +91,8 @@ def main():
         sys.exit(f"Set {s['password_env']} (see .env.example)")
     db = SqlServer(s["host"], s["port"], s["user"], pwd)
     oc = cfg["ollama"]
-    client = Ollama(oc["url"], oc["temperature"], oc["num_ctx"], oc["timeout_s"])
+    local_client = Ollama(oc["url"], oc["temperature"], oc["num_ctx"], oc["timeout_s"])
+    hosted_client = None
 
     cases = load_corpus(ROOT / exp["corpus"])
     if args.cases:
@@ -124,6 +125,9 @@ def main():
                     if key in finished:
                         continue
                     seed = exp["base_seed"] + rep * 100
+                    if is_hosted(model) and hosted_client is None:
+                        hosted_client = Anthropic(oc["temperature"])
+                    client = hosted_client if is_hosted(model) else local_client
                     try:
                         if conv == "rules":
                             cr = convert_rules(c.source)
@@ -148,7 +152,7 @@ def main():
                             "g1": gr.g1, "g1_error": gr.g1_error, "g2": gr.g2,
                             "lint_errors": [f["rule"] for f in gr.g2_findings if f["severity"] == "error"],
                             "lint_warnings": [f["rule"] for f in gr.g2_findings if f["severity"] == "warn"],
-                            "g3": gr.g3, "g3_detail": gr.g3_detail,
+                            "g3": gr.g3, "g3_detail": gr.g3_detail, "iface_diff": gr.iface_diff,
                             "attempts": cr.attempts, "latency_s": round(cr.latency_s, 3),
                             "prompt_tokens": cr.prompt_tokens, "output_tokens": cr.output_tokens,
                             "gen_tokens_per_s": cr.gen_tokens_per_s,

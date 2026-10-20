@@ -1,9 +1,16 @@
 \section{Conclusion}\label{sec:conclusion}
 
-Compiling is a weak proxy for a correct database migration. VeriMig turns the conversion, testing, and
-data-validation stages of the established migration lifecycle into measurable gates, and shows how much of
-an LLM's apparent success depends on which gate judges it. Future work will extend the corpus with
-anonymised production procedures, add SSMA output as a converter, and run G3 directly against an ASE oracle.
+LLMs can translate much of an ASE code base to SQL Server, but a translation that compiles is often wrong
+in ways that only execution shows. In our study, an explicit checklist of dialect differences improved
+every local model, a repair loop added little, and nearly all remaining errors passed compilation and lint.
+A hosted model made almost none of these errors, which shows both how much depends on model capability
+and that harder benchmarks are needed.
+VeriMig makes these errors visible by comparing each translation with a reviewed reference on several inputs
+and by reconciling migrated data with an unambiguous row hash. Future work will validate the references on a
+live ASE server, add SSMA as a baseline, and extend the corpus with independently written production
+procedures.
 
 \section*{Artifact Availability}
-Code, corpus, prompts, raw run logs, and analysis scripts: \note{GitHub URL + Zenodo DOI}.
+Code, corpus, prompts, raw run logs, and analysis scripts are available at
+\url{https://github.com/sharath568/verimig}. Release \texttt{v1.1-camera-ready} matches the results in
+this paper; earlier results were superseded by the corrections described in Section~\ref{sec:discussion}.

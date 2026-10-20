@@ -1,0 +1,17 @@
+\begin{table}[t]
+\centering
+\caption{Mutants of the reference translations that the inputs did not detect, by reason.}
+\label{tab:mutants}
+\footnotesize
+\begin{tabular}{p{0.62\columnwidth}r}
+\toprule
+Reason & Mutants \\
+\midrule
+Return code after a raised error is not captured (G3 limitation) & 4 \\
+Lock hint; no effect in a single session (equivalent) & 3 \\
+Cursor only sums values; order cannot matter (equivalent) & 1 \\
+Rows are re-sorted by the final query (equivalent) & 1 \\
+Batch size of a purge loop; same rows deleted (equivalent) & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}

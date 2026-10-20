@@ -1,0 +1,13 @@
+# Hosted reference model (Anthropic API). Needs ANTHROPIC_API_KEY in .env.
+# The corpus is synthetic, so no confidential code leaves the machine.
+sqlserver: {host: localhost, port: 1433, user: sa, password_env: MSSQL_SA_PASSWORD}
+ollama: {url: "http://localhost:11434", temperature: 0.2, num_ctx: 8192, timeout_s: 900}
+experiment:
+  corpus: corpus/cases.yaml
+  output: results/runs.jsonl          # same log as the local runs; analysis separates hosted rows
+  repetitions: 3
+  base_seed: 1234
+  agentic_max_iters: 3
+  converters: [llm_plain, llm_trap, agentic]
+  imported_tools: []
+  models: ["anthropic:claude-sonnet-5-5"]

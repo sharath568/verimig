@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Fault-injection study for gate G4 (data reconciliation).
 
-Loads a seeded source table, then for each fault type and trial loads a target copy with a single
-injected fault (the hardest case: one row affected) and records which detectors notice it.
-'clean' trials (no fault) measure false positives.
+Loads a seeded source table, then for each fault type and trial loads a target copy with one injected
+fault and records which detectors notice it and how long each took. Most faults change one row;
+swap_amounts changes two (recorded in the `rows_changed` field). 'clean' trials
+(no fault) measure false positives. The adversarial faults null_to_literal, delimiter_shift and
+long_value_tail target the ambiguity of the naive row encoding.
 
   python scripts/reconcile_experiment.py --rows 2000 --trials 30
 """
@@ -29,13 +31,17 @@ from verimig.sqlutil import SqlServer  # noqa: E402
 
 DDL = """CREATE TABLE cust (
   id int NOT NULL, name nvarchar(60) NOT NULL, city varchar(40) NOT NULL,
-  amt money NOT NULL, ts datetime2(6) NOT NULL, note varchar(100) NULL)"""
+  amt money NOT NULL, ts datetime2(6) NOT NULL, note varchar(max) NULL)"""
 COLS = {"id": None, "name": None, "city": None, "amt": 2, "ts": 126, "note": None}
 NAMES = ["Ana Souza", "José Álvarez", "Zoë Martin", "Ångström AB", "Müller GmbH", "Nguyễn Văn An",
-         "Priya Raman", "Li Wei", "Ólafur Örn", "Chloé Dubois", "Sven Berg", "Amara Okafor"]
+         "Priya Raman", "Li Wei", "Ólafur Örn", "Chloé Dubois", "Sven Berg", "Amara Okafor",
+         "Pipe|Works", "Bar|Tools"]
 CITIES = ["Austin", "Dallas", "Hyderabad", "Berlin", "Lyon", "Oslo", "Lagos", "Hanoi"]
 FAULTS = ["clean", "drop_row", "dup_row", "truncate_text", "charset_loss", "money_round",
-          "ts_precision", "null_to_empty", "swap_amounts"]
+          "ts_precision", "null_to_empty", "swap_amounts",
+          # adversarial: target the ambiguity of the naive encoding, and duplicate keys
+          "null_to_literal", "delimiter_shift", "long_value_tail", "key_collision"]
+ROWS_CHANGED = {f: 1 for f in FAULTS} | {"clean": 0, "swap_amounts": 2}
 
 
 def make_rows(n: int, seed: int) -> list[list]:
@@ -49,7 +55,8 @@ def make_rows(n: int, seed: int) -> list[list]:
             rnd.choice(CITIES),
             decimal.Decimal(rnd.randint(0, 10_000_000)) / decimal.Decimal(10_000),
             base + dt.timedelta(seconds=rnd.randint(0, 30_000_000), microseconds=rnd.randint(1, 999_999)),
-            None if rnd.random() < 0.3 else f"note-{rnd.randint(0, 999)}",
+            None if rnd.random() < 0.3 else
+            ("L" * 6000 + f"-{i}") if rnd.random() < 0.05 else f"note-{rnd.randint(0, 999)}",
         ])
     return rows
 
@@ -77,6 +84,19 @@ def inject(rows: list[list], fault: str, rnd: random.Random) -> list[list]:
     elif fault == "null_to_empty":
         r = rnd.choice([r for r in rows if r[5] is None])
         r[5] = ""
+    elif fault == "null_to_literal":
+        r = rnd.choice([r for r in rows if r[5] is None])
+        r[5] = "<NULL>"
+    elif fault == "delimiter_shift":
+        r = rnd.choice([r for r in rows if "|" in r[1]])
+        head, tail = r[1].split("|", 1)
+        r[1], r[2] = head, tail + "|" + r[2]          # 'A|B','C' -> 'A','B|C'
+    elif fault == "long_value_tail":
+        r = rnd.choice([r for r in rows if r[5] and len(r[5]) > 4000])
+        r[5] = r[5][:-1] + ("X" if r[5][-1] != "X" else "Y")
+    elif fault == "key_collision":
+        a, b = rnd.sample(rows, 2)
+        b[0] = a[0]                                    # b now carries a's key; b's own key disappears
     elif fault == "swap_amounts":
         a, b = rnd.sample([r for r in rows], 2)
         while a[3] == b[3]:
@@ -128,7 +148,8 @@ def main():
                 rnd = random.Random(f"{args.seed}-{fault}-{t}")
                 load(tgt, inject(src_rows, fault, rnd))
                 res = detect(src, tgt, "cust", "id", COLS)
-                fh.write(json.dumps({"fault": fault, "trial": t, "rows": args.rows, **res}) + "\n")
+                fh.write(json.dumps({"fault": fault, "trial": t, "rows": args.rows,
+                                     "rows_changed": ROWS_CHANGED[fault], **res}) + "\n")
             print(f"[g4] {fault}: done")
     print(f"wrote {out.relative_to(ROOT)}")
 

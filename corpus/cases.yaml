@@ -81,6 +81,7 @@ cases:
   calls:
   - EXEC p_big_orders
   - INSERT ord VALUES (13,2,10),(14,2,40); EXEC p_big_orders
+  - 'INSERT ord VALUES (15,2,30); EXEC p_big_orders'
 
 - id: C03
   category: cursor_status
@@ -372,7 +373,7 @@ cases:
   calls:
   - EXEC p_clean 'AB-12-CD'
   - EXEC p_clean 'no-dash-at-all-'
-  - EXEC p_clean ''
+  - EXEC p_clean NULL
 
 - id: C14
   category: datatypes
@@ -401,6 +402,7 @@ cases:
   calls:
   - INSERT evt VALUES (1, '2026-01-02 03:04:05.123456', N'caf' + NCHAR(233)); SELECT id, ts, label FROM evt
   - 'INSERT evt VALUES (2, ''2026-12-31 23:59:59.999999'', N''end''); SELECT id, ts, label FROM evt ORDER BY id'
+  - 'INSERT evt VALUES (3, ''2026-06-01 00:00:00.000001'', N''x'' + NCHAR(20013)); SELECT id, label FROM evt ORDER BY id'
 
 - id: C16
   category: datatypes
@@ -414,7 +416,7 @@ cases:
     CREATE TABLE doc (id int, body varchar(max) NULL, blob varbinary(max) NULL, ver rowversion);
   calls:
   - INSERT doc (id, body, blob) VALUES (1, 'hello', 0x0A0B); SELECT id, body, blob FROM doc
-  - UPDATE doc SET body = REPLICATE(CAST('x' AS varchar(max)), 9000) WHERE id = 1; SELECT id, DATALENGTH(body) AS len FROM doc
+  - UPDATE doc SET body = REPLICATE(CAST('x' AS varchar(max)), 9000) WHERE id = 1; SELECT id, LEN(CAST(body AS varchar(max))) AS len FROM doc
 
 - id: C17
   category: ddl_storage
@@ -905,6 +907,7 @@ cases:
   calls:
   - INSERT note VALUES (1, N'na' + NCHAR(239) + N've'); SELECT id, body FROM note
   - INSERT note VALUES (2, NULL); SELECT id, body FROM note ORDER BY id
+  - 'INSERT note VALUES (3, N''x'' + NCHAR(20013)); SELECT id, body FROM note ORDER BY id'
 
 - id: C39
   category: ddl_storage
@@ -1081,6 +1084,7 @@ cases:
   calls:
   - EXEC p_region_tot
   - UPDATE sale SET region = NULL; EXEC p_region_tot
+  - 'UPDATE sale SET amt = -5 WHERE id = 1; EXEC p_region_tot'
 
 # ---------------------------------------------------------------- held-out composite procedures (v3)
 # Written AFTER the trap checklist (verimig/taxonomy.py) was frozen. Do not change taxonomy.py
@@ -1147,6 +1151,7 @@ cases:
   - EXEC p_region_report 'E'
   - EXEC p_region_report NULL
   - EXEC p_region_report 'ZZ'
+  - 'INSERT ord VALUES (13,2,10),(14,2,15); EXEC p_region_report NULL'
 
 - id: C48
   category: composite
@@ -1263,6 +1268,7 @@ cases:
   - EXEC p_transfer 2, 1, 500
   - EXEC p_transfer 3, 1, 10
   - EXEC p_transfer 9, 1, 10
+  - 'EXEC p_transfer 2, 1, 80'
 
 - id: C50
   category: composite
@@ -1295,6 +1301,8 @@ cases:
   calls:
   - DECLARE @n nvarchar(40) = N'Zo' + NCHAR(235); EXEC p_add_member 3000000000, @n
   - EXEC p_add_member 7, N'Li'
+  - 'DECLARE @n nvarchar(40) = N''Li'' + NCHAR(20013); EXEC p_add_member 8, @n'
+  - 'INSERT member (id, name, joined) VALUES (9, N''x'', ''2026-01-01 10:00:00.123456''); SELECT id, joined FROM member WHERE id = 9'
 
 - id: C51
   category: composite
@@ -1373,3 +1381,4 @@ cases:
   calls:
   - EXEC p_purge 4
   - EXEC p_purge 100
+  - 'INSERT audit_log VALUES (6,6),(7,7),(8,8); EXEC p_purge 7'

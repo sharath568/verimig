@@ -54,17 +54,32 @@ def main():
     print(f"backup -> {backup.relative_to(ROOT)}")
 
     refs = {cid: reference_outcomes(db, c) for cid, c in cases.items()}
-    out, changed, total = [], 0, 0
+    out, changed, total, failed = [], 0, 0, 0
     for line in path.read_text().splitlines():
         if not line.strip():
             continue
         r = json.loads(line)
         if r.get("case_id") in cases and "infra_error" not in r:
             total += 1
+            if total % 100 == 0:
+                print(f"  ... {total} rows re-scored", flush=True)
             c = cases[r["case_id"]]
-            gr = evaluate(db, c, r["candidate_sql"], refs[c.id])
+            gr = None
+            for attempt in range(2):  # one retry for transient container hiccups
+                try:
+                    gr = evaluate(db, c, r["candidate_sql"], refs[c.id])
+                    break
+                except Exception as exc:  # noqa: BLE001
+                    err = repr(exc)
+            if gr is None:
+                failed += 1
+                r["regrade_error"] = err[:300]
+                out.append(json.dumps(r))
+                print(f"[warn] {r['case_id']} {r['converter']} {r['model']} r{r['rep']}: {err[:120]}")
+                continue
+            r.pop("regrade_error", None)
             before = (r["g1"], r["g2"], r["g3"])
-            r.update({"g1": gr.g1, "g1_error": gr.g1_error, "g2": gr.g2, "g3": gr.g3, "g3_detail": gr.g3_detail,
+            r.update({"g1": gr.g1, "g1_error": gr.g1_error, "g2": gr.g2, "g3": gr.g3, "g3_detail": gr.g3_detail, "iface_diff": gr.iface_diff,
                       "lint_errors": [f["rule"] for f in gr.g2_findings if f["severity"] == "error"],
                       "lint_warnings": [f["rule"] for f in gr.g2_findings if f["severity"] == "warn"],
                       "regraded_utc": dt.datetime.now(dt.timezone.utc).isoformat()})
@@ -72,7 +87,9 @@ def main():
                 changed += 1
         out.append(json.dumps(r))
     path.write_text("\n".join(out) + "\n")
-    print(f"re-scored {total} rows for {sorted(cases)}; {changed} changed outcome")
+    print(f"re-scored {total} rows; {changed} changed outcome; {failed} could not be re-scored")
+    if failed:
+        print("Rows that could not be re-scored keep their old scores and carry a 'regrade_error' field.")
 
 
 if __name__ == "__main__":

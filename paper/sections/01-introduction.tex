@@ -1,33 +1,38 @@
 \section{Introduction}\label{sec:intro}
 
-Many organisations still run business-critical workloads on SAP ASE (formerly Sybase), and a common
-modernisation path is migration to Microsoft SQL Server. Practitioner guidance frames this path as a
-lifecycle of assessment, planning, schema and code conversion, data movement, testing, cut-over, and
-tuning~\cite{manda2026}. Vendor tools such as SQL Server Migration Assistant (SSMA)~\cite{ssma} automate
-part of the conversion step, yet stored procedures, triggers, and embedded SQL still require manual
-remediation, which is where most migration effort and risk concentrate.
+Many organisations still run business-critical applications on SAP ASE, formerly Sybase, and a common
+modernisation path is migration to Microsoft SQL Server. Practitioner guidance describes this path as a
+sequence of assessment, planning, schema and code conversion, data movement, testing, cut-over, and
+tuning~\cite{manda2026}. Vendor tools such as SQL Server Migration Assistant (SSMA)~\cite{ssma} convert
+much of the schema and code, but stored procedures, triggers, and embedded SQL still need manual work, and
+most of the effort and risk of a migration sits there.
 
-LLMs are an obvious candidate for that remediation, and an obvious risk. ASE and SQL Server share a
-Transact-SQL ancestry, so most source code is \emph{almost} valid on the target. The residual differences
-fall into two classes. Some fail loudly: an ASE \texttt{*=} outer join does not compile on SQL Server.
-Others fail silently: \texttt{WHERE col = NULL} matches NULLs under ASE's default settings but returns no
-rows in a SQL Server procedure created with \texttt{ANSI\_NULLS ON}; NULL concatenation yields a string in
-ASE and NULL in SQL Server; and moving an inner-table restriction of a legacy outer join from the join into
-\texttt{WHERE} quietly turns it into an inner join. A pipeline that checks only whether code compiles ships
-these defects to production, where they surface as wrong reports rather than errors.
+LLMs can help with that work, but their output is hard to trust. ASE and SQL Server both descend from the
+same Transact-SQL code base, so most ASE code is close to valid SQL Server code. Some of the remaining
+differences cause compile errors: the ASE \texttt{*=} outer join, for example, is rejected by SQL Server.
+Others do not. Under ASE's default settings, \texttt{WHERE col = NULL} matches NULL values, while a SQL
+Server procedure created with \texttt{ANSI\_NULLS ON} returns no rows for the same predicate. Concatenating
+a NULL with a string gives the string in ASE and NULL in SQL Server. Moving a condition on the inner table
+of an ASE outer join into the \texttt{WHERE} clause turns it into an inner join. A migration process that
+only checks whether translated code compiles will accept all of these.
 
-This paper asks how far locally hosted LLMs can be trusted for this task, and what verification makes their
-output safe to adopt. Running models locally matters in practice: migration source code often embeds
-business rules and data-handling logic that organisations will not send to external services. Our
-contributions are:
+This paper studies how well locally hosted LLMs translate ASE code to SQL Server and which checks are
+needed before their output can be used. We run the models locally because migration source code often
+contains business rules that organisations do not send to external services. Since no ASE server was
+available, all results measure agreement with reviewed reference translations; Section~\ref{sec:taxonomy}
+explains how the references were built and where they depend on documented ASE behaviour. The paper
+contributes:
 \begin{enumerate}
-\item A \textbf{dialect-trap taxonomy} of \NumCategories{} ASE$\rightarrow$SQL Server categories, each
-labelled by how an unconverted construct manifests, and an open \textbf{corpus} of \NumCases{} cases
-(\NumSilentCases{} silent) with reviewed reference translations (Section~\ref{sec:taxonomy}).
-\item \textbf{VeriMig}, a translation framework with four verification gates and an optional
-oracle-separated repair loop (Section~\ref{sec:framework}).
-\item An \textbf{empirical study} on commodity hardware comparing a rule baseline, plain and trap-aware
-prompting, and the gated agent across model sizes and quantization levels
+\item A taxonomy of \NumCategories{} categories of ASE-to-SQL Server differences, each labelled by how an
+unconverted construct shows up, and an open corpus of \NumDevCases{} development cases and \NumHeldout{}
+held-out procedures with reference translations (Section~\ref{sec:taxonomy}).
+\item VeriMig, a translation framework with four verification gates and a repair loop that never sees the
+reference outcomes (Section~\ref{sec:framework}).
+\item An evaluation of a rule baseline, plain and checklist prompting, and the repair loop across five
+model configurations, with an analysis of the failures that pass compilation
 (Sections~\ref{sec:setup}--\ref{sec:results}).
-\item A \textbf{fault-injection study} of data-reconciliation checks commonly used at cut-over.
+\item A fault-injection study of the data-reconciliation checks used at cut-over, including the encoding
+needed for row hashes to be reliable.
 \end{enumerate}
+We see the benchmark and the failure analysis as the main contributions. The framework combines known
+techniques; its value is in how they are arranged and measured for this migration.

@@ -1,0 +1,15 @@
+# Manual classification of mutants that the case inputs cannot detect (see scripts/mutation_study.py).
+# equivalent: no input can reveal the change under the single-session G3 contract.
+# harness_limitation: the change is observable in principle, but G3 does not capture it.
+equivalent:
+  - {case: C11, operator: drop_holdlock, reason: "lock hint; no effect in a single session"}
+  - {case: C48, operator: drop_holdlock, reason: "lock hint; no effect in a single session"}
+  - {case: C49, operator: drop_holdlock, reason: "lock hint; no effect in a single session"}
+  - {case: C03, operator: order_desc, reason: "cursor only sums values; order cannot matter"}
+  - {case: C48, operator: order_desc, reason: "rows are re-sorted by the final query"}
+  - {case: C52, operator: top_plus, reason: "batch size of a purge loop; same rows deleted"}
+harness_limitation:
+  - {case: C05, operator: return_code, reason: "return code after a raised error is not captured"}
+  - {case: C23, operator: return_code, reason: "return code after a raised error is not captured"}
+  - {case: C47, operator: return_code, reason: "return code after a raised error is not captured"}
+  - {case: C49, operator: return_code, reason: "return code after a raised error is not captured"}

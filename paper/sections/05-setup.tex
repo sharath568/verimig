@@ -1,48 +1,69 @@
 \section{Experimental Setup}\label{sec:setup}
 
 \textit{Research questions.}
-\textbf{RQ1:} How often do translations from each converter deploy, pass lint, and behave equivalently?
-\textbf{RQ2:} How large is the \emph{silent} share---translations passing G1 and G2 but failing G3?
-\textbf{RQ3:} Which trap classes and categories remain hard?
-\textbf{RQ4:} How do model size and quantization trade accuracy against latency on local hardware?
-\textbf{RQ5:} Which reconciliation checks detect single-row data faults?
+\textbf{RQ1:} How often do translations from each converter deploy, pass the lint, and agree with the
+reference?
+\textbf{RQ2:} What share of translations passes G1 and G2 but fails G3?
+\textbf{RQ3:} Which categories remain hard, and where do the remaining failures come from?
+\textbf{RQ4:} How do model size and quantization affect agreement and latency on local hardware?
+\textbf{RQ5:} Which reconciliation checks detect injected data faults?
 
-\textit{Platform.} All experiments run on one Apple Mac Studio \note{chip, CPU/GPU cores, unified memory:
-run ``sysctl -n machdep.cpu.brand\_string; sysctl -n hw.memsize''} under macOS 27.0.1.
-SQL Server 2022 Developer Edition (CU27) runs in Docker, and models are served by Ollama~\cite{ollama} on
-llama.cpp~\cite{llamacpp}. We evaluate \NumModels{} model configurations from two code-model families~\cite{hui2024qwen,deepseek2024v2}:
-Qwen2.5-Coder at 7B, 14B, and 32B (4-bit Q4\_K\_M) plus the 32B model at 8-bit (Q8\_0), and
-DeepSeek-Coder-V2 Lite (16B MoE, Q4\_0), served by Ollama 0.40.1; model digests are recorded in the
-artifact. Hosted frontier models are excluded by design: the setting is code that may not leave the
-organisation.
+\textit{Platform.} All experiments ran on one Mac Studio (\HwChip) with \HwMemory{} of unified memory
+(\HwCores{} cores) under macOS \HwMacOS. SQL Server 2022 Developer Edition (build \SqlBuild) ran in Docker
+\DockerVersion{} as the \texttt{amd64} image \texttt{mcr.microsoft.com/mssql/server} (digest \texttt{\ImageDigest}) under
+Rosetta emulation. Models were served by Ollama~\cite{ollama}, which
+uses llama.cpp~\cite{llamacpp}. We evaluate \NumModels{} configurations from two model
+families~\cite{hui2024qwen,deepseek2024v2}: Qwen2.5-Coder at 7B, 14B, and 32B with 4-bit quantization
+(Q4\_K\_M), the 32B model with 8-bit quantization (Q8\_0), and DeepSeek-Coder-V2 Lite, a 16B
+mixture-of-experts model with 4-bit quantization (Q4\_0). Model digests are recorded in the artifact.
+\maybeinput{tables/hosted_setup.tex}
 
-\textit{Converters.} The rule baseline applies 22 regular-expression rewrites plus quote normalisation, covering the lint-visible
-categories; it intentionally does not restructure joins or grouping. The plain prompt asks for a
-behaviour-preserving translation; the trap-aware prompt appends the checklist; the agent runs
-Algorithm~\ref{alg:agent} with $K=3$. Temperature is 0.2 with fixed seeds, and every LLM configuration
-runs three repetitions per case; the rule baseline is deterministic.
+\textit{Converters.} The rule baseline applies 22 regular-expression rewrites and normalises quotes; it
+covers the lint-visible categories and deliberately does not restructure joins or grouping, so it is a
+lower bound rather than a substitute for a commercial converter. The plain prompt asks for a translation
+that preserves behaviour. The checklist prompt adds one line per G2 rule and three lines for silent
+categories that the lint cannot detect. The repair loop runs Algorithm~\ref{alg:agent} with $K=3$.
+Temperature is 0.2 with fixed seeds, and each LLM configuration runs three times per case; the rule baseline
+is deterministic and runs once. The held-out set therefore has 276 graded runs: 6 procedures, each
+translated by 5 models with 3 LLM converters 3 times (270), plus 6 rule-baseline runs.
 
-\textit{Prompts.} Both prompts share the instruction below (abridged); the trap-aware variant appends one line per
-G2 rule and three lines for the lint-invisible silent categories (full text in the artifact).
+\textit{Prompts.} Both prompts share the instruction below (shortened); the full text is in the artifact.
 \begin{lstlisting}
-You are an expert database migration engineer. Translate
-SAP ASE (Sybase) Transact-SQL into Microsoft SQL Server 2022
-Transact-SQL. Preserve the runtime behaviour of the original
-exactly (same result sets, same NULL handling, same errors
-raised). Keep object names unchanged. Return only the
-translated code in a single sql fenced block.
+You are an expert database migration engineer.
+Translate SAP ASE (Sybase) Transact-SQL into
+Microsoft SQL Server 2022 Transact-SQL. Preserve
+the runtime behaviour of the original exactly
+(same result sets, same NULL handling, same
+errors raised). Keep object names unchanged.
+Return only the translated code in a single
+sql block.
 \end{lstlisting}
 
-\textit{Metrics.} G1 and G2 rates are computed over all cases and G3 equivalence over differential cases.
-The \emph{silent} rate is the share of differential runs that pass G1 and G2 but fail G3. Repetitions turned
-out to be highly correlated---the three seeds gave the same G3 outcome in \RepAgreement\% of
-case--configuration pairs---so we treat the \emph{case}, not the run, as the independent unit: intervals are
-95\% bootstrap intervals over cases (10{,}000 resamples)~\cite{efron1993}, and three pre-specified paired contrasts for the strongest model (plain vs.\ trap-aware, trap-aware vs.\
-agentic, rule baseline vs.\ agentic) use the exact McNemar test~\cite{mcnemar1947} on per-case majority
-outcomes with Holm correction. We also record repair attempts,
-wall-clock latency per case, and generation throughput.
+\textit{Metrics.} G1 and G2 rates are computed over all cases and G3 agreement over cases scored
+differentially. The \emph{silent} rate is the share of differential runs that pass G1 and G2 but fail G3.
+The three seeds gave the same G3 outcome in \RepAgreement\% of case and configuration pairs, so we treat the
+case, not the run, as the unit of analysis: intervals are 95\% bootstrap confidence intervals (CIs) over
+cases (10{,}000 resamples)~\cite{efron1993}, and paired comparisons use the exact McNemar
+test~\cite{mcnemar1947} on per-case majority outcomes. Latency is the wall-clock time of the model calls
+for one case; for the repair loop it also includes the G1 and G2 checks between attempts, but never G3.
 
-\textit{G4 protocol.} A seeded 2{,}000-row table with Unicode names, 4-decimal money, microsecond
-timestamps, and nullable text is loaded as source; for each of eight fault types and 30 trials the target
-receives one injected single-row fault (drop, duplicate, truncation, charset loss, money rounding,
-timestamp precision loss, NULL-to-empty, or swapped amounts); clean trials measure false positives.
+\textit{Model selection.} The ``strongest model'' is chosen from the results, as the configuration with the
+highest agreement for the repair loop. Statistical tests on that model are therefore exploratory. To show
+that the main result does not depend on this choice, we also test the checklist effect for every model,
+with Holm correction across models.
+
+\textit{Test adequacy.} To measure how well the inputs detect behaviour changes, we applied 23 mutation
+operators to the reference translations, each making one small change of the kind seen in failed
+translations (for example \texttt{IS NULL} to \texttt{= NULL}, a left join to an inner join, removing an
+\texttt{ISNULL}, widening a comparison, narrowing a type, changing an error message, or dropping a
+\texttt{COMMIT}). This gives \MutTotal{} mutants. A mutant is detected if it fails G1 or G3 against the
+unchanged reference; we inspected every mutant that was not detected.
+
+\textit{G4 protocol.} A seeded 2{,}000-row table with Unicode names, names containing the separator
+character, 4-decimal money values, microsecond timestamps, and nullable text values of up to 6{,}000
+characters is loaded as the source. For each fault type and each of \RecTrials{} trials, the target
+receives one injected fault. Most faults change one row; swapping amounts between two rows changes two.
+Four faults are aimed at the naive encoding: a NULL replaced by the text \texttt{<NULL>}, a value moved
+across the separator between two columns, a change at the end of a value longer than 4{,}000 characters,
+and one row's key replaced by another row's key. Clean trials measure false positives. Source and target
+are both on SQL Server, so the study measures detector sensitivity, not cross-engine extraction.
